@@ -1,0 +1,297 @@
+# PAYJPv2::CheckoutSessionsApi
+
+All URIs are relative to *http://localhost*
+
+| Method | HTTP request | Description |
+| ------ | ------------ | ----------- |
+| [**create_checkout_session**](CheckoutSessionsApi.md#create_checkout_session) | **POST** /v2/checkout/sessions | Create Checkout Session |
+| [**get_all_checkout_sessions**](CheckoutSessionsApi.md#get_all_checkout_sessions) | **GET** /v2/checkout/sessions | Get All Checkout Sessions |
+| [**get_checkout_session**](CheckoutSessionsApi.md#get_checkout_session) | **GET** /v2/checkout/sessions/{checkout_session_id} | Get Checkout Session |
+| [**update_checkout_session**](CheckoutSessionsApi.md#update_checkout_session) | **POST** /v2/checkout/sessions/{checkout_session_id} | Update Checkout Session |
+
+
+## create_checkout_session
+
+> <CheckoutSessionDetailsResponse> create_checkout_session(checkout_session_create_request)
+
+Create Checkout Session
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['Authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['Authorization'] = 'Bearer'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+checkout_session_create_request = PAYJPv2::CheckoutSessionCreateRequest.new({mode: PAYJPv2::CheckoutSessionMode::PAYMENT}) # CheckoutSessionCreateRequest | 
+
+begin
+  # Create Checkout Session
+  result = api_instance.create_checkout_session(checkout_session_create_request)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->create_checkout_session: #{e}"
+end
+```
+
+#### Using the create_checkout_session_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> create_checkout_session_with_http_info(checkout_session_create_request)
+
+```ruby
+begin
+  # Create Checkout Session
+  data, status_code, headers = api_instance.create_checkout_session_with_http_info(checkout_session_create_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionDetailsResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->create_checkout_session_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **checkout_session_create_request** | [**CheckoutSessionCreateRequest**](CheckoutSessionCreateRequest.md) |  |  |
+
+### Return type
+
+[**CheckoutSessionDetailsResponse**](CheckoutSessionDetailsResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+
+## get_all_checkout_sessions
+
+> <CheckoutSessionListResponse> get_all_checkout_sessions(opts)
+
+Get All Checkout Sessions
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['Authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['Authorization'] = 'Bearer'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+opts = {
+  limit: 56, # Integer | 取得するデータの最大件数
+  offset: 56 # Integer | データ取得を行う開始位置
+}
+
+begin
+  # Get All Checkout Sessions
+  result = api_instance.get_all_checkout_sessions(opts)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_all_checkout_sessions: #{e}"
+end
+```
+
+#### Using the get_all_checkout_sessions_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CheckoutSessionListResponse>, Integer, Hash)> get_all_checkout_sessions_with_http_info(opts)
+
+```ruby
+begin
+  # Get All Checkout Sessions
+  data, status_code, headers = api_instance.get_all_checkout_sessions_with_http_info(opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionListResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_all_checkout_sessions_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
+| **offset** | **Integer** | データ取得を行う開始位置 | [optional][default to 0] |
+
+### Return type
+
+[**CheckoutSessionListResponse**](CheckoutSessionListResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+
+## get_checkout_session
+
+> <CheckoutSessionDetailsResponse> get_checkout_session(checkout_session_id, opts)
+
+Get Checkout Session
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['Authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['Authorization'] = 'Bearer'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+checkout_session_id = 'checkout_session_id_example' # String | 
+opts = {
+  expand: ['line_items'] # Array<String> | レスポンス返却時に展開したいオブジェクト名。指定したオブジェクトを同時に取得し、レスポンスに乗せて返却します。
+}
+
+begin
+  # Get Checkout Session
+  result = api_instance.get_checkout_session(checkout_session_id, opts)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_checkout_session: #{e}"
+end
+```
+
+#### Using the get_checkout_session_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> get_checkout_session_with_http_info(checkout_session_id, opts)
+
+```ruby
+begin
+  # Get Checkout Session
+  data, status_code, headers = api_instance.get_checkout_session_with_http_info(checkout_session_id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionDetailsResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_checkout_session_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **checkout_session_id** | **String** |  |  |
+| **expand** | [**Array&lt;String&gt;**](String.md) | レスポンス返却時に展開したいオブジェクト名。指定したオブジェクトを同時に取得し、レスポンスに乗せて返却します。 | [optional] |
+
+### Return type
+
+[**CheckoutSessionDetailsResponse**](CheckoutSessionDetailsResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+
+## update_checkout_session
+
+> <CheckoutSessionDetailsResponse> update_checkout_session(checkout_session_id, checkout_session_update_request)
+
+Update Checkout Session
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure API key authorization: APIKeyHeader
+  config.api_key['Authorization'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['Authorization'] = 'Bearer'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+checkout_session_id = 'checkout_session_id_example' # String | 
+checkout_session_update_request = PAYJPv2::CheckoutSessionUpdateRequest.new # CheckoutSessionUpdateRequest | 
+
+begin
+  # Update Checkout Session
+  result = api_instance.update_checkout_session(checkout_session_id, checkout_session_update_request)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->update_checkout_session: #{e}"
+end
+```
+
+#### Using the update_checkout_session_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> update_checkout_session_with_http_info(checkout_session_id, checkout_session_update_request)
+
+```ruby
+begin
+  # Update Checkout Session
+  data, status_code, headers = api_instance.update_checkout_session_with_http_info(checkout_session_id, checkout_session_update_request)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionDetailsResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->update_checkout_session_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **checkout_session_id** | **String** |  |  |
+| **checkout_session_update_request** | [**CheckoutSessionUpdateRequest**](CheckoutSessionUpdateRequest.md) |  |  |
+
+### Return type
+
+[**CheckoutSessionDetailsResponse**](CheckoutSessionDetailsResponse.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+

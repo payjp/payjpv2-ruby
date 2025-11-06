@@ -9,7 +9,7 @@
 | **exp_month** | **Integer** | カードの有効期限（月） |  |
 | **exp_year** | **Integer** | カードの有効期限（年） |  |
 | **fingerprint** | **String** | fingerprint |  |
-| **country** | **String** | カードの発行国 |  |
+| **country** | **String** |  |  |
 
 ## Example
 

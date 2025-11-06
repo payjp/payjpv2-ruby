@@ -11,7 +11,7 @@
 | **livemode** | **Boolean** | 本番環境かどうか |  |
 | **type** | **String** | イベントの種類 |  |
 | **pending_webhooks** | **Integer** | 設定されたURLへの通知が完了していない(2xxのレスポンスが得られていない)webhookの数 |  |
-| **data** | **Object** | このイベントに関連したリソースオブジェクト |  |
+| **data** | **Hash&lt;String, Object&gt;** | このイベントに関連したリソースオブジェクト |  |
 
 ## Example
 

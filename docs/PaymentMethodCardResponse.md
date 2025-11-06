@@ -6,7 +6,7 @@
 | ---- | ---- | ----------- | ----- |
 | **object** | **String** |  | [optional][default to &#39;payment_method&#39;] |
 | **id** | **String** | ID |  |
-| **type** | **String** |  |  |
+| **type** | **String** |  | [optional][default to &#39;card&#39;] |
 | **customer** | **String** |  | [optional] |
 | **livemode** | **Boolean** | 本番環境かどうか |  |
 | **created_at** | **Time** | 作成日時 (UTC, ISO 8601 形式) |  |

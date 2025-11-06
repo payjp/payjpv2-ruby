@@ -21,20 +21,21 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::EventsApi.new
 opts = {
-  since: Time.parse('2013-10-20T19:20:30+01:00'), # Time | 指定した日付以降のデータを取得
-  _until: Time.parse('2013-10-20T19:20:30+01:00'), # Time | 指定した日付以前のデータを取得
   limit: 56, # Integer | 取得するデータの最大件数
-  offset: 56, # Integer | データ取得を行う開始位置
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example', # String | このIDより前のデータを取得
   resource_id: 'resource_id_example', # String | 取得するeventに紐づくAPIリソースのID (e.g. customer.id)
-  object: 'object_example', # String | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_intent)
+  object: 'object_example', # String | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_flow)
   type: 'type_example' # String | 取得するeventのtype
 }
 
@@ -69,12 +70,11 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **since** | **Time** | 指定した日付以降のデータを取得 | [optional] |
-| **_until** | **Time** | 指定した日付以前のデータを取得 | [optional] |
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
-| **offset** | **Integer** | データ取得を行う開始位置 | [optional][default to 0] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
 | **resource_id** | **String** | 取得するeventに紐づくAPIリソースのID (e.g. customer.id) | [optional] |
-| **object** | **String** | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_intent) | [optional] |
+| **object** | **String** | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_flow) | [optional] |
 | **type** | **String** | 取得するeventのtype | [optional] |
 
 ### Return type
@@ -83,7 +83,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -104,10 +104,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::EventsApi.new
@@ -152,7 +154,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost*
 | [**delete_customer**](CustomersApi.md#delete_customer) | **DELETE** /v2/customers/{customer_id} | Delete Customer |
 | [**get_all_customers**](CustomersApi.md#get_all_customers) | **GET** /v2/customers | Get All Customers |
 | [**get_customer**](CustomersApi.md#get_customer) | **GET** /v2/customers/{customer_id} | Get Customer |
+| [**get_customer_payment_methods**](CustomersApi.md#get_customer_payment_methods) | **GET** /v2/customers/{customer_id}/payment_methods | Get Customer Payment Methods |
 | [**update_customer**](CustomersApi.md#update_customer) | **POST** /v2/customers/{customer_id} | Update Customer |
 
 
@@ -24,10 +25,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::CustomersApi.new
@@ -72,7 +75,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -93,10 +96,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::CustomersApi.new
@@ -141,7 +146,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -162,16 +167,19 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::CustomersApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
-  offset: 56 # Integer | データ取得を行う開始位置
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
 }
 
 begin
@@ -206,7 +214,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
-| **offset** | **Integer** | データ取得を行う開始位置 | [optional][default to 0] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
 
 ### Return type
 
@@ -214,7 +223,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -235,10 +244,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::CustomersApi.new
@@ -283,7 +294,86 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+
+## get_customer_payment_methods
+
+> <PaymentMethodListResponse> get_customer_payment_methods(customer_id, opts)
+
+Get Customer Payment Methods
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = PAYJPv2::CustomersApi.new
+customer_id = 'customer_id_example' # String | 
+opts = {
+  limit: 56, # Integer | 取得するデータの最大件数
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+}
+
+begin
+  # Get Customer Payment Methods
+  result = api_instance.get_customer_payment_methods(customer_id, opts)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CustomersApi->get_customer_payment_methods: #{e}"
+end
+```
+
+#### Using the get_customer_payment_methods_with_http_info variant
+
+This returns an Array which contains the response data, status code and headers.
+
+> <Array(<PaymentMethodListResponse>, Integer, Hash)> get_customer_payment_methods_with_http_info(customer_id, opts)
+
+```ruby
+begin
+  # Get Customer Payment Methods
+  data, status_code, headers = api_instance.get_customer_payment_methods_with_http_info(customer_id, opts)
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <PaymentMethodListResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CustomersApi->get_customer_payment_methods_with_http_info: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **customer_id** | **String** |  |  |
+| **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+
+### Return type
+
+[**PaymentMethodListResponse**](PaymentMethodListResponse.md)
+
+### Authorization
+
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -304,10 +394,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::CustomersApi.new
@@ -354,7 +446,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

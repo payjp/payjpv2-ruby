@@ -1,0 +1,15 @@
+# PAYJPv2::PaymentFlowStatus
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+## Example
+
+```ruby
+require 'payjpv2'
+
+instance = PAYJPv2::PaymentFlowStatus.new()
+```
+

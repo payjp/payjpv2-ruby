@@ -11,7 +11,7 @@
 | **amount_total** | **Integer** | 割引と税金が適用された後のすべての商品の合計金額 | [optional] |
 | **currency** | [**Currency**](Currency.md) | 価格の通貨。現在は &#x60;jpy&#x60; のみサポートしています。 | [optional] |
 | **description** | **String** | 説明 | [optional] |
-| **price** | [**CheckoutSessionLineItemPriceResponse**](CheckoutSessionLineItemPriceResponse.md) | 料金情報 | [optional] |
+| **price** | [**PriceDetailsResponse**](PriceDetailsResponse.md) | 料金情報 | [optional] |
 | **quantity** | **Integer** | 数量 | [optional] |
 
 ## Example

@@ -14,6 +14,7 @@ require 'payjpv2'
 PAYJPv2::PaymentMethodCreateRequest.openapi_one_of
 # =>
 # [
+#   :'PaymentMethodApplePayCreateRequest',
 #   :'PaymentMethodCardCreateRequest',
 #   :'PaymentMethodPayPayCreateRequest'
 # ]
@@ -44,6 +45,7 @@ require 'payjpv2'
 PAYJPv2::PaymentMethodCreateRequest.openapi_discriminator_mapping
 # =>
 # {
+#   :'apple_pay' => :'PaymentMethodApplePayCreateRequest',
 #   :'card' => :'PaymentMethodCardCreateRequest',
 #   :'paypay' => :'PaymentMethodPayPayCreateRequest'
 # }
@@ -59,7 +61,7 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 require 'payjpv2'
 
 PAYJPv2::PaymentMethodCreateRequest.build(data)
-# => #<PaymentMethodCardCreateRequest:0x00007fdd4aab02a0>
+# => #<PaymentMethodApplePayCreateRequest:0x00007fdd4aab02a0>
 
 PAYJPv2::PaymentMethodCreateRequest.build(data_that_doesnt_match)
 # => nil
@@ -73,6 +75,7 @@ PAYJPv2::PaymentMethodCreateRequest.build(data_that_doesnt_match)
 
 #### Return type
 
+- `PaymentMethodApplePayCreateRequest`
 - `PaymentMethodCardCreateRequest`
 - `PaymentMethodPayPayCreateRequest`
 - `nil` (if no type matches)

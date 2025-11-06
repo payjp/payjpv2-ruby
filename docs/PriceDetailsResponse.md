@@ -8,7 +8,7 @@
 | **object** | **String** |  | [optional][default to &#39;price&#39;] |
 | **livemode** | **Boolean** | 本番環境かどうか | [optional] |
 | **active** | **Boolean** | 価格が有効かどうか。デフォルトは &#x60;true&#x60;。 | [optional] |
-| **metadata** | **Object** | メタデータ | [optional] |
+| **metadata** | **Hash&lt;String, Object&gt;** | メタデータ | [optional] |
 | **nickname** | **String** |  | [optional] |
 | **type** | [**PriceType**](PriceType.md) | 価格が一度限りの購入か、継続的な（サブスクリプション）購入かに応じて、&#x60;one_time&#x60; または &#x60;recurring&#x60; のいずれかとなります。  | 指定できる値 | |:---| | **one_time**: 1回限りの価格。 | | **recurring**: 継続的な価格。 | | [optional] |
 | **lookup_key** | **String** |  | [optional] |

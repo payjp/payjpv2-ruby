@@ -23,14 +23,16 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::PricesApi.new
-price_create_request = PAYJPv2::PriceCreateRequest.new # PriceCreateRequest | 
+price_create_request = PAYJPv2::PriceCreateRequest.new({currency: PAYJPv2::Currency::JPY, product: 'product_example', unit_amount: 37}) # PriceCreateRequest | 
 
 begin
   # Create Price
@@ -71,7 +73,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -92,16 +94,19 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::PricesApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
-  offset: 56 # Integer | データ取得を行う開始位置
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
 }
 
 begin
@@ -136,7 +141,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
-| **offset** | **Integer** | データ取得を行う開始位置 | [optional][default to 0] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
 
 ### Return type
 
@@ -144,7 +150,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -165,10 +171,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::PricesApi.new
@@ -213,7 +221,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 
@@ -234,10 +242,12 @@ require 'time'
 require 'payjpv2'
 # setup authorization
 PAYJPv2.configure do |config|
-  # Configure API key authorization: APIKeyHeader
-  config.api_key['Authorization'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  # config.api_key_prefix['Authorization'] = 'Bearer'
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
 end
 
 api_instance = PAYJPv2::PricesApi.new
@@ -284,7 +294,7 @@ end
 
 ### Authorization
 
-[APIKeyHeader](../README.md#APIKeyHeader)
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
 
 ### HTTP request headers
 

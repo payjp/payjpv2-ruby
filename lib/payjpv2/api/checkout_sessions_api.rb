@@ -180,7 +180,7 @@ module PAYJPv2
       if @api_client.config.client_side_validation && checkout_session_id.nil?
         fail ArgumentError, "Missing the required parameter 'checkout_session_id' when calling CheckoutSessionsApi.get_checkout_session"
       end
-      allowable_values = ["line_items", "customer"]
+      allowable_values = ["line_items", "customer", "payment_flow", "setup_flow"]
       if @api_client.config.client_side_validation && opts[:'expand'] && !opts[:'expand'].all? { |item| allowable_values.include?(item) }
         fail ArgumentError, "invalid value for \"expand\", must include one of #{allowable_values}"
       end

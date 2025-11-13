@@ -15,15 +15,13 @@ require 'time'
 
 module PAYJPv2
   class PaymentMethodCardUpdateRequest
-    # 顧客ID
-    attr_accessor :customer
-
     # 請求先情報
     attr_accessor :billing_details
 
     # キーバリューの任意のデータを格納できます。<a href=\"https://docs.pay.jp/v2/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
+    # クレジットカード決済の場合は `card` を指定します。
     attr_accessor :type
 
     class EnumAttributeValidator
@@ -51,7 +49,6 @@ module PAYJPv2
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'customer' => :'customer',
         :'billing_details' => :'billing_details',
         :'metadata' => :'metadata',
         :'type' => :'type'
@@ -71,7 +68,6 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'customer' => :'String',
         :'billing_details' => :'PaymentMethodBillingDetailsRequest',
         :'metadata' => :'Hash<String, MetadataValue>',
         :'type' => :'String'
@@ -99,10 +95,6 @@ module PAYJPv2
         end
         h[k.to_sym] = v
       }
-
-      if attributes.key?(:'customer')
-        self.customer = attributes[:'customer']
-      end
 
       if attributes.key?(:'billing_details')
         self.billing_details = attributes[:'billing_details']
@@ -158,7 +150,6 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          customer == o.customer &&
           billing_details == o.billing_details &&
           metadata == o.metadata &&
           type == o.type
@@ -173,7 +164,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [customer, billing_details, metadata, type].hash
+      [billing_details, metadata, type].hash
     end
 
     # Builds the object from hash

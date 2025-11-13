@@ -14,22 +14,47 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class SetupFlowConfirmRequest
-    # この SetupFlow の支払い方法の個別設定。
-    attr_accessor :payment_method_options
+  class PaymentRefundListResponse
+    attr_accessor :object
 
-    # 顧客が支払いを完了後、あるいはキャンセルした後にリダイレクトされるURL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。`confirm=true` の場合のみ指定できます。
-    attr_accessor :return_url
+    # リスト取得URL
+    attr_accessor :url
 
-    # PAY.JP SDK を使用するかどうか
-    attr_accessor :use_payjp_sdk
+    # 次のページがあるかどうか
+    attr_accessor :has_more
+
+    # 支払いインテントリスト
+    attr_accessor :data
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'payment_method_options' => :'payment_method_options',
-        :'return_url' => :'return_url',
-        :'use_payjp_sdk' => :'use_payjp_sdk'
+        :'object' => :'object',
+        :'url' => :'url',
+        :'has_more' => :'has_more',
+        :'data' => :'data'
       }
     end
 
@@ -46,9 +71,10 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'payment_method_options' => :'Hash<String, Object>',
-        :'return_url' => :'String',
-        :'use_payjp_sdk' => :'Boolean'
+        :'object' => :'String',
+        :'url' => :'String',
+        :'has_more' => :'Boolean',
+        :'data' => :'Array<PaymentRefundResponse>'
       }
     end
 
@@ -62,30 +88,42 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::SetupFlowConfirmRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentRefundListResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::SetupFlowConfirmRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentRefundListResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'payment_method_options')
-        if (value = attributes[:'payment_method_options']).is_a?(Hash)
-          self.payment_method_options = value
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = 'list'
+      end
+
+      if attributes.key?(:'url')
+        self.url = attributes[:'url']
+      else
+        self.url = nil
+      end
+
+      if attributes.key?(:'has_more')
+        self.has_more = attributes[:'has_more']
+      else
+        self.has_more = nil
+      end
+
+      if attributes.key?(:'data')
+        if (value = attributes[:'data']).is_a?(Array)
+          self.data = value
         end
-      end
-
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
-      end
-
-      if attributes.key?(:'use_payjp_sdk')
-        self.use_payjp_sdk = attributes[:'use_payjp_sdk']
+      else
+        self.data = nil
       end
     end
 
@@ -94,6 +132,18 @@ module PAYJPv2
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @url.nil?
+        invalid_properties.push('invalid value for "url", url cannot be nil.')
+      end
+
+      if @has_more.nil?
+        invalid_properties.push('invalid value for "has_more", has_more cannot be nil.')
+      end
+
+      if @data.nil?
+        invalid_properties.push('invalid value for "data", data cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -101,7 +151,52 @@ module PAYJPv2
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      object_validator = EnumAttributeValidator.new('String', ["list"])
+      return false unless object_validator.valid?(@object)
+      return false if @url.nil?
+      return false if @has_more.nil?
+      return false if @data.nil?
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["list"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] url Value to be assigned
+    def url=(url)
+      if url.nil?
+        fail ArgumentError, 'url cannot be nil'
+      end
+
+      @url = url
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] has_more Value to be assigned
+    def has_more=(has_more)
+      if has_more.nil?
+        fail ArgumentError, 'has_more cannot be nil'
+      end
+
+      @has_more = has_more
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] data Value to be assigned
+    def data=(data)
+      if data.nil?
+        fail ArgumentError, 'data cannot be nil'
+      end
+
+      @data = data
     end
 
     # Checks equality by comparing each attribute.
@@ -109,9 +204,10 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          payment_method_options == o.payment_method_options &&
-          return_url == o.return_url &&
-          use_payjp_sdk == o.use_payjp_sdk
+          object == o.object &&
+          url == o.url &&
+          has_more == o.has_more &&
+          data == o.data
     end
 
     # @see the `==` method
@@ -123,7 +219,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [payment_method_options, return_url, use_payjp_sdk].hash
+      [object, url, has_more, data].hash
     end
 
     # Builds the object from hash

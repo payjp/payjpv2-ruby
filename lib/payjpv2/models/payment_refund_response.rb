@@ -14,42 +14,34 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class PaymentFlowCreateRequest
-    # 支払い方法ID
-    attr_accessor :payment_method
+  class PaymentRefundResponse
+    # 返金対象となる PaymentFlow の ID
+    attr_accessor :id
 
-    # このPaymentFlowに固有の支払い方法の設定
-    attr_accessor :payment_method_options
+    attr_accessor :object
 
-    # このPaymentFlowで使用できる支払い方法の種類（カードなど）のリストです。 指定しない場合は、PAY.JPは支払い方法の設定から利用可能な支払い方法を動的に表示します。
-    attr_accessor :payment_method_types
+    # 作成時の日時 (UTC, ISO 8601 形式)
+    attr_accessor :created_at
 
-    # 請求書の送信先メールアドレス。ライブモードで支払いに対して `receipt_email` を指定すると、メール設定に関係なく領収書が送信されます。
-    attr_accessor :receipt_email
+    # 更新時の日時 (UTC, ISO 8601 形式)
+    attr_accessor :updated_at
 
-    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされるURL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。confirm=trueの場合のみ指定できます。
-    attr_accessor :return_url
+    # 本番環境かどうか
+    attr_accessor :livemode
 
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
-    attr_accessor :description
-
-    # 支払い予定の金額。50円以上9,999,999円以下である必要があります。支払い手段によって上限金額は異なります。
+    # 返金金額
     attr_accessor :amount
 
-    # このPaymentFlowに属する顧客のID（存在する場合）。この顧客以外にすでに紐づけられている支払い方法はこのPaymentFlowでは使用できません。
-    attr_accessor :customer
+    # 返金ステータス  <a href=\"https://docs.pay.jp/v2/payment_refunds#refund_status\" target=\"_blank\">返金ステータスの詳細についてはこちらを参照してください。</a>  | 指定できる値 | |:---| | **succeeded**: 成功 | | **failed**: 失敗 | | **pending**: 保留中 | | **canceled**: キャンセル |
+    attr_accessor :status
 
-    # 「true」に設定すると、このPaymentFlowを直ちに確定しようと試みます。このパラメーターのデフォルトは「false」です。
-    attr_accessor :confirm
+    # 返金対象となる PaymentFlow の ID
+    attr_accessor :payment_flow
 
-    # 支払いの確定方法を指定します。  | 指定できる値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
-    attr_accessor :capture_method
+    attr_accessor :reason
 
-    # キーバリューの任意のデータを格納できます。<a href=\"https://docs.pay.jp/v2/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
+    # メタデータ
     attr_accessor :metadata
-
-    # このPaymentFlowの支払い方法で将来の支払いを行う意図があることを示します。<br><br>PaymentFlow に Customer を指定した場合、このパラメータを使って PaymentFlow を確定できます。その後、顧客が必要な操作を完了すると、支払い方法を Customer に紐付けることが可能です。また、Customer を指定しない場合でも、取引が完了した後に支払い方法を Customer に紐付けることはできます。
-    attr_accessor :setup_future_usage
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -76,18 +68,16 @@ module PAYJPv2
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'payment_method' => :'payment_method',
-        :'payment_method_options' => :'payment_method_options',
-        :'payment_method_types' => :'payment_method_types',
-        :'receipt_email' => :'receipt_email',
-        :'return_url' => :'return_url',
-        :'description' => :'description',
+        :'id' => :'id',
+        :'object' => :'object',
+        :'created_at' => :'created_at',
+        :'updated_at' => :'updated_at',
+        :'livemode' => :'livemode',
         :'amount' => :'amount',
-        :'customer' => :'customer',
-        :'confirm' => :'confirm',
-        :'capture_method' => :'capture_method',
-        :'metadata' => :'metadata',
-        :'setup_future_usage' => :'setup_future_usage'
+        :'status' => :'status',
+        :'payment_flow' => :'payment_flow',
+        :'reason' => :'reason',
+        :'metadata' => :'metadata'
       }
     end
 
@@ -104,24 +94,23 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'payment_method' => :'String',
-        :'payment_method_options' => :'PaymentMethodOptionsRequest',
-        :'payment_method_types' => :'Array<PaymentMethodTypes>',
-        :'receipt_email' => :'String',
-        :'return_url' => :'String',
-        :'description' => :'String',
+        :'id' => :'String',
+        :'object' => :'String',
+        :'created_at' => :'Time',
+        :'updated_at' => :'Time',
+        :'livemode' => :'Boolean',
         :'amount' => :'Integer',
-        :'customer' => :'String',
-        :'confirm' => :'Boolean',
-        :'capture_method' => :'CaptureMethod',
-        :'metadata' => :'Hash<String, MetadataValue>',
-        :'setup_future_usage' => :'Usage'
+        :'status' => :'PaymentRefundStatus',
+        :'payment_flow' => :'String',
+        :'reason' => :'PaymentRefundReason',
+        :'metadata' => :'Hash<String, MetadataValue>'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'reason',
       ])
     end
 
@@ -129,42 +118,46 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentFlowCreateRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentRefundResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentFlowCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentRefundResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'payment_method')
-        self.payment_method = attributes[:'payment_method']
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
-      if attributes.key?(:'payment_method_options')
-        self.payment_method_options = attributes[:'payment_method_options']
+      if attributes.key?(:'object')
+        self.object = attributes[:'object']
+      else
+        self.object = 'refund'
       end
 
-      if attributes.key?(:'payment_method_types')
-        if (value = attributes[:'payment_method_types']).is_a?(Array)
-          self.payment_method_types = value
-        end
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
       end
 
-      if attributes.key?(:'receipt_email')
-        self.receipt_email = attributes[:'receipt_email']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
+      else
+        self.updated_at = nil
       end
 
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
+      if attributes.key?(:'livemode')
+        self.livemode = attributes[:'livemode']
+      else
+        self.livemode = nil
       end
 
       if attributes.key?(:'amount')
@@ -173,28 +166,28 @@ module PAYJPv2
         self.amount = nil
       end
 
-      if attributes.key?(:'customer')
-        self.customer = attributes[:'customer']
-      end
-
-      if attributes.key?(:'confirm')
-        self.confirm = attributes[:'confirm']
+      if attributes.key?(:'status')
+        self.status = attributes[:'status']
       else
-        self.confirm = false
+        self.status = nil
       end
 
-      if attributes.key?(:'capture_method')
-        self.capture_method = attributes[:'capture_method']
+      if attributes.key?(:'payment_flow')
+        self.payment_flow = attributes[:'payment_flow']
+      else
+        self.payment_flow = nil
+      end
+
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
+      else
+        self.reason = nil
       end
 
       if attributes.key?(:'metadata')
         if (value = attributes[:'metadata']).is_a?(Hash)
           self.metadata = value
         end
-      end
-
-      if attributes.key?(:'setup_future_usage')
-        self.setup_future_usage = attributes[:'setup_future_usage']
       end
     end
 
@@ -203,16 +196,32 @@ module PAYJPv2
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @livemode.nil?
+        invalid_properties.push('invalid value for "livemode", livemode cannot be nil.')
+      end
+
       if @amount.nil?
         invalid_properties.push('invalid value for "amount", amount cannot be nil.')
       end
 
-      if @amount > 9999999
-        invalid_properties.push('invalid value for "amount", must be smaller than or equal to 9999999.')
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
       end
 
-      if @amount < 50
-        invalid_properties.push('invalid value for "amount", must be greater than or equal to 50.')
+      if @payment_flow.nil?
+        invalid_properties.push('invalid value for "payment_flow", payment_flow cannot be nil.')
       end
 
       invalid_properties
@@ -222,10 +231,66 @@ module PAYJPv2
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      object_validator = EnumAttributeValidator.new('String', ["refund"])
+      return false unless object_validator.valid?(@object)
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
+      return false if @livemode.nil?
       return false if @amount.nil?
-      return false if @amount > 9999999
-      return false if @amount < 50
+      return false if @status.nil?
+      return false if @payment_flow.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] id Value to be assigned
+    def id=(id)
+      if id.nil?
+        fail ArgumentError, 'id cannot be nil'
+      end
+
+      @id = id
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["refund"])
+      unless validator.valid?(object)
+        fail ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] created_at Value to be assigned
+    def created_at=(created_at)
+      if created_at.nil?
+        fail ArgumentError, 'created_at cannot be nil'
+      end
+
+      @created_at = created_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        fail ArgumentError, 'updated_at cannot be nil'
+      end
+
+      @updated_at = updated_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] livemode Value to be assigned
+    def livemode=(livemode)
+      if livemode.nil?
+        fail ArgumentError, 'livemode cannot be nil'
+      end
+
+      @livemode = livemode
     end
 
     # Custom attribute writer method with validation
@@ -235,15 +300,27 @@ module PAYJPv2
         fail ArgumentError, 'amount cannot be nil'
       end
 
-      if amount > 9999999
-        fail ArgumentError, 'invalid value for "amount", must be smaller than or equal to 9999999.'
-      end
-
-      if amount < 50
-        fail ArgumentError, 'invalid value for "amount", must be greater than or equal to 50.'
-      end
-
       @amount = amount
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] status Value to be assigned
+    def status=(status)
+      if status.nil?
+        fail ArgumentError, 'status cannot be nil'
+      end
+
+      @status = status
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] payment_flow Value to be assigned
+    def payment_flow=(payment_flow)
+      if payment_flow.nil?
+        fail ArgumentError, 'payment_flow cannot be nil'
+      end
+
+      @payment_flow = payment_flow
     end
 
     # Checks equality by comparing each attribute.
@@ -251,18 +328,16 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          payment_method == o.payment_method &&
-          payment_method_options == o.payment_method_options &&
-          payment_method_types == o.payment_method_types &&
-          receipt_email == o.receipt_email &&
-          return_url == o.return_url &&
-          description == o.description &&
+          id == o.id &&
+          object == o.object &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
+          livemode == o.livemode &&
           amount == o.amount &&
-          customer == o.customer &&
-          confirm == o.confirm &&
-          capture_method == o.capture_method &&
-          metadata == o.metadata &&
-          setup_future_usage == o.setup_future_usage
+          status == o.status &&
+          payment_flow == o.payment_flow &&
+          reason == o.reason &&
+          metadata == o.metadata
     end
 
     # @see the `==` method
@@ -274,7 +349,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [payment_method, payment_method_options, payment_method_types, receipt_email, return_url, description, amount, customer, confirm, capture_method, metadata, setup_future_usage].hash
+      [id, object, created_at, updated_at, livemode, amount, status, payment_flow, reason, metadata].hash
     end
 
     # Builds the object from hash

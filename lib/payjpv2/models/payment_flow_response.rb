@@ -67,6 +67,8 @@ module PAYJPv2
     # 支払いの確定方法を指定します。  | 指定できる値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
     attr_accessor :capture_method
 
+    attr_accessor :setup_future_usage
+
     attr_accessor :last_payment_error
 
     class EnumAttributeValidator
@@ -115,6 +117,7 @@ module PAYJPv2
         :'next_action' => :'next_action',
         :'return_url' => :'return_url',
         :'capture_method' => :'capture_method',
+        :'setup_future_usage' => :'setup_future_usage',
         :'last_payment_error' => :'last_payment_error'
       }
     end
@@ -153,6 +156,7 @@ module PAYJPv2
         :'next_action' => :'Hash<String, Object>',
         :'return_url' => :'String',
         :'capture_method' => :'CaptureMethod',
+        :'setup_future_usage' => :'Usage',
         :'last_payment_error' => :'Hash<String, Object>'
       }
     end
@@ -170,6 +174,7 @@ module PAYJPv2
         :'receipt_email',
         :'next_action',
         :'return_url',
+        :'setup_future_usage',
         :'last_payment_error'
       ])
     end
@@ -306,6 +311,10 @@ module PAYJPv2
         self.capture_method = attributes[:'capture_method']
       else
         self.capture_method = nil
+      end
+
+      if attributes.key?(:'setup_future_usage')
+        self.setup_future_usage = attributes[:'setup_future_usage']
       end
 
       if attributes.key?(:'last_payment_error')
@@ -505,6 +514,7 @@ module PAYJPv2
           next_action == o.next_action &&
           return_url == o.return_url &&
           capture_method == o.capture_method &&
+          setup_future_usage == o.setup_future_usage &&
           last_payment_error == o.last_payment_error
     end
 
@@ -517,7 +527,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, object, created_at, updated_at, livemode, amount, amount_capturable, amount_received, client_secret, confirmation_method, customer, description, metadata, payment_method, payment_method_options, payment_method_types, receipt_email, status, next_action, return_url, capture_method, last_payment_error].hash
+      [id, object, created_at, updated_at, livemode, amount, amount_capturable, amount_received, client_secret, confirmation_method, customer, description, metadata, payment_method, payment_method_options, payment_method_types, receipt_email, status, next_action, return_url, capture_method, setup_future_usage, last_payment_error].hash
     end
 
     # Builds the object from hash

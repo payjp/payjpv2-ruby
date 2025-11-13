@@ -353,20 +353,20 @@ module PAYJPv2
 
     # Update Payment Method
     # @param payment_method_id [String] 
-    # @param payment_method_card_update_request [PaymentMethodCardUpdateRequest] 
+    # @param payment_method_update_request [PaymentMethodUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [PaymentMethodResponse]
-    def update_payment_method(payment_method_id, payment_method_card_update_request, opts = {})
-      data, _status_code, _headers = update_payment_method_with_http_info(payment_method_id, payment_method_card_update_request, opts)
+    def update_payment_method(payment_method_id, payment_method_update_request, opts = {})
+      data, _status_code, _headers = update_payment_method_with_http_info(payment_method_id, payment_method_update_request, opts)
       data
     end
 
     # Update Payment Method
     # @param payment_method_id [String] 
-    # @param payment_method_card_update_request [PaymentMethodCardUpdateRequest] 
+    # @param payment_method_update_request [PaymentMethodUpdateRequest] 
     # @param [Hash] opts the optional parameters
     # @return [Array<(PaymentMethodResponse, Integer, Hash)>] PaymentMethodResponse data, response status code and response headers
-    def update_payment_method_with_http_info(payment_method_id, payment_method_card_update_request, opts = {})
+    def update_payment_method_with_http_info(payment_method_id, payment_method_update_request, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: PaymentMethodsApi.update_payment_method ...'
       end
@@ -374,9 +374,9 @@ module PAYJPv2
       if @api_client.config.client_side_validation && payment_method_id.nil?
         fail ArgumentError, "Missing the required parameter 'payment_method_id' when calling PaymentMethodsApi.update_payment_method"
       end
-      # verify the required parameter 'payment_method_card_update_request' is set
-      if @api_client.config.client_side_validation && payment_method_card_update_request.nil?
-        fail ArgumentError, "Missing the required parameter 'payment_method_card_update_request' when calling PaymentMethodsApi.update_payment_method"
+      # verify the required parameter 'payment_method_update_request' is set
+      if @api_client.config.client_side_validation && payment_method_update_request.nil?
+        fail ArgumentError, "Missing the required parameter 'payment_method_update_request' when calling PaymentMethodsApi.update_payment_method"
       end
       # resource path
       local_var_path = '/v2/payment_methods/{payment_method_id}'.sub('{' + 'payment_method_id' + '}', CGI.escape(payment_method_id.to_s))
@@ -398,7 +398,7 @@ module PAYJPv2
       form_params = opts[:form_params] || {}
 
       # http body (model)
-      post_body = opts[:debug_body] || @api_client.object_to_http_body(payment_method_card_update_request)
+      post_body = opts[:debug_body] || @api_client.object_to_http_body(payment_method_update_request)
 
       # return_type
       return_type = opts[:debug_return_type] || 'PaymentMethodResponse'

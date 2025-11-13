@@ -18,9 +18,6 @@ module PAYJPv2
     # この SetupFlow が属する顧客の ID。SetupFlow に PaymentMethod が設定されている場合、SetupFlow の設定が成功するとその PaymentMethod は顧客に紐付きます。別の顧客に紐付いている PaymentMethod をこの SetupFlow で使用することはできません。
     attr_accessor :customer
 
-    # この SetupFlow に紐付ける決済方法のID
-    attr_accessor :payment_method
-
     # この SetupFlow の支払い方法の個別設定。
     attr_accessor :payment_method_options
 
@@ -32,11 +29,32 @@ module PAYJPv2
     # キーバリューの任意のデータを格納できます。<a href=\"https://docs.pay.jp/v2/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'customer' => :'customer',
-        :'payment_method' => :'payment_method',
         :'payment_method_options' => :'payment_method_options',
         :'payment_method_types' => :'payment_method_types',
         :'description' => :'description',
@@ -58,9 +76,8 @@ module PAYJPv2
     def self.openapi_types
       {
         :'customer' => :'String',
-        :'payment_method' => :'String',
         :'payment_method_options' => :'Hash<String, Object>',
-        :'payment_method_types' => :'Array<PaymentMethodTypes>',
+        :'payment_method_types' => :'Array<String>',
         :'description' => :'String',
         :'metadata' => :'Hash<String, MetadataValue>'
       }
@@ -69,6 +86,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'payment_method_types',
       ])
     end
 
@@ -90,10 +108,6 @@ module PAYJPv2
 
       if attributes.key?(:'customer')
         self.customer = attributes[:'customer']
-      end
-
-      if attributes.key?(:'payment_method')
-        self.payment_method = attributes[:'payment_method']
       end
 
       if attributes.key?(:'payment_method_options')
@@ -140,7 +154,6 @@ module PAYJPv2
       return true if self.equal?(o)
       self.class == o.class &&
           customer == o.customer &&
-          payment_method == o.payment_method &&
           payment_method_options == o.payment_method_options &&
           payment_method_types == o.payment_method_types &&
           description == o.description &&
@@ -156,7 +169,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [customer, payment_method, payment_method_options, payment_method_types, description, metadata].hash
+      [customer, payment_method_options, payment_method_types, description, metadata].hash
     end
 
     # Builds the object from hash

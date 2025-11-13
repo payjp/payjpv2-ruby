@@ -18,9 +18,6 @@ module PAYJPv2
     # 支払い方法ID
     attr_accessor :payment_method
 
-    # 指定した場合、PaymentMethodの作成に使用されます。新しいPaymentMethodは、PaymentFlowのpayment_methodプロパティに表示されます。
-    attr_accessor :payment_method_data
-
     # このPaymentFlowに固有の支払い方法の設定
     attr_accessor :payment_method_options
 
@@ -65,7 +62,6 @@ module PAYJPv2
     def self.attribute_map
       {
         :'payment_method' => :'payment_method',
-        :'payment_method_data' => :'payment_method_data',
         :'payment_method_options' => :'payment_method_options',
         :'payment_method_types' => :'payment_method_types',
         :'receipt_email' => :'receipt_email',
@@ -89,7 +85,6 @@ module PAYJPv2
     def self.openapi_types
       {
         :'payment_method' => :'String',
-        :'payment_method_data' => :'PaymentMethodCreateRequest',
         :'payment_method_options' => :'PaymentMethodOptionsRequest',
         :'payment_method_types' => :'Array<PaymentMethodTypes>',
         :'receipt_email' => :'String',
@@ -123,10 +118,6 @@ module PAYJPv2
 
       if attributes.key?(:'payment_method')
         self.payment_method = attributes[:'payment_method']
-      end
-
-      if attributes.key?(:'payment_method_data')
-        self.payment_method_data = attributes[:'payment_method_data']
       end
 
       if attributes.key?(:'payment_method_options')
@@ -177,7 +168,6 @@ module PAYJPv2
       return true if self.equal?(o)
       self.class == o.class &&
           payment_method == o.payment_method &&
-          payment_method_data == o.payment_method_data &&
           payment_method_options == o.payment_method_options &&
           payment_method_types == o.payment_method_types &&
           receipt_email == o.receipt_email &&
@@ -195,7 +185,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [payment_method, payment_method_data, payment_method_options, payment_method_types, receipt_email, return_url, description, capture_method].hash
+      [payment_method, payment_method_options, payment_method_types, receipt_email, return_url, description, capture_method].hash
     end
 
     # Builds the object from hash

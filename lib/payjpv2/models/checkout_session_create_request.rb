@@ -150,7 +150,7 @@ module PAYJPv2
         :'currency' => :'Currency',
         :'expires_at' => :'Time',
         :'locale' => :'Locale',
-        :'payment_flow_data' => :'PaymentFlowDataRequestInput',
+        :'payment_flow_data' => :'PaymentFlowDataRequest',
         :'payment_method_options' => :'PaymentMethodOptionsRequest',
         :'payment_method_types' => :'Array<PaymentMethodTypes>',
         :'setup_flow_data' => :'SetupFlowDataRequest',

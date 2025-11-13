@@ -14,13 +14,13 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  # `payment` モードの Checkout Session の PaymentFlow の ID。PaymentFlow を確定 (confirm)、またはキャンセルすることはできません。キャンセルするには、代わりに Checkout Session を期限切れにしてください。
-  module PaymentFlow
+  # `setup` モードの Checkout Session の SetupFlow の ID。Checkout Session の SetupFlow を確定 (confirm)、またはキャンセルすることはできません。キャンセルするには、代わりに Checkout Session を期限切れにしてください。
+  module SetupFlow
     class << self
       # List of class defined in anyOf (OpenAPI v3)
       def openapi_any_of
         [
-          :'PaymentFlowResponse',
+          :'SetupFlowResponse',
           :'String'
         ]
       end

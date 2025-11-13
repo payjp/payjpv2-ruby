@@ -9,7 +9,6 @@ All URIs are relative to *http://localhost*
 | [**confirm_payment_flow**](PaymentFlowsApi.md#confirm_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/confirm | Confirm Payment Flow |
 | [**create_payment_flow**](PaymentFlowsApi.md#create_payment_flow) | **POST** /v2/payment_flows | Create Payment Flow |
 | [**get_all_payment_flow**](PaymentFlowsApi.md#get_all_payment_flow) | **GET** /v2/payment_flows | Get All Payment Flow |
-| [**increment_authorization_payment_flow**](PaymentFlowsApi.md#increment_authorization_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/increment_authorization | Increment Authorization Payment Flow |
 | [**retrieve_payment_flow**](PaymentFlowsApi.md#retrieve_payment_flow) | **GET** /v2/payment_flows/{payment_flow_id} | Retrieve Payment Flow |
 | [**update_payment_flow**](PaymentFlowsApi.md#update_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id} | Update Payment Flow |
 
@@ -386,79 +385,6 @@ end
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, application/problem+json
-
-
-## increment_authorization_payment_flow
-
-> <PaymentFlowResponse> increment_authorization_payment_flow(payment_flow_id, payment_flow_increment_authorization_request)
-
-Increment Authorization Payment Flow
-
-### Examples
-
-```ruby
-require 'time'
-require 'payjpv2'
-# setup authorization
-PAYJPv2.configure do |config|
-  # Configure HTTP basic authorization: HTTPBasic
-  config.username = 'YOUR USERNAME'
-  config.password = 'YOUR PASSWORD'
-
-  # Configure Bearer authorization: HTTPBearer
-  config.access_token = 'YOUR_BEARER_TOKEN'
-end
-
-api_instance = PAYJPv2::PaymentFlowsApi.new
-payment_flow_id = 'payment_flow_id_example' # String | 
-payment_flow_increment_authorization_request = PAYJPv2::PaymentFlowIncrementAuthorizationRequest.new({amount: 37}) # PaymentFlowIncrementAuthorizationRequest | 
-
-begin
-  # Increment Authorization Payment Flow
-  result = api_instance.increment_authorization_payment_flow(payment_flow_id, payment_flow_increment_authorization_request)
-  p result
-rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->increment_authorization_payment_flow: #{e}"
-end
-```
-
-#### Using the increment_authorization_payment_flow_with_http_info variant
-
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> increment_authorization_payment_flow_with_http_info(payment_flow_id, payment_flow_increment_authorization_request)
-
-```ruby
-begin
-  # Increment Authorization Payment Flow
-  data, status_code, headers = api_instance.increment_authorization_payment_flow_with_http_info(payment_flow_id, payment_flow_increment_authorization_request)
-  p status_code # => 2xx
-  p headers # => { ... }
-  p data # => <PaymentFlowResponse>
-rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->increment_authorization_payment_flow_with_http_info: #{e}"
-end
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-| **payment_flow_id** | **String** |  |  |
-| **payment_flow_increment_authorization_request** | [**PaymentFlowIncrementAuthorizationRequest**](PaymentFlowIncrementAuthorizationRequest.md) |  |  |
-
-### Return type
-
-[**PaymentFlowResponse**](PaymentFlowResponse.md)
-
-### Authorization
-
-[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json, application/problem+json
 
 

@@ -164,7 +164,7 @@ module PAYJPv2
         :'payment_flow' => :'PaymentFlow',
         :'payment_method_types' => :'Array<PaymentMethodTypes>',
         :'payment_method_options' => :'Hash<String, Object>',
-        :'setup_flow' => :'PaymentFlowDataRequestOutput',
+        :'setup_flow' => :'SetupFlow',
         :'submit_type' => :'CheckoutSessionSubmitType',
         :'mode' => :'CheckoutSessionMode',
         :'ui_mode' => :'CheckoutSessionUIMode',

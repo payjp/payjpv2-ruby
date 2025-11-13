@@ -108,7 +108,6 @@ Class | Method | HTTP request | Description
 *PAYJPv2::PaymentFlowsApi* | [**confirm_payment_flow**](docs/PaymentFlowsApi.md#confirm_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/confirm | Confirm Payment Flow
 *PAYJPv2::PaymentFlowsApi* | [**create_payment_flow**](docs/PaymentFlowsApi.md#create_payment_flow) | **POST** /v2/payment_flows | Create Payment Flow
 *PAYJPv2::PaymentFlowsApi* | [**get_all_payment_flow**](docs/PaymentFlowsApi.md#get_all_payment_flow) | **GET** /v2/payment_flows | Get All Payment Flow
-*PAYJPv2::PaymentFlowsApi* | [**increment_authorization_payment_flow**](docs/PaymentFlowsApi.md#increment_authorization_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/increment_authorization | Increment Authorization Payment Flow
 *PAYJPv2::PaymentFlowsApi* | [**retrieve_payment_flow**](docs/PaymentFlowsApi.md#retrieve_payment_flow) | **GET** /v2/payment_flows/{payment_flow_id} | Retrieve Payment Flow
 *PAYJPv2::PaymentFlowsApi* | [**update_payment_flow**](docs/PaymentFlowsApi.md#update_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id} | Update Payment Flow
 *PAYJPv2::PaymentMethodConfigurationsApi* | [**get_all_payment_method_configurations**](docs/PaymentMethodConfigurationsApi.md#get_all_payment_method_configurations) | **GET** /v2/payment_method_configurations | Get All Payment Method Configurations
@@ -120,6 +119,10 @@ Class | Method | HTTP request | Description
 *PAYJPv2::PaymentMethodsApi* | [**get_all_payment_methods**](docs/PaymentMethodsApi.md#get_all_payment_methods) | **GET** /v2/payment_methods | Get All Payment Methods
 *PAYJPv2::PaymentMethodsApi* | [**get_payment_method**](docs/PaymentMethodsApi.md#get_payment_method) | **GET** /v2/payment_methods/{payment_method_id} | Get Payment Method
 *PAYJPv2::PaymentMethodsApi* | [**update_payment_method**](docs/PaymentMethodsApi.md#update_payment_method) | **POST** /v2/payment_methods/{payment_method_id} | Update Payment Method
+*PAYJPv2::PaymentRefundsApi* | [**create_payment_refund**](docs/PaymentRefundsApi.md#create_payment_refund) | **POST** /v2/payment_refunds | Create Payment Refund
+*PAYJPv2::PaymentRefundsApi* | [**get_all_payment_refunds**](docs/PaymentRefundsApi.md#get_all_payment_refunds) | **GET** /v2/payment_refunds | Get All Payment Refunds
+*PAYJPv2::PaymentRefundsApi* | [**retrieve_payment_refund**](docs/PaymentRefundsApi.md#retrieve_payment_refund) | **GET** /v2/payment_refunds/{payment_refund_id} | Retrieve Payment Refund
+*PAYJPv2::PaymentRefundsApi* | [**update_payment_refund**](docs/PaymentRefundsApi.md#update_payment_refund) | **POST** /v2/payment_refunds/{payment_refund_id} | Update Payment Refund
 *PAYJPv2::PaymentTransactionsApi* | [**get_all_payment_transaction**](docs/PaymentTransactionsApi.md#get_all_payment_transaction) | **GET** /v2/payment_transactions | Get All Payment Transaction
 *PAYJPv2::PaymentTransactionsApi* | [**retrieve_payment_transaction**](docs/PaymentTransactionsApi.md#retrieve_payment_transaction) | **GET** /v2/payment_transactions/{payment_transaction_id} | Retrieve Payment Transaction
 *PAYJPv2::PricesApi* | [**create_price**](docs/PricesApi.md#create_price) | **POST** /v2/prices | Create Price
@@ -131,11 +134,6 @@ Class | Method | HTTP request | Description
 *PAYJPv2::ProductsApi* | [**get_all_products**](docs/ProductsApi.md#get_all_products) | **GET** /v2/products | Get All Products
 *PAYJPv2::ProductsApi* | [**get_product**](docs/ProductsApi.md#get_product) | **GET** /v2/products/{product_id} | Get Product
 *PAYJPv2::ProductsApi* | [**update_product**](docs/ProductsApi.md#update_product) | **POST** /v2/products/{product_id} | Update Product
-*PAYJPv2::RefundsApi* | [**cancel_refund**](docs/RefundsApi.md#cancel_refund) | **POST** /v2/refunds/{refund_id}/cancel | Cancel Refund
-*PAYJPv2::RefundsApi* | [**create_refund**](docs/RefundsApi.md#create_refund) | **POST** /v2/refunds | Create Refund
-*PAYJPv2::RefundsApi* | [**get_all_refunds**](docs/RefundsApi.md#get_all_refunds) | **GET** /v2/refunds | Get All Refunds
-*PAYJPv2::RefundsApi* | [**retrieve_refund**](docs/RefundsApi.md#retrieve_refund) | **GET** /v2/refunds/{refund_id} | Retrieve Refund
-*PAYJPv2::RefundsApi* | [**update_refund**](docs/RefundsApi.md#update_refund) | **POST** /v2/refunds/{refund_id} | Update Refund
 *PAYJPv2::SetupFlowsApi* | [**cancel_setup_flow**](docs/SetupFlowsApi.md#cancel_setup_flow) | **POST** /v2/setup_flows/{setup_flow_id}/cancel | Cancel Setup Flow
 *PAYJPv2::SetupFlowsApi* | [**confirm_setup_flow**](docs/SetupFlowsApi.md#confirm_setup_flow) | **POST** /v2/setup_flows/{setup_flow_id}/confirm | Confirm Setup Flow
 *PAYJPv2::SetupFlowsApi* | [**create_setup_flow**](docs/SetupFlowsApi.md#create_setup_flow) | **POST** /v2/setup_flows | Create Setup Flow
@@ -195,14 +193,13 @@ Class | Method | HTTP request | Description
  - [PAYJPv2::PaymentFlowCaptureRequest](docs/PaymentFlowCaptureRequest.md)
  - [PAYJPv2::PaymentFlowConfirmRequest](docs/PaymentFlowConfirmRequest.md)
  - [PAYJPv2::PaymentFlowCreateRequest](docs/PaymentFlowCreateRequest.md)
- - [PAYJPv2::PaymentFlowDataRequestInput](docs/PaymentFlowDataRequestInput.md)
- - [PAYJPv2::PaymentFlowDataRequestOutput](docs/PaymentFlowDataRequestOutput.md)
- - [PAYJPv2::PaymentFlowIncrementAuthorizationRequest](docs/PaymentFlowIncrementAuthorizationRequest.md)
+ - [PAYJPv2::PaymentFlowDataRequest](docs/PaymentFlowDataRequest.md)
  - [PAYJPv2::PaymentFlowListResponse](docs/PaymentFlowListResponse.md)
  - [PAYJPv2::PaymentFlowResponse](docs/PaymentFlowResponse.md)
  - [PAYJPv2::PaymentFlowStatus](docs/PaymentFlowStatus.md)
  - [PAYJPv2::PaymentFlowUpdateRequest](docs/PaymentFlowUpdateRequest.md)
  - [PAYJPv2::PaymentMethodApplePayCreateRequest](docs/PaymentMethodApplePayCreateRequest.md)
+ - [PAYJPv2::PaymentMethodApplePayUpdateRequest](docs/PaymentMethodApplePayUpdateRequest.md)
  - [PAYJPv2::PaymentMethodAttachRequest](docs/PaymentMethodAttachRequest.md)
  - [PAYJPv2::PaymentMethodBillingAddressRequest](docs/PaymentMethodBillingAddressRequest.md)
  - [PAYJPv2::PaymentMethodBillingAddressResponse](docs/PaymentMethodBillingAddressResponse.md)
@@ -225,9 +222,14 @@ Class | Method | HTTP request | Description
  - [PAYJPv2::PaymentMethodOptionsRequest](docs/PaymentMethodOptionsRequest.md)
  - [PAYJPv2::PaymentMethodPayPayCreateRequest](docs/PaymentMethodPayPayCreateRequest.md)
  - [PAYJPv2::PaymentMethodPayPayResponse](docs/PaymentMethodPayPayResponse.md)
+ - [PAYJPv2::PaymentMethodPayPayUpdateRequest](docs/PaymentMethodPayPayUpdateRequest.md)
  - [PAYJPv2::PaymentMethodResponse](docs/PaymentMethodResponse.md)
  - [PAYJPv2::PaymentMethodTypes](docs/PaymentMethodTypes.md)
+ - [PAYJPv2::PaymentMethodUpdateRequest](docs/PaymentMethodUpdateRequest.md)
+ - [PAYJPv2::PaymentRefundCreateRequest](docs/PaymentRefundCreateRequest.md)
+ - [PAYJPv2::PaymentRefundListResponse](docs/PaymentRefundListResponse.md)
  - [PAYJPv2::PaymentRefundReason](docs/PaymentRefundReason.md)
+ - [PAYJPv2::PaymentRefundResponse](docs/PaymentRefundResponse.md)
  - [PAYJPv2::PaymentRefundStatus](docs/PaymentRefundStatus.md)
  - [PAYJPv2::PaymentRefundUpdateRequest](docs/PaymentRefundUpdateRequest.md)
  - [PAYJPv2::PaymentTransactionListResponse](docs/PaymentTransactionListResponse.md)
@@ -243,9 +245,7 @@ Class | Method | HTTP request | Description
  - [PAYJPv2::ProductDetailsResponse](docs/ProductDetailsResponse.md)
  - [PAYJPv2::ProductListResponse](docs/ProductListResponse.md)
  - [PAYJPv2::ProductUpdateRequest](docs/ProductUpdateRequest.md)
- - [PAYJPv2::RefundCreateRequest](docs/RefundCreateRequest.md)
- - [PAYJPv2::RefundListResponse](docs/RefundListResponse.md)
- - [PAYJPv2::RefundResponse](docs/RefundResponse.md)
+ - [PAYJPv2::SetupFlow](docs/SetupFlow.md)
  - [PAYJPv2::SetupFlowCancelRequest](docs/SetupFlowCancelRequest.md)
  - [PAYJPv2::SetupFlowCancellationReason](docs/SetupFlowCancellationReason.md)
  - [PAYJPv2::SetupFlowConfirmRequest](docs/SetupFlowConfirmRequest.md)

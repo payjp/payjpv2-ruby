@@ -377,7 +377,7 @@ end
 
 ## update_payment_method
 
-> <PaymentMethodResponse> update_payment_method(payment_method_id, payment_method_card_update_request)
+> <PaymentMethodResponse> update_payment_method(payment_method_id, payment_method_update_request)
 
 Update Payment Method
 
@@ -398,11 +398,11 @@ end
 
 api_instance = PAYJPv2::PaymentMethodsApi.new
 payment_method_id = 'payment_method_id_example' # String | 
-payment_method_card_update_request = PAYJPv2::PaymentMethodCardUpdateRequest.new({type: 'card'}) # PaymentMethodCardUpdateRequest | 
+payment_method_update_request = PAYJPv2::PaymentMethodApplePayUpdateRequest.new({type: 'apple_pay'}) # PaymentMethodUpdateRequest | 
 
 begin
   # Update Payment Method
-  result = api_instance.update_payment_method(payment_method_id, payment_method_card_update_request)
+  result = api_instance.update_payment_method(payment_method_id, payment_method_update_request)
   p result
 rescue PAYJPv2::ApiError => e
   puts "Error when calling PaymentMethodsApi->update_payment_method: #{e}"
@@ -413,12 +413,12 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PaymentMethodResponse>, Integer, Hash)> update_payment_method_with_http_info(payment_method_id, payment_method_card_update_request)
+> <Array(<PaymentMethodResponse>, Integer, Hash)> update_payment_method_with_http_info(payment_method_id, payment_method_update_request)
 
 ```ruby
 begin
   # Update Payment Method
-  data, status_code, headers = api_instance.update_payment_method_with_http_info(payment_method_id, payment_method_card_update_request)
+  data, status_code, headers = api_instance.update_payment_method_with_http_info(payment_method_id, payment_method_update_request)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentMethodResponse>
@@ -432,7 +432,7 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **payment_method_id** | **String** |  |  |
-| **payment_method_card_update_request** | [**PaymentMethodCardUpdateRequest**](PaymentMethodCardUpdateRequest.md) |  |  |
+| **payment_method_update_request** | [**PaymentMethodUpdateRequest**](PaymentMethodUpdateRequest.md) |  |  |
 
 ### Return type
 

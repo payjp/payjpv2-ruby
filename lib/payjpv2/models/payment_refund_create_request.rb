@@ -14,42 +14,18 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class PaymentFlowCreateRequest
-    # 支払い方法ID
-    attr_accessor :payment_method
+  class PaymentRefundCreateRequest
+    # 返金対象となる PaymentFlow の ID
+    attr_accessor :payment_flow
 
-    # このPaymentFlowに固有の支払い方法の設定
-    attr_accessor :payment_method_options
-
-    # このPaymentFlowで使用できる支払い方法の種類（カードなど）のリストです。 指定しない場合は、PAY.JPは支払い方法の設定から利用可能な支払い方法を動的に表示します。
-    attr_accessor :payment_method_types
-
-    # 請求書の送信先メールアドレス。ライブモードで支払いに対して `receipt_email` を指定すると、メール設定に関係なく領収書が送信されます。
-    attr_accessor :receipt_email
-
-    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされるURL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。confirm=trueの場合のみ指定できます。
-    attr_accessor :return_url
-
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
-    attr_accessor :description
-
-    # 支払い予定の金額。50円以上9,999,999円以下である必要があります。支払い手段によって上限金額は異なります。
+    # 返金金額
     attr_accessor :amount
-
-    # このPaymentFlowに属する顧客のID（存在する場合）。この顧客以外にすでに紐づけられている支払い方法はこのPaymentFlowでは使用できません。
-    attr_accessor :customer
-
-    # 「true」に設定すると、このPaymentFlowを直ちに確定しようと試みます。このパラメーターのデフォルトは「false」です。
-    attr_accessor :confirm
-
-    # 支払いの確定方法を指定します。  | 指定できる値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
-    attr_accessor :capture_method
 
     # キーバリューの任意のデータを格納できます。<a href=\"https://docs.pay.jp/v2/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
-    # このPaymentFlowの支払い方法で将来の支払いを行う意図があることを示します。<br><br>PaymentFlow に Customer を指定した場合、このパラメータを使って PaymentFlow を確定できます。その後、顧客が必要な操作を完了すると、支払い方法を Customer に紐付けることが可能です。また、Customer を指定しない場合でも、取引が完了した後に支払い方法を Customer に紐付けることはできます。
-    attr_accessor :setup_future_usage
+    # 返金理由  | 指定できる値 | |:---| | **duplicate**: 重複した支払い | | **fraudulent**: 不正な支払い | | **requested_by_customer**: 顧客の要求 |
+    attr_accessor :reason
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -76,18 +52,10 @@ module PAYJPv2
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'payment_method' => :'payment_method',
-        :'payment_method_options' => :'payment_method_options',
-        :'payment_method_types' => :'payment_method_types',
-        :'receipt_email' => :'receipt_email',
-        :'return_url' => :'return_url',
-        :'description' => :'description',
+        :'payment_flow' => :'payment_flow',
         :'amount' => :'amount',
-        :'customer' => :'customer',
-        :'confirm' => :'confirm',
-        :'capture_method' => :'capture_method',
         :'metadata' => :'metadata',
-        :'setup_future_usage' => :'setup_future_usage'
+        :'reason' => :'reason'
       }
     end
 
@@ -104,18 +72,10 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'payment_method' => :'String',
-        :'payment_method_options' => :'PaymentMethodOptionsRequest',
-        :'payment_method_types' => :'Array<PaymentMethodTypes>',
-        :'receipt_email' => :'String',
-        :'return_url' => :'String',
-        :'description' => :'String',
+        :'payment_flow' => :'String',
         :'amount' => :'Integer',
-        :'customer' => :'String',
-        :'confirm' => :'Boolean',
-        :'capture_method' => :'CaptureMethod',
         :'metadata' => :'Hash<String, MetadataValue>',
-        :'setup_future_usage' => :'Usage'
+        :'reason' => :'PaymentRefundReason'
       }
     end
 
@@ -129,62 +89,26 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentFlowCreateRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentRefundCreateRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentFlowCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentRefundCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'payment_method')
-        self.payment_method = attributes[:'payment_method']
-      end
-
-      if attributes.key?(:'payment_method_options')
-        self.payment_method_options = attributes[:'payment_method_options']
-      end
-
-      if attributes.key?(:'payment_method_types')
-        if (value = attributes[:'payment_method_types']).is_a?(Array)
-          self.payment_method_types = value
-        end
-      end
-
-      if attributes.key?(:'receipt_email')
-        self.receipt_email = attributes[:'receipt_email']
-      end
-
-      if attributes.key?(:'return_url')
-        self.return_url = attributes[:'return_url']
-      end
-
-      if attributes.key?(:'description')
-        self.description = attributes[:'description']
+      if attributes.key?(:'payment_flow')
+        self.payment_flow = attributes[:'payment_flow']
+      else
+        self.payment_flow = nil
       end
 
       if attributes.key?(:'amount')
         self.amount = attributes[:'amount']
-      else
-        self.amount = nil
-      end
-
-      if attributes.key?(:'customer')
-        self.customer = attributes[:'customer']
-      end
-
-      if attributes.key?(:'confirm')
-        self.confirm = attributes[:'confirm']
-      else
-        self.confirm = false
-      end
-
-      if attributes.key?(:'capture_method')
-        self.capture_method = attributes[:'capture_method']
       end
 
       if attributes.key?(:'metadata')
@@ -193,8 +117,8 @@ module PAYJPv2
         end
       end
 
-      if attributes.key?(:'setup_future_usage')
-        self.setup_future_usage = attributes[:'setup_future_usage']
+      if attributes.key?(:'reason')
+        self.reason = attributes[:'reason']
       end
     end
 
@@ -203,16 +127,12 @@ module PAYJPv2
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @amount.nil?
-        invalid_properties.push('invalid value for "amount", amount cannot be nil.')
+      if @payment_flow.nil?
+        invalid_properties.push('invalid value for "payment_flow", payment_flow cannot be nil.')
       end
 
-      if @amount > 9999999
-        invalid_properties.push('invalid value for "amount", must be smaller than or equal to 9999999.')
-      end
-
-      if @amount < 50
-        invalid_properties.push('invalid value for "amount", must be greater than or equal to 50.')
+      if !@amount.nil? && @amount < 0
+        invalid_properties.push('invalid value for "amount", must be greater than or equal to 0.')
       end
 
       invalid_properties
@@ -222,10 +142,19 @@ module PAYJPv2
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @amount.nil?
-      return false if @amount > 9999999
-      return false if @amount < 50
+      return false if @payment_flow.nil?
+      return false if !@amount.nil? && @amount < 0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] payment_flow Value to be assigned
+    def payment_flow=(payment_flow)
+      if payment_flow.nil?
+        fail ArgumentError, 'payment_flow cannot be nil'
+      end
+
+      @payment_flow = payment_flow
     end
 
     # Custom attribute writer method with validation
@@ -235,12 +164,8 @@ module PAYJPv2
         fail ArgumentError, 'amount cannot be nil'
       end
 
-      if amount > 9999999
-        fail ArgumentError, 'invalid value for "amount", must be smaller than or equal to 9999999.'
-      end
-
-      if amount < 50
-        fail ArgumentError, 'invalid value for "amount", must be greater than or equal to 50.'
+      if amount < 0
+        fail ArgumentError, 'invalid value for "amount", must be greater than or equal to 0.'
       end
 
       @amount = amount
@@ -251,18 +176,10 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          payment_method == o.payment_method &&
-          payment_method_options == o.payment_method_options &&
-          payment_method_types == o.payment_method_types &&
-          receipt_email == o.receipt_email &&
-          return_url == o.return_url &&
-          description == o.description &&
+          payment_flow == o.payment_flow &&
           amount == o.amount &&
-          customer == o.customer &&
-          confirm == o.confirm &&
-          capture_method == o.capture_method &&
           metadata == o.metadata &&
-          setup_future_usage == o.setup_future_usage
+          reason == o.reason
     end
 
     # @see the `==` method
@@ -274,7 +191,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [payment_method, payment_method_options, payment_method_types, receipt_email, return_url, description, amount, customer, confirm, capture_method, metadata, setup_future_usage].hash
+      [payment_flow, amount, metadata, reason].hash
     end
 
     # Builds the object from hash

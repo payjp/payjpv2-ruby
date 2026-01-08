@@ -4,9 +4,9 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** | 商品ID |  |
 | **object** | **String** |  | [optional][default to &#39;product&#39;] |
-| **deleted** | **Boolean** | 削除されたかどうか | [readonly] |
+| **id** | **String** | 商品 ID |  |
+| **deleted** | **Boolean** | 削除されたかどうか | [optional][default to true] |
 
 ## Example
 
@@ -14,8 +14,8 @@
 require 'payjpv2'
 
 instance = PAYJPv2::ProductDeletedResponse.new(
-  id: null,
   object: null,
+  id: null,
   deleted: null
 )
 ```

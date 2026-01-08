@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_checkout_session**](CheckoutSessionsApi.md#create_checkout_session) | **POST** /v2/checkout/sessions | Create Checkout Session |
+| [**get_all_checkout_session_line_items**](CheckoutSessionsApi.md#get_all_checkout_session_line_items) | **GET** /v2/checkout/sessions/{checkout_session_id}/line_items | Get All Checkout Session Line Items |
 | [**get_all_checkout_sessions**](CheckoutSessionsApi.md#get_all_checkout_sessions) | **GET** /v2/checkout/sessions | Get All Checkout Sessions |
 | [**get_checkout_session**](CheckoutSessionsApi.md#get_checkout_session) | **GET** /v2/checkout/sessions/{checkout_session_id} | Get Checkout Session |
 | [**update_checkout_session**](CheckoutSessionsApi.md#update_checkout_session) | **POST** /v2/checkout/sessions/{checkout_session_id} | Update Checkout Session |
@@ -43,21 +44,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_checkout_session_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> create_checkout_session_with_http_info(checkout_session_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Checkout Session
-  data, status_code, headers = api_instance.create_checkout_session_with_http_info(checkout_session_create_request)
+  data, status_code, headers = api_instance.create_checkout_session(checkout_session_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CheckoutSessionDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CheckoutSessionsApi->create_checkout_session_with_http_info: #{e}"
+  puts "Error when calling CheckoutSessionsApi->create_checkout_session: #{e}"
 end
 ```
 
@@ -78,6 +77,83 @@ end
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+
+## get_all_checkout_session_line_items
+
+> <CheckoutSessionLineItemListResponse> get_all_checkout_session_line_items(checkout_session_id, opts)
+
+Get All Checkout Session Line Items
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+checkout_session_id = 'checkout_session_id_example' # String | 
+opts = {
+  limit: 56, # Integer | 取得するデータの最大件数
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+}
+
+begin
+  # Get All Checkout Session Line Items
+  result = api_instance.get_all_checkout_session_line_items(checkout_session_id, opts)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_all_checkout_session_line_items: #{e}"
+end
+```
+
+#### Using the include_http_info option
+
+To get response data along with status code and headers, use the `include_http_info: true` option.
+
+```ruby
+begin
+  # Get All Checkout Session Line Items
+  data, status_code, headers = api_instance.get_all_checkout_session_line_items(checkout_session_id, opts.merge(include_http_info: true))
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionLineItemListResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->get_all_checkout_session_line_items: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **checkout_session_id** | **String** |  |  |
+| **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+
+### Return type
+
+[**CheckoutSessionLineItemListResponse**](CheckoutSessionLineItemListResponse.md)
+
+### Authorization
+
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
 
 
@@ -118,21 +194,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_checkout_sessions_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CheckoutSessionListResponse>, Integer, Hash)> get_all_checkout_sessions_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Checkout Sessions
-  data, status_code, headers = api_instance.get_all_checkout_sessions_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_checkout_sessions(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CheckoutSessionListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CheckoutSessionsApi->get_all_checkout_sessions_with_http_info: #{e}"
+  puts "Error when calling CheckoutSessionsApi->get_all_checkout_sessions: #{e}"
 end
 ```
 
@@ -160,7 +234,7 @@ end
 
 ## get_checkout_session
 
-> <CheckoutSessionDetailsResponse> get_checkout_session(checkout_session_id, opts)
+> <CheckoutSessionDetailsResponse> get_checkout_session(checkout_session_id)
 
 Get Checkout Session
 
@@ -181,34 +255,29 @@ end
 
 api_instance = PAYJPv2::CheckoutSessionsApi.new
 checkout_session_id = 'checkout_session_id_example' # String | 
-opts = {
-  expand: ['line_items'] # Array<String> | レスポンス返却時に展開したいオブジェクト名。指定したオブジェクトを同時に取得し、レスポンスに乗せて返却します。
-}
 
 begin
   # Get Checkout Session
-  result = api_instance.get_checkout_session(checkout_session_id, opts)
+  result = api_instance.get_checkout_session(checkout_session_id)
   p result
 rescue PAYJPv2::ApiError => e
   puts "Error when calling CheckoutSessionsApi->get_checkout_session: #{e}"
 end
 ```
 
-#### Using the get_checkout_session_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> get_checkout_session_with_http_info(checkout_session_id, opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Checkout Session
-  data, status_code, headers = api_instance.get_checkout_session_with_http_info(checkout_session_id, opts)
+  data, status_code, headers = api_instance.get_checkout_session(checkout_session_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CheckoutSessionDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CheckoutSessionsApi->get_checkout_session_with_http_info: #{e}"
+  puts "Error when calling CheckoutSessionsApi->get_checkout_session: #{e}"
 end
 ```
 
@@ -217,7 +286,6 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **checkout_session_id** | **String** |  |  |
-| **expand** | [**Array&lt;String&gt;**](String.md) | レスポンス返却時に展開したいオブジェクト名。指定したオブジェクトを同時に取得し、レスポンスに乗せて返却します。 | [optional] |
 
 ### Return type
 
@@ -267,21 +335,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_checkout_session_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CheckoutSessionDetailsResponse>, Integer, Hash)> update_checkout_session_with_http_info(checkout_session_id, checkout_session_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Checkout Session
-  data, status_code, headers = api_instance.update_checkout_session_with_http_info(checkout_session_id, checkout_session_update_request)
+  data, status_code, headers = api_instance.update_checkout_session(checkout_session_id, checkout_session_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CheckoutSessionDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CheckoutSessionsApi->update_checkout_session_with_http_info: #{e}"
+  puts "Error when calling CheckoutSessionsApi->update_checkout_session: #{e}"
 end
 ```
 

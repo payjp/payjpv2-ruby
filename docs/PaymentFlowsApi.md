@@ -8,8 +8,9 @@ All URIs are relative to *http://localhost*
 | [**capture_payment_flow**](PaymentFlowsApi.md#capture_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/capture | Capture Payment Flow |
 | [**confirm_payment_flow**](PaymentFlowsApi.md#confirm_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id}/confirm | Confirm Payment Flow |
 | [**create_payment_flow**](PaymentFlowsApi.md#create_payment_flow) | **POST** /v2/payment_flows | Create Payment Flow |
-| [**get_all_payment_flow**](PaymentFlowsApi.md#get_all_payment_flow) | **GET** /v2/payment_flows | Get All Payment Flow |
-| [**retrieve_payment_flow**](PaymentFlowsApi.md#retrieve_payment_flow) | **GET** /v2/payment_flows/{payment_flow_id} | Retrieve Payment Flow |
+| [**get_all_payment_flows**](PaymentFlowsApi.md#get_all_payment_flows) | **GET** /v2/payment_flows | Get All Payment Flows |
+| [**get_payment_flow**](PaymentFlowsApi.md#get_payment_flow) | **GET** /v2/payment_flows/{payment_flow_id} | Get Payment Flow |
+| [**get_payment_flow_refunds**](PaymentFlowsApi.md#get_payment_flow_refunds) | **GET** /v2/payment_flows/{payment_flow_id}/refunds | Get Payment Flow Refunds |
 | [**update_payment_flow**](PaymentFlowsApi.md#update_payment_flow) | **POST** /v2/payment_flows/{payment_flow_id} | Update Payment Flow |
 
 
@@ -49,21 +50,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the cancel_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> cancel_payment_flow_with_http_info(payment_flow_id, opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Cancel Payment Flow
-  data, status_code, headers = api_instance.cancel_payment_flow_with_http_info(payment_flow_id, opts)
+  data, status_code, headers = api_instance.cancel_payment_flow(payment_flow_id, opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->cancel_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->cancel_payment_flow: #{e}"
 end
 ```
 
@@ -124,21 +123,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the capture_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> capture_payment_flow_with_http_info(payment_flow_id, opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Capture Payment Flow
-  data, status_code, headers = api_instance.capture_payment_flow_with_http_info(payment_flow_id, opts)
+  data, status_code, headers = api_instance.capture_payment_flow(payment_flow_id, opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->capture_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->capture_payment_flow: #{e}"
 end
 ```
 
@@ -199,21 +196,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the confirm_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> confirm_payment_flow_with_http_info(payment_flow_id, opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Confirm Payment Flow
-  data, status_code, headers = api_instance.confirm_payment_flow_with_http_info(payment_flow_id, opts)
+  data, status_code, headers = api_instance.confirm_payment_flow(payment_flow_id, opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->confirm_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->confirm_payment_flow: #{e}"
 end
 ```
 
@@ -260,7 +255,7 @@ PAYJPv2.configure do |config|
 end
 
 api_instance = PAYJPv2::PaymentFlowsApi.new
-payment_flow_create_request = PAYJPv2::PaymentFlowCreateRequest.new({amount: 37}) # PaymentFlowCreateRequest | 
+payment_flow_create_request = PAYJPv2::PaymentFlowCreateRequest.new({amount: 37, currency: PAYJPv2::Currency::JPY}) # PaymentFlowCreateRequest | 
 
 begin
   # Create Payment Flow
@@ -271,21 +266,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> create_payment_flow_with_http_info(payment_flow_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Payment Flow
-  data, status_code, headers = api_instance.create_payment_flow_with_http_info(payment_flow_create_request)
+  data, status_code, headers = api_instance.create_payment_flow(payment_flow_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->create_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->create_payment_flow: #{e}"
 end
 ```
 
@@ -309,11 +302,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## get_all_payment_flow
+## get_all_payment_flows
 
-> <PaymentFlowListResponse> get_all_payment_flow(opts)
+> <PaymentFlowListResponse> get_all_payment_flows(opts)
 
-Get All Payment Flow
+Get All Payment Flows
 
 ### Examples
 
@@ -339,29 +332,27 @@ opts = {
 }
 
 begin
-  # Get All Payment Flow
-  result = api_instance.get_all_payment_flow(opts)
+  # Get All Payment Flows
+  result = api_instance.get_all_payment_flows(opts)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->get_all_payment_flow: #{e}"
+  puts "Error when calling PaymentFlowsApi->get_all_payment_flows: #{e}"
 end
 ```
 
-#### Using the get_all_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowListResponse>, Integer, Hash)> get_all_payment_flow_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Get All Payment Flow
-  data, status_code, headers = api_instance.get_all_payment_flow_with_http_info(opts)
+  # Get All Payment Flows
+  data, status_code, headers = api_instance.get_all_payment_flows(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->get_all_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->get_all_payment_flows: #{e}"
 end
 ```
 
@@ -388,11 +379,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## retrieve_payment_flow
+## get_payment_flow
 
-> <PaymentFlowResponse> retrieve_payment_flow(payment_flow_id)
+> <PaymentFlowResponse> get_payment_flow(payment_flow_id)
 
-Retrieve Payment Flow
+Get Payment Flow
 
 ### Examples
 
@@ -413,29 +404,27 @@ api_instance = PAYJPv2::PaymentFlowsApi.new
 payment_flow_id = 'payment_flow_id_example' # String | 
 
 begin
-  # Retrieve Payment Flow
-  result = api_instance.retrieve_payment_flow(payment_flow_id)
+  # Get Payment Flow
+  result = api_instance.get_payment_flow(payment_flow_id)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->retrieve_payment_flow: #{e}"
+  puts "Error when calling PaymentFlowsApi->get_payment_flow: #{e}"
 end
 ```
 
-#### Using the retrieve_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> retrieve_payment_flow_with_http_info(payment_flow_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Retrieve Payment Flow
-  data, status_code, headers = api_instance.retrieve_payment_flow_with_http_info(payment_flow_id)
+  # Get Payment Flow
+  data, status_code, headers = api_instance.get_payment_flow(payment_flow_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->retrieve_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->get_payment_flow: #{e}"
 end
 ```
 
@@ -448,6 +437,85 @@ end
 ### Return type
 
 [**PaymentFlowResponse**](PaymentFlowResponse.md)
+
+### Authorization
+
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
+
+
+## get_payment_flow_refunds
+
+> <PaymentRefundListResponse> get_payment_flow_refunds(payment_flow_id, opts)
+
+Get Payment Flow Refunds
+
+Payment Flowに紐づくRefundsをリスト取得する
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = PAYJPv2::PaymentFlowsApi.new
+payment_flow_id = 'payment_flow_id_example' # String | 
+opts = {
+  limit: 56, # Integer | 取得するデータの最大件数
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+}
+
+begin
+  # Get Payment Flow Refunds
+  result = api_instance.get_payment_flow_refunds(payment_flow_id, opts)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling PaymentFlowsApi->get_payment_flow_refunds: #{e}"
+end
+```
+
+#### Using the include_http_info option
+
+To get response data along with status code and headers, use the `include_http_info: true` option.
+
+```ruby
+begin
+  # Get Payment Flow Refunds
+  data, status_code, headers = api_instance.get_payment_flow_refunds(payment_flow_id, opts.merge(include_http_info: true))
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <PaymentRefundListResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling PaymentFlowsApi->get_payment_flow_refunds: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **payment_flow_id** | **String** |  |  |
+| **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+
+### Return type
+
+[**PaymentRefundListResponse**](PaymentRefundListResponse.md)
 
 ### Authorization
 
@@ -493,21 +561,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_payment_flow_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentFlowResponse>, Integer, Hash)> update_payment_flow_with_http_info(payment_flow_id, payment_flow_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Payment Flow
-  data, status_code, headers = api_instance.update_payment_flow_with_http_info(payment_flow_id, payment_flow_update_request)
+  data, status_code, headers = api_instance.update_payment_flow(payment_flow_id, payment_flow_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentFlowResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentFlowsApi->update_payment_flow_with_http_info: #{e}"
+  puts "Error when calling PaymentFlowsApi->update_payment_flow: #{e}"
 end
 ```
 

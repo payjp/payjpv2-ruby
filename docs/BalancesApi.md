@@ -6,7 +6,7 @@ All URIs are relative to *http://localhost*
 | ------ | ------------ | ----------- |
 | [**create_balance_url**](BalancesApi.md#create_balance_url) | **POST** /v2/balances/{balance_id}/balance_urls | Create Balance Url |
 | [**get_all_balances**](BalancesApi.md#get_all_balances) | **GET** /v2/balances | Get All Balances |
-| [**retrieve_balance**](BalancesApi.md#retrieve_balance) | **GET** /v2/balances/{balance_id} | Retrieve Balance |
+| [**get_balance**](BalancesApi.md#get_balance) | **GET** /v2/balances/{balance_id} | Get Balance |
 
 
 ## create_balance_url
@@ -42,21 +42,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_balance_url_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<BalanceURLResponse>, Integer, Hash)> create_balance_url_with_http_info(balance_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Balance Url
-  data, status_code, headers = api_instance.create_balance_url_with_http_info(balance_id)
+  data, status_code, headers = api_instance.create_balance_url(balance_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BalanceURLResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling BalancesApi->create_balance_url_with_http_info: #{e}"
+  puts "Error when calling BalancesApi->create_balance_url: #{e}"
 end
 ```
 
@@ -108,8 +106,8 @@ opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
   ending_before: 'ending_before_example', # String | このIDより前のデータを取得
-  state: PAYJPv2::BalanceState::, # BalanceState | stateが指定した値であるオブジェクトに限定
-  closed: true, # Boolean | closedが指定した値であるオブジェクトに限定
+  state: PAYJPv2::BalanceState::COLLECTING, # BalanceState | state が指定した値であるオブジェクトに限定
+  closed: true, # Boolean | closed が指定した値であるオブジェクトに限定
   since_due_date: Time.parse('2013-10-20T19:20:30+01:00'), # Time | 入金予定日/振込期限日が指定した日時以降のデータのみ取得
   until_due_date: Time.parse('2013-10-20T19:20:30+01:00') # Time | 入金予定日/振込期限日が指定した日時以前のデータのみ取得
 }
@@ -123,21 +121,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_balances_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<BalanceListResponse>, Integer, Hash)> get_all_balances_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Balances
-  data, status_code, headers = api_instance.get_all_balances_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_balances(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BalanceListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling BalancesApi->get_all_balances_with_http_info: #{e}"
+  puts "Error when calling BalancesApi->get_all_balances: #{e}"
 end
 ```
 
@@ -150,8 +146,8 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
-| **state** | [**BalanceState**](.md) | stateが指定した値であるオブジェクトに限定 | [optional] |
-| **closed** | **Boolean** | closedが指定した値であるオブジェクトに限定 | [optional] |
+| **state** | [**BalanceState**](.md) | state が指定した値であるオブジェクトに限定 | [optional] |
+| **closed** | **Boolean** | closed が指定した値であるオブジェクトに限定 | [optional] |
 | **since_due_date** | **Time** | 入金予定日/振込期限日が指定した日時以降のデータのみ取得 | [optional] |
 | **until_due_date** | **Time** | 入金予定日/振込期限日が指定した日時以前のデータのみ取得 | [optional] |
 
@@ -169,11 +165,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## retrieve_balance
+## get_balance
 
-> <BalanceResponse> retrieve_balance(balance_id)
+> <BalanceResponse> get_balance(balance_id)
 
-Retrieve Balance
+Get Balance
 
 ### Examples
 
@@ -194,29 +190,27 @@ api_instance = PAYJPv2::BalancesApi.new
 balance_id = 'balance_id_example' # String | 
 
 begin
-  # Retrieve Balance
-  result = api_instance.retrieve_balance(balance_id)
+  # Get Balance
+  result = api_instance.get_balance(balance_id)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling BalancesApi->retrieve_balance: #{e}"
+  puts "Error when calling BalancesApi->get_balance: #{e}"
 end
 ```
 
-#### Using the retrieve_balance_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<BalanceResponse>, Integer, Hash)> retrieve_balance_with_http_info(balance_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Retrieve Balance
-  data, status_code, headers = api_instance.retrieve_balance_with_http_info(balance_id)
+  # Get Balance
+  data, status_code, headers = api_instance.get_balance(balance_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <BalanceResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling BalancesApi->retrieve_balance_with_http_info: #{e}"
+  puts "Error when calling BalancesApi->get_balance: #{e}"
 end
 ```
 

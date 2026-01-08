@@ -34,9 +34,9 @@ opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
   ending_before: 'ending_before_example', # String | このIDより前のデータを取得
-  resource_id: 'resource_id_example', # String | 取得するeventに紐づくAPIリソースのID (e.g. customer.id)
-  object: 'object_example', # String | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_flow)
-  type: 'type_example' # String | 取得するeventのtype
+  resource_id: 'resource_id_example', # String | 取得する event に紐づく API リソースの ID
+  object: 'object_example', # String | 取得する event に紐づく API リソースの object。値はリソース名 (e.g. customer, payment_flow)
+  type: 'type_example' # String | 取得する event の type
 }
 
 begin
@@ -48,21 +48,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_events_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<EventListResponse>, Integer, Hash)> get_all_events_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Events
-  data, status_code, headers = api_instance.get_all_events_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_events(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <EventListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling EventsApi->get_all_events_with_http_info: #{e}"
+  puts "Error when calling EventsApi->get_all_events: #{e}"
 end
 ```
 
@@ -73,9 +71,9 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
-| **resource_id** | **String** | 取得するeventに紐づくAPIリソースのID (e.g. customer.id) | [optional] |
-| **object** | **String** | 取得するeventに紐づくAPIリソースのobject。値はリソース名(e.g. customer, payment_flow) | [optional] |
-| **type** | **String** | 取得するeventのtype | [optional] |
+| **resource_id** | **String** | 取得する event に紐づく API リソースの ID | [optional] |
+| **object** | **String** | 取得する event に紐づく API リソースの object。値はリソース名 (e.g. customer, payment_flow) | [optional] |
+| **type** | **String** | 取得する event の type | [optional] |
 
 ### Return type
 
@@ -124,21 +122,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_event_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<EventResponse>, Integer, Hash)> get_event_with_http_info(event_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Event
-  data, status_code, headers = api_instance.get_event_with_http_info(event_id)
+  data, status_code, headers = api_instance.get_event(event_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <EventResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling EventsApi->get_event_with_http_info: #{e}"
+  puts "Error when calling EventsApi->get_event: #{e}"
 end
 ```
 

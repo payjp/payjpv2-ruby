@@ -4,10 +4,9 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **adjustable_quantity** | [**LineItemAdjustableQuantityRequest**](LineItemAdjustableQuantityRequest.md) | Checkout 画面で顧客がこの商品の購入数量を変更できるようにする。 | [optional] |
-| **price** | **String** | 料金ID | [optional] |
+| **price_id** | **String** | 料金 ID |  |
 | **quantity** | **Integer** | 購入する商品の数量 |  |
-| **tax_rates** | **Array&lt;String&gt;** | 税率ID | [optional] |
+| **tax_rates** | **Array&lt;String&gt;** | 税率 ID | [optional] |
 
 ## Example
 
@@ -15,8 +14,7 @@
 require 'payjpv2'
 
 instance = PAYJPv2::LineItemRequest.new(
-  adjustable_quantity: null,
-  price: null,
+  price_id: null,
   quantity: null,
   tax_rates: null
 )

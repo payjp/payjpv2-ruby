@@ -8,7 +8,7 @@
 | **brand** | **String** | カードのブランド |  |
 | **exp_month** | **Integer** | カードの有効期限（月） |  |
 | **exp_year** | **Integer** | カードの有効期限（年） |  |
-| **fingerprint** | **String** | fingerprint |  |
+| **fingerprint** | **String** | このクレジットカード番号に紐づく値。同一番号のカードからは同一の値が生成されることが保証されています。 |  |
 | **country** | **String** |  |  |
 
 ## Example

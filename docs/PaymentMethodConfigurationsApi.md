@@ -46,21 +46,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_payment_method_configurations_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentMethodConfigurationListResponse>, Integer, Hash)> get_all_payment_method_configurations_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Payment Method Configurations
-  data, status_code, headers = api_instance.get_all_payment_method_configurations_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_payment_method_configurations(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentMethodConfigurationListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentMethodConfigurationsApi->get_all_payment_method_configurations_with_http_info: #{e}"
+  puts "Error when calling PaymentMethodConfigurationsApi->get_all_payment_method_configurations: #{e}"
 end
 ```
 
@@ -119,21 +117,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_payment_method_configuration_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentMethodConfigurationDetailsResponse>, Integer, Hash)> get_payment_method_configuration_with_http_info(payment_method_configuration_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Payment Method Configuration
-  data, status_code, headers = api_instance.get_payment_method_configuration_with_http_info(payment_method_configuration_id)
+  data, status_code, headers = api_instance.get_payment_method_configuration(payment_method_configuration_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentMethodConfigurationDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentMethodConfigurationsApi->get_payment_method_configuration_with_http_info: #{e}"
+  puts "Error when calling PaymentMethodConfigurationsApi->get_payment_method_configuration: #{e}"
 end
 ```
 
@@ -191,21 +187,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_payment_method_configuration_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentMethodConfigurationDetailsResponse>, Integer, Hash)> update_payment_method_configuration_with_http_info(payment_method_configuration_id, payment_method_configuration_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Payment Method Configuration
-  data, status_code, headers = api_instance.update_payment_method_configuration_with_http_info(payment_method_configuration_id, payment_method_configuration_update_request)
+  data, status_code, headers = api_instance.update_payment_method_configuration(payment_method_configuration_id, payment_method_configuration_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentMethodConfigurationDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentMethodConfigurationsApi->update_payment_method_configuration_with_http_info: #{e}"
+  puts "Error when calling PaymentMethodConfigurationsApi->update_payment_method_configuration: #{e}"
 end
 ```
 

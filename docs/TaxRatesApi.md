@@ -32,7 +32,7 @@ PAYJPv2.configure do |config|
 end
 
 api_instance = PAYJPv2::TaxRatesApi.new
-tax_rate_create_request = PAYJPv2::TaxRateCreateRequest.new # TaxRateCreateRequest | 
+tax_rate_create_request = PAYJPv2::TaxRateCreateRequest.new({display_name: 'display_name_example', inclusive: false, percentage: 3.56}) # TaxRateCreateRequest | 
 
 begin
   # Create Tax Rate
@@ -43,21 +43,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_tax_rate_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TaxRateDetailsResponse>, Integer, Hash)> create_tax_rate_with_http_info(tax_rate_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Tax Rate
-  data, status_code, headers = api_instance.create_tax_rate_with_http_info(tax_rate_create_request)
+  data, status_code, headers = api_instance.create_tax_rate(tax_rate_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaxRateDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TaxRatesApi->create_tax_rate_with_http_info: #{e}"
+  puts "Error when calling TaxRatesApi->create_tax_rate: #{e}"
 end
 ```
 
@@ -118,21 +116,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_tax_rates_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TaxRateListResponse>, Integer, Hash)> get_all_tax_rates_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Tax Rates
-  data, status_code, headers = api_instance.get_all_tax_rates_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_tax_rates(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaxRateListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TaxRatesApi->get_all_tax_rates_with_http_info: #{e}"
+  puts "Error when calling TaxRatesApi->get_all_tax_rates: #{e}"
 end
 ```
 
@@ -191,21 +187,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_tax_rate_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TaxRateDetailsResponse>, Integer, Hash)> get_tax_rate_with_http_info(tax_rate_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Tax Rate
-  data, status_code, headers = api_instance.get_tax_rate_with_http_info(tax_rate_id)
+  data, status_code, headers = api_instance.get_tax_rate(tax_rate_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaxRateDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TaxRatesApi->get_tax_rate_with_http_info: #{e}"
+  puts "Error when calling TaxRatesApi->get_tax_rate: #{e}"
 end
 ```
 
@@ -263,21 +257,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_tax_rate_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TaxRateDetailsResponse>, Integer, Hash)> update_tax_rate_with_http_info(tax_rate_id, tax_rate_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Tax Rate
-  data, status_code, headers = api_instance.update_tax_rate_with_http_info(tax_rate_id, tax_rate_update_request)
+  data, status_code, headers = api_instance.update_tax_rate(tax_rate_id, tax_rate_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TaxRateDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TaxRatesApi->update_tax_rate_with_http_info: #{e}"
+  puts "Error when calling TaxRatesApi->update_tax_rate: #{e}"
 end
 ```
 

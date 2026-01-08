@@ -9,7 +9,7 @@
 | **bank_account_type** | **String** | 口座種別 |  |
 | **bank_account_number** | **String** | 口座番号 |  |
 | **bank_account_holder_name** | **String** | 口座名義 |  |
-| **bank_account_status** | **String** | 最新振込結果  | 指定できる値 | |:---| | **success**: 成功 | | **failed**: 失敗 | | **pending**: 初回振込み前 | |  |
+| **bank_account_status** | **String** | 最新振込結果  | 値 | |:---| | **success**: 成功 | | **failed**: 失敗 | | **pending**: 初回振込み前 | |  |
 
 ## Example
 

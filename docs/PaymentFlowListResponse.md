@@ -7,7 +7,7 @@
 | **object** | **String** |  | [optional][default to &#39;list&#39;] |
 | **url** | **String** | リスト取得URL |  |
 | **has_more** | **Boolean** | 次のページがあるかどうか |  |
-| **data** | [**Array&lt;PaymentFlowResponse&gt;**](PaymentFlowResponse.md) | 支払いインテントリスト |  |
+| **data** | [**Array&lt;PaymentFlowResponse&gt;**](PaymentFlowResponse.md) | 支払いフローリスト |  |
 
 ## Example
 

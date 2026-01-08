@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_all_term**](TermsApi.md#get_all_term) | **GET** /v2/terms | Get All Term |
-| [**retrieve_term**](TermsApi.md#retrieve_term) | **GET** /v2/terms/{term_id} | Retrieve Term |
+| [**get_all_terms**](TermsApi.md#get_all_terms) | **GET** /v2/terms | Get All Terms |
+| [**get_term**](TermsApi.md#get_term) | **GET** /v2/terms/{term_id} | Get Term |
 
 
-## get_all_term
+## get_all_terms
 
-> <TermListResponse> get_all_term(opts)
+> <TermListResponse> get_all_terms(opts)
 
-Get All Term
+Get All Terms
 
 ### Examples
 
@@ -32,35 +32,34 @@ end
 api_instance = PAYJPv2::TermsApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
-  offset: 56, # Integer | データ取得を行う開始位置
-  since_start_at: Time.parse('2013-10-20T19:20:30+01:00'), # Time | start_atが指定した日付以降のデータを取得
-  until_start_at: Time.parse('2013-10-20T19:20:30+01:00') # Time | start_atが指定した日付以前のデータを取得
+  starting_after: 'starting_after_example', # String | このIDより後のデータを取得
+  ending_before: 'ending_before_example', # String | このIDより前のデータを取得
+  since_start_at: Time.parse('2013-10-20T19:20:30+01:00'), # Time | start_at が指定した日付以降のデータを取得
+  until_start_at: Time.parse('2013-10-20T19:20:30+01:00') # Time | start_at が指定した日付以前のデータを取得
 }
 
 begin
-  # Get All Term
-  result = api_instance.get_all_term(opts)
+  # Get All Terms
+  result = api_instance.get_all_terms(opts)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TermsApi->get_all_term: #{e}"
+  puts "Error when calling TermsApi->get_all_terms: #{e}"
 end
 ```
 
-#### Using the get_all_term_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TermListResponse>, Integer, Hash)> get_all_term_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Get All Term
-  data, status_code, headers = api_instance.get_all_term_with_http_info(opts)
+  # Get All Terms
+  data, status_code, headers = api_instance.get_all_terms(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TermListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TermsApi->get_all_term_with_http_info: #{e}"
+  puts "Error when calling TermsApi->get_all_terms: #{e}"
 end
 ```
 
@@ -69,9 +68,10 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
-| **offset** | **Integer** | データ取得を行う開始位置 | [optional][default to 0] |
-| **since_start_at** | **Time** | start_atが指定した日付以降のデータを取得 | [optional] |
-| **until_start_at** | **Time** | start_atが指定した日付以前のデータを取得 | [optional] |
+| **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
+| **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+| **since_start_at** | **Time** | start_at が指定した日付以降のデータを取得 | [optional] |
+| **until_start_at** | **Time** | start_at が指定した日付以前のデータを取得 | [optional] |
 
 ### Return type
 
@@ -87,11 +87,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## retrieve_term
+## get_term
 
-> <TermResponse> retrieve_term(term_id)
+> <TermResponse> get_term(term_id)
 
-Retrieve Term
+Get Term
 
 ### Examples
 
@@ -112,29 +112,27 @@ api_instance = PAYJPv2::TermsApi.new
 term_id = 'term_id_example' # String | 
 
 begin
-  # Retrieve Term
-  result = api_instance.retrieve_term(term_id)
+  # Get Term
+  result = api_instance.get_term(term_id)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TermsApi->retrieve_term: #{e}"
+  puts "Error when calling TermsApi->get_term: #{e}"
 end
 ```
 
-#### Using the retrieve_term_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<TermResponse>, Integer, Hash)> retrieve_term_with_http_info(term_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Retrieve Term
-  data, status_code, headers = api_instance.retrieve_term_with_http_info(term_id)
+  # Get Term
+  data, status_code, headers = api_instance.get_term(term_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <TermResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling TermsApi->retrieve_term_with_http_info: #{e}"
+  puts "Error when calling TermsApi->get_term: #{e}"
 end
 ```
 

@@ -32,7 +32,7 @@ PAYJPv2.configure do |config|
 end
 
 api_instance = PAYJPv2::PricesApi.new
-price_create_request = PAYJPv2::PriceCreateRequest.new({currency: PAYJPv2::Currency::JPY, product: 'product_example', unit_amount: 37}) # PriceCreateRequest | 
+price_create_request = PAYJPv2::PriceCreateRequest.new({product_id: 'product_id_example', unit_amount: 37, currency: PAYJPv2::Currency::JPY}) # PriceCreateRequest | 
 
 begin
   # Create Price
@@ -43,21 +43,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_price_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PriceDetailsResponse>, Integer, Hash)> create_price_with_http_info(price_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Price
-  data, status_code, headers = api_instance.create_price_with_http_info(price_create_request)
+  data, status_code, headers = api_instance.create_price(price_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PriceDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PricesApi->create_price_with_http_info: #{e}"
+  puts "Error when calling PricesApi->create_price: #{e}"
 end
 ```
 
@@ -106,7 +104,8 @@ api_instance = PAYJPv2::PricesApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
-  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+  ending_before: 'ending_before_example', # String | このIDより前のデータを取得
+  lookup_keys: ['inner_example'] # Array<String> | 価格を動的に取得するために使用される検索キー
 }
 
 begin
@@ -118,21 +117,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_prices_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PriceListResponse>, Integer, Hash)> get_all_prices_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Prices
-  data, status_code, headers = api_instance.get_all_prices_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_prices(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PriceListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PricesApi->get_all_prices_with_http_info: #{e}"
+  puts "Error when calling PricesApi->get_all_prices: #{e}"
 end
 ```
 
@@ -143,6 +140,7 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+| **lookup_keys** | [**Array&lt;String&gt;**](String.md) | 価格を動的に取得するために使用される検索キー | [optional] |
 
 ### Return type
 
@@ -191,21 +189,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_price_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PriceDetailsResponse>, Integer, Hash)> get_price_with_http_info(price_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Price
-  data, status_code, headers = api_instance.get_price_with_http_info(price_id)
+  data, status_code, headers = api_instance.get_price(price_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PriceDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PricesApi->get_price_with_http_info: #{e}"
+  puts "Error when calling PricesApi->get_price: #{e}"
 end
 ```
 
@@ -263,21 +259,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_price_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PriceDetailsResponse>, Integer, Hash)> update_price_with_http_info(price_id, price_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Price
-  data, status_code, headers = api_instance.update_price_with_http_info(price_id, price_update_request)
+  data, status_code, headers = api_instance.update_price(price_id, price_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PriceDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PricesApi->update_price_with_http_info: #{e}"
+  puts "Error when calling PricesApi->update_price: #{e}"
 end
 ```
 

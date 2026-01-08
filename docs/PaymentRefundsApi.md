@@ -6,7 +6,7 @@ All URIs are relative to *http://localhost*
 | ------ | ------------ | ----------- |
 | [**create_payment_refund**](PaymentRefundsApi.md#create_payment_refund) | **POST** /v2/payment_refunds | Create Payment Refund |
 | [**get_all_payment_refunds**](PaymentRefundsApi.md#get_all_payment_refunds) | **GET** /v2/payment_refunds | Get All Payment Refunds |
-| [**retrieve_payment_refund**](PaymentRefundsApi.md#retrieve_payment_refund) | **GET** /v2/payment_refunds/{payment_refund_id} | Retrieve Payment Refund |
+| [**get_payment_refund**](PaymentRefundsApi.md#get_payment_refund) | **GET** /v2/payment_refunds/{payment_refund_id} | Get Payment Refund |
 | [**update_payment_refund**](PaymentRefundsApi.md#update_payment_refund) | **POST** /v2/payment_refunds/{payment_refund_id} | Update Payment Refund |
 
 
@@ -32,7 +32,7 @@ PAYJPv2.configure do |config|
 end
 
 api_instance = PAYJPv2::PaymentRefundsApi.new
-payment_refund_create_request = PAYJPv2::PaymentRefundCreateRequest.new({payment_flow: 'payment_flow_example'}) # PaymentRefundCreateRequest | 
+payment_refund_create_request = PAYJPv2::PaymentRefundCreateRequest.new({payment_flow_id: 'payment_flow_id_example'}) # PaymentRefundCreateRequest | 
 
 begin
   # Create Payment Refund
@@ -43,21 +43,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_payment_refund_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentRefundResponse>, Integer, Hash)> create_payment_refund_with_http_info(payment_refund_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Payment Refund
-  data, status_code, headers = api_instance.create_payment_refund_with_http_info(payment_refund_create_request)
+  data, status_code, headers = api_instance.create_payment_refund(payment_refund_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentRefundResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentRefundsApi->create_payment_refund_with_http_info: #{e}"
+  puts "Error when calling PaymentRefundsApi->create_payment_refund: #{e}"
 end
 ```
 
@@ -118,21 +116,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_payment_refunds_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentRefundListResponse>, Integer, Hash)> get_all_payment_refunds_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Payment Refunds
-  data, status_code, headers = api_instance.get_all_payment_refunds_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_payment_refunds(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentRefundListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentRefundsApi->get_all_payment_refunds_with_http_info: #{e}"
+  puts "Error when calling PaymentRefundsApi->get_all_payment_refunds: #{e}"
 end
 ```
 
@@ -158,11 +154,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## retrieve_payment_refund
+## get_payment_refund
 
-> <PaymentRefundResponse> retrieve_payment_refund(payment_refund_id)
+> <PaymentRefundResponse> get_payment_refund(payment_refund_id)
 
-Retrieve Payment Refund
+Get Payment Refund
 
 ### Examples
 
@@ -183,29 +179,27 @@ api_instance = PAYJPv2::PaymentRefundsApi.new
 payment_refund_id = 'payment_refund_id_example' # String | 
 
 begin
-  # Retrieve Payment Refund
-  result = api_instance.retrieve_payment_refund(payment_refund_id)
+  # Get Payment Refund
+  result = api_instance.get_payment_refund(payment_refund_id)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentRefundsApi->retrieve_payment_refund: #{e}"
+  puts "Error when calling PaymentRefundsApi->get_payment_refund: #{e}"
 end
 ```
 
-#### Using the retrieve_payment_refund_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentRefundResponse>, Integer, Hash)> retrieve_payment_refund_with_http_info(payment_refund_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Retrieve Payment Refund
-  data, status_code, headers = api_instance.retrieve_payment_refund_with_http_info(payment_refund_id)
+  # Get Payment Refund
+  data, status_code, headers = api_instance.get_payment_refund(payment_refund_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentRefundResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentRefundsApi->retrieve_payment_refund_with_http_info: #{e}"
+  puts "Error when calling PaymentRefundsApi->get_payment_refund: #{e}"
 end
 ```
 
@@ -263,21 +257,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_payment_refund_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentRefundResponse>, Integer, Hash)> update_payment_refund_with_http_info(payment_refund_id, payment_refund_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Payment Refund
-  data, status_code, headers = api_instance.update_payment_refund_with_http_info(payment_refund_id, payment_refund_update_request)
+  data, status_code, headers = api_instance.update_payment_refund(payment_refund_id, payment_refund_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentRefundResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentRefundsApi->update_payment_refund_with_http_info: #{e}"
+  puts "Error when calling PaymentRefundsApi->update_payment_refund: #{e}"
 end
 ```
 

@@ -44,21 +44,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_product_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<ProductDetailsResponse>, Integer, Hash)> create_product_with_http_info(product_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Product
-  data, status_code, headers = api_instance.create_product_with_http_info(product_create_request)
+  data, status_code, headers = api_instance.create_product(product_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ProductDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling ProductsApi->create_product_with_http_info: #{e}"
+  puts "Error when calling ProductsApi->create_product: #{e}"
 end
 ```
 
@@ -115,21 +113,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the delete_product_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<ProductDeletedResponse>, Integer, Hash)> delete_product_with_http_info(product_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Delete Product
-  data, status_code, headers = api_instance.delete_product_with_http_info(product_id)
+  data, status_code, headers = api_instance.delete_product(product_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ProductDeletedResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling ProductsApi->delete_product_with_http_info: #{e}"
+  puts "Error when calling ProductsApi->delete_product: #{e}"
 end
 ```
 
@@ -190,21 +186,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_products_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<ProductListResponse>, Integer, Hash)> get_all_products_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Products
-  data, status_code, headers = api_instance.get_all_products_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_products(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ProductListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling ProductsApi->get_all_products_with_http_info: #{e}"
+  puts "Error when calling ProductsApi->get_all_products: #{e}"
 end
 ```
 
@@ -263,21 +257,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_product_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<ProductDetailsResponse>, Integer, Hash)> get_product_with_http_info(product_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Product
-  data, status_code, headers = api_instance.get_product_with_http_info(product_id)
+  data, status_code, headers = api_instance.get_product(product_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ProductDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling ProductsApi->get_product_with_http_info: #{e}"
+  puts "Error when calling ProductsApi->get_product: #{e}"
 end
 ```
 
@@ -335,21 +327,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_product_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<ProductDetailsResponse>, Integer, Hash)> update_product_with_http_info(product_id, product_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Product
-  data, status_code, headers = api_instance.update_product_with_http_info(product_id, product_update_request)
+  data, status_code, headers = api_instance.update_product(product_id, product_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <ProductDetailsResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling ProductsApi->update_product_with_http_info: #{e}"
+  puts "Error when calling ProductsApi->update_product: #{e}"
 end
 ```
 

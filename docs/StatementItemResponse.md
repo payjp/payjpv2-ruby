@@ -7,7 +7,7 @@
 | **subject** | [**StatementSubject**](StatementSubject.md) | 明細項目の種別 |  |
 | **name** | **String** |  |  |
 | **amount** | **Integer** | 明細項目の金額 |  |
-| **tax_rate** | **String** |  | [optional] |
+| **tax_rate** | **String** |  |  |
 
 ## Example
 

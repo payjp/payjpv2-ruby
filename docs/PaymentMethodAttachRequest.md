@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **customer** | **String** | 顧客ID |  |
+| **customer_id** | **String** | 顧客 ID |  |
 
 ## Example
 
@@ -12,7 +12,7 @@
 require 'payjpv2'
 
 instance = PAYJPv2::PaymentMethodAttachRequest.new(
-  customer: null
+  customer_id: null
 )
 ```
 

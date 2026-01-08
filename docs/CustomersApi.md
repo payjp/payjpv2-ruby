@@ -45,21 +45,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the create_customer_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CustomerResponse>, Integer, Hash)> create_customer_with_http_info(customer_create_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Create Customer
-  data, status_code, headers = api_instance.create_customer_with_http_info(customer_create_request)
+  data, status_code, headers = api_instance.create_customer(customer_create_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CustomerResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->create_customer_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->create_customer: #{e}"
 end
 ```
 
@@ -116,21 +114,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the delete_customer_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CustomerResponse>, Integer, Hash)> delete_customer_with_http_info(customer_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Delete Customer
-  data, status_code, headers = api_instance.delete_customer_with_http_info(customer_id)
+  data, status_code, headers = api_instance.delete_customer(customer_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CustomerResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->delete_customer_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->delete_customer: #{e}"
 end
 ```
 
@@ -191,21 +187,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_all_customers_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CustomerListResponse>, Integer, Hash)> get_all_customers_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get All Customers
-  data, status_code, headers = api_instance.get_all_customers_with_http_info(opts)
+  data, status_code, headers = api_instance.get_all_customers(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CustomerListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->get_all_customers_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->get_all_customers: #{e}"
 end
 ```
 
@@ -264,21 +258,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_customer_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CustomerResponse>, Integer, Hash)> get_customer_with_http_info(customer_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Customer
-  data, status_code, headers = api_instance.get_customer_with_http_info(customer_id)
+  data, status_code, headers = api_instance.get_customer(customer_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CustomerResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->get_customer_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->get_customer: #{e}"
 end
 ```
 
@@ -340,21 +332,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the get_customer_payment_methods_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentMethodListResponse>, Integer, Hash)> get_customer_payment_methods_with_http_info(customer_id, opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Get Customer Payment Methods
-  data, status_code, headers = api_instance.get_customer_payment_methods_with_http_info(customer_id, opts)
+  data, status_code, headers = api_instance.get_customer_payment_methods(customer_id, opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentMethodListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->get_customer_payment_methods_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->get_customer_payment_methods: #{e}"
 end
 ```
 
@@ -415,21 +405,19 @@ rescue PAYJPv2::ApiError => e
 end
 ```
 
-#### Using the update_customer_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<CustomerResponse>, Integer, Hash)> update_customer_with_http_info(customer_id, customer_update_request)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
   # Update Customer
-  data, status_code, headers = api_instance.update_customer_with_http_info(customer_id, customer_update_request)
+  data, status_code, headers = api_instance.update_customer(customer_id, customer_update_request, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <CustomerResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling CustomersApi->update_customer_with_http_info: #{e}"
+  puts "Error when calling CustomersApi->update_customer: #{e}"
 end
 ```
 

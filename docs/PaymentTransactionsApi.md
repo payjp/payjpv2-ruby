@@ -4,15 +4,15 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_all_payment_transaction**](PaymentTransactionsApi.md#get_all_payment_transaction) | **GET** /v2/payment_transactions | Get All Payment Transaction |
-| [**retrieve_payment_transaction**](PaymentTransactionsApi.md#retrieve_payment_transaction) | **GET** /v2/payment_transactions/{payment_transaction_id} | Retrieve Payment Transaction |
+| [**get_all_payment_transactions**](PaymentTransactionsApi.md#get_all_payment_transactions) | **GET** /v2/payment_transactions | Get All Payment Transactions |
+| [**get_payment_transaction**](PaymentTransactionsApi.md#get_payment_transaction) | **GET** /v2/payment_transactions/{payment_transaction_id} | Get Payment Transaction |
 
 
-## get_all_payment_transaction
+## get_all_payment_transactions
 
-> <PaymentTransactionListResponse> get_all_payment_transaction(opts)
+> <PaymentTransactionListResponse> get_all_payment_transactions(opts)
 
-Get All Payment Transaction
+Get All Payment Transactions
 
 ### Examples
 
@@ -34,35 +34,33 @@ opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
   ending_before: 'ending_before_example', # String | このIDより前のデータを取得
-  term_id: 'term_id_example', # String | term ID
+  term_id: 'term_id_example', # String | 集計区間 ID
   type: 'type_example', # String | 取引タイプ
   payment_method_type: 'payment_method_type_example' # String | 支払い方法タイプ
 }
 
 begin
-  # Get All Payment Transaction
-  result = api_instance.get_all_payment_transaction(opts)
+  # Get All Payment Transactions
+  result = api_instance.get_all_payment_transactions(opts)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentTransactionsApi->get_all_payment_transaction: #{e}"
+  puts "Error when calling PaymentTransactionsApi->get_all_payment_transactions: #{e}"
 end
 ```
 
-#### Using the get_all_payment_transaction_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentTransactionListResponse>, Integer, Hash)> get_all_payment_transaction_with_http_info(opts)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Get All Payment Transaction
-  data, status_code, headers = api_instance.get_all_payment_transaction_with_http_info(opts)
+  # Get All Payment Transactions
+  data, status_code, headers = api_instance.get_all_payment_transactions(opts.merge(include_http_info: true))
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentTransactionListResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentTransactionsApi->get_all_payment_transaction_with_http_info: #{e}"
+  puts "Error when calling PaymentTransactionsApi->get_all_payment_transactions: #{e}"
 end
 ```
 
@@ -73,7 +71,7 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
-| **term_id** | **String** | term ID | [optional] |
+| **term_id** | **String** | 集計区間 ID | [optional] |
 | **type** | **String** | 取引タイプ | [optional] |
 | **payment_method_type** | **String** | 支払い方法タイプ | [optional] |
 
@@ -91,11 +89,11 @@ end
 - **Accept**: application/json, application/problem+json
 
 
-## retrieve_payment_transaction
+## get_payment_transaction
 
-> <PaymentTransactionResponse> retrieve_payment_transaction(payment_transaction_id)
+> <PaymentTransactionResponse> get_payment_transaction(payment_transaction_id)
 
-Retrieve Payment Transaction
+Get Payment Transaction
 
 ### Examples
 
@@ -116,29 +114,27 @@ api_instance = PAYJPv2::PaymentTransactionsApi.new
 payment_transaction_id = 'payment_transaction_id_example' # String | 
 
 begin
-  # Retrieve Payment Transaction
-  result = api_instance.retrieve_payment_transaction(payment_transaction_id)
+  # Get Payment Transaction
+  result = api_instance.get_payment_transaction(payment_transaction_id)
   p result
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentTransactionsApi->retrieve_payment_transaction: #{e}"
+  puts "Error when calling PaymentTransactionsApi->get_payment_transaction: #{e}"
 end
 ```
 
-#### Using the retrieve_payment_transaction_with_http_info variant
+#### Using the include_http_info option
 
-This returns an Array which contains the response data, status code and headers.
-
-> <Array(<PaymentTransactionResponse>, Integer, Hash)> retrieve_payment_transaction_with_http_info(payment_transaction_id)
+To get response data along with status code and headers, use the `include_http_info: true` option.
 
 ```ruby
 begin
-  # Retrieve Payment Transaction
-  data, status_code, headers = api_instance.retrieve_payment_transaction_with_http_info(payment_transaction_id)
+  # Get Payment Transaction
+  data, status_code, headers = api_instance.get_payment_transaction(payment_transaction_id, { include_http_info: true })
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <PaymentTransactionResponse>
 rescue PAYJPv2::ApiError => e
-  puts "Error when calling PaymentTransactionsApi->retrieve_payment_transaction_with_http_info: #{e}"
+  puts "Error when calling PaymentTransactionsApi->get_payment_transaction: #{e}"
 end
 ```
 

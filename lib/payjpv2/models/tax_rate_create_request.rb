@@ -182,6 +182,14 @@ module PAYJPv2
         raise ArgumentError, 'percentage cannot be nil'
       end
 
+      if percentage > 100.0
+        raise ArgumentError, 'invalid value for "percentage", must be smaller than or equal to 100.0.'
+      end
+
+      if percentage < 0.0
+        raise ArgumentError, 'invalid value for "percentage", must be greater than or equal to 0.0.'
+      end
+
       @percentage = percentage
     end
 

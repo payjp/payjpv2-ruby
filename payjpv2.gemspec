@@ -26,7 +26,13 @@ Gem::Specification.new do |s|
   s.description = "A Ruby client library for the PAY.JP v2 API"
   s.license     = "MIT"
   s.required_ruby_version = ">= 3.2"
-  s.metadata    = {}
+  s.metadata    = {
+    "homepage_uri"          => "https://github.com/payjp/payjpv2-ruby",
+    "source_code_uri"       => "https://github.com/payjp/payjpv2-ruby",
+    "changelog_uri"         => "https://github.com/payjp/payjpv2-ruby/releases",
+    "bug_tracker_uri"       => "https://github.com/payjp/payjpv2-ruby/issues",
+    "rubygems_mfa_required" => "true"
+  }
 
   s.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'
 

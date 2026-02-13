@@ -10,7 +10,7 @@
 | **amount_tax** | **Integer** | 税額 |  |
 | **amount_total** | **Integer** | 割引と税金が適用された後のすべての商品の合計金額 |  |
 | **currency** | [**Currency**](Currency.md) | 価格の通貨。現在は &#x60;jpy&#x60; のみサポートしています。 |  |
-| **description** | **String** | 説明 |  |
+| **description** | **String** |  |  |
 | **price** | [**PriceDetailsResponse**](PriceDetailsResponse.md) | 料金情報 |  |
 | **quantity** | **Integer** | 数量 |  |
 

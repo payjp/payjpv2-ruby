@@ -42,7 +42,7 @@ describe PAYJPv2::SetupFlowCreateRequest do
   describe 'test attribute "payment_method_types"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Array<String>', ["card", "apple_pay"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Array<String>', ["card"])
       # validator.allowable_values.each do |value|
       #   expect { instance.payment_method_types = value }.not_to raise_error
       # end

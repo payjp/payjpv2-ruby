@@ -14,24 +14,17 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class PaymentFlowConfirmRequest
-    # 支払い方法 ID。customer_id の指定が必須です。Customer が所持する PaymentMethod のみ指定できます。payment_method_id を指定せず、Customer に default_payment_method_id が設定されている場合はそちらが自動でセットされます。
-    attr_accessor :payment_method_id
+  class PaymentDisputeListResponse
+    attr_accessor :object
 
-    # この PaymentFlow 固有の支払い方法の設定
-    attr_accessor :payment_method_options
+    # リスト取得URL
+    attr_accessor :url
 
-    # この PaymentFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
-    attr_accessor :payment_method_types
+    # 次のページがあるかどうか
+    attr_accessor :has_more
 
-    # 支払いの確定方法を指定します。  | 値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Payment Flow の Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
-    attr_accessor :capture_method
-
-    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。
-    attr_accessor :return_url
-
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
-    attr_accessor :description
+    # PaymentDispute リスト
+    attr_accessor :data
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -58,12 +51,10 @@ module PAYJPv2
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :payment_method_id => :payment_method_id,
-        :payment_method_options => :payment_method_options,
-        :payment_method_types => :payment_method_types,
-        :capture_method => :capture_method,
-        :return_url => :return_url,
-        :description => :description
+        :object => :object,
+        :url => :url,
+        :has_more => :has_more,
+        :data => :data
       }
     end
 
@@ -80,12 +71,10 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :payment_method_id => :'String',
-        :payment_method_options => :'PaymentFlowPaymentMethodOptionsRequest',
-        :payment_method_types => :'Array<PaymentMethodTypes>',
-        :capture_method => :'CaptureMethod',
-        :return_url => :'String',
-        :description => :'String'
+        :object => :'String',
+        :url => :'String',
+        :has_more => :'Boolean',
+        :data => :'Array<PaymentDisputeResponse>'
       }
     end
 
@@ -99,43 +88,83 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentFlowConfirmRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentDisputeListResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentFlowConfirmRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentDisputeListResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:payment_method_id)
-        self.payment_method_id = attributes[:payment_method_id]
+      if attributes.key?(:object)
+        self.object = attributes[:object]
+      else
+        self.object = 'list'
       end
 
-      if attributes.key?(:payment_method_options)
-        self.payment_method_options = attributes[:payment_method_options]
+      if attributes.key?(:url)
+        self.url = attributes[:url]
+      else
+        self.url = nil
       end
 
-      if attributes.key?(:payment_method_types)
-        if (value = attributes[:payment_method_types]).is_a?(Array)
-          self.payment_method_types = value
+      if attributes.key?(:has_more)
+        self.has_more = attributes[:has_more]
+      else
+        self.has_more = nil
+      end
+
+      if attributes.key?(:data)
+        if (value = attributes[:data]).is_a?(Array)
+          self.data = value
         end
+      else
+        self.data = nil
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["list"])
+      unless validator.valid?(object)
+        raise ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] url Value to be assigned
+    def url=(url)
+      if url.nil?
+        raise ArgumentError, 'url cannot be nil'
       end
 
-      if attributes.key?(:capture_method)
-        self.capture_method = attributes[:capture_method]
+      @url = url
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] has_more Value to be assigned
+    def has_more=(has_more)
+      if has_more.nil?
+        raise ArgumentError, 'has_more cannot be nil'
       end
 
-      if attributes.key?(:return_url)
-        self.return_url = attributes[:return_url]
+      @has_more = has_more
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] data Value to be assigned
+    def data=(data)
+      if data.nil?
+        raise ArgumentError, 'data cannot be nil'
       end
 
-      if attributes.key?(:description)
-        self.description = attributes[:description]
-      end
+      @data = data
     end
 
     # Checks equality by comparing each attribute.
@@ -143,12 +172,10 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          payment_method_id == o.payment_method_id &&
-          payment_method_options == o.payment_method_options &&
-          payment_method_types == o.payment_method_types &&
-          capture_method == o.capture_method &&
-          return_url == o.return_url &&
-          description == o.description
+          object == o.object &&
+          url == o.url &&
+          has_more == o.has_more &&
+          data == o.data
     end
 
     # @see the `==` method
@@ -160,7 +187,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [payment_method_id, payment_method_options, payment_method_types, capture_method, return_url, description].hash
+      [object, url, has_more, data].hash
     end
 
     # Builds the object from hash

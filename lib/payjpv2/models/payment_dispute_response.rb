@@ -14,39 +14,42 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class PaymentFlowCreateRequest
-    # 支払い予定の金額。50円以上9,999,999円以下である必要があります。
+  class PaymentDisputeResponse
+    attr_accessor :object
+
+    # PaymentDispute ID
+    attr_accessor :id
+
+    # 本番環境かどうか
+    attr_accessor :livemode
+
+    # 関連する PaymentFlow の ID
+    attr_accessor :payment_flow_id
+
+    # 金額
     attr_accessor :amount
 
-    # この PaymentFlow に関連付ける顧客の ID
-    attr_accessor :customer_id
-
-    # 支払い方法 ID。customer_id の指定が必須です。Customer が所持する PaymentMethod のみ指定できます。payment_method_id を指定せず、Customer に default_payment_method_id が設定されている場合はそちらが自動でセットされます。
-    attr_accessor :payment_method_id
-
-    # この PaymentFlow 固有の支払い方法の設定
-    attr_accessor :payment_method_options
-
-    # この PaymentFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
-    attr_accessor :payment_method_types
-
-    # 価格の通貨。現在は `jpy` のみサポートしています。
+    # 通貨コード (ISO 4217)
     attr_accessor :currency
 
-    # 支払いの確定方法を指定します。  | 値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Payment Flow の Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
-    attr_accessor :capture_method
+    # disputeのステータス  | 値 | |:---| | **pre_warning_needs_response**: 利用照会 | | **warning_needs_response**: 配送保留 | | **warning_needs_refund**: 配送停止 | | **warning_under_review**: 加盟店回答済 | | **needs_response**: チャージバック | | **under_review**: 反証済 | | **lost**: チャージバック受入 | | **cancel**: 取下げ |
+    attr_accessor :status
 
-    # 「true」に設定すると、この PaymentFlow を直ちに確定しようと試みます。
-    attr_accessor :confirm
+    attr_accessor :reason
 
-    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。confirm=true の場合のみ指定できます。
-    attr_accessor :return_url
+    attr_accessor :due_by
 
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
-    attr_accessor :description
+    # 支払い方法の種類
+    attr_accessor :payment_method_type
 
-    # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
+    # メタデータ
     attr_accessor :metadata
+
+    # 作成日時 (UTC, ISO 8601 形式)
+    attr_accessor :created_at
+
+    # 更新日時 (UTC, ISO 8601 形式)
+    attr_accessor :updated_at
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -73,17 +76,19 @@ module PAYJPv2
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :object => :object,
+        :id => :id,
+        :livemode => :livemode,
+        :payment_flow_id => :payment_flow_id,
         :amount => :amount,
-        :customer_id => :customer_id,
-        :payment_method_id => :payment_method_id,
-        :payment_method_options => :payment_method_options,
-        :payment_method_types => :payment_method_types,
         :currency => :currency,
-        :capture_method => :capture_method,
-        :confirm => :confirm,
-        :return_url => :return_url,
-        :description => :description,
-        :metadata => :metadata
+        :status => :status,
+        :reason => :reason,
+        :due_by => :due_by,
+        :payment_method_type => :payment_method_type,
+        :metadata => :metadata,
+        :created_at => :created_at,
+        :updated_at => :updated_at
       }
     end
 
@@ -100,23 +105,27 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
+        :object => :'String',
+        :id => :'String',
+        :livemode => :'Boolean',
+        :payment_flow_id => :'String',
         :amount => :'Integer',
-        :customer_id => :'String',
-        :payment_method_id => :'String',
-        :payment_method_options => :'PaymentFlowPaymentMethodOptionsRequest',
-        :payment_method_types => :'Array<PaymentMethodTypes>',
         :currency => :'Currency',
-        :capture_method => :'CaptureMethod',
-        :confirm => :'Boolean',
-        :return_url => :'String',
-        :description => :'String',
-        :metadata => :'Hash<String, MetadataValue>'
+        :status => :'PaymentDisputeStatus',
+        :reason => :'PaymentDisputeReason',
+        :due_by => :'Time',
+        :payment_method_type => :'PaymentMethodTypes',
+        :metadata => :'Hash<String, MetadataValue>',
+        :created_at => :'Time',
+        :updated_at => :'Time'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :reason,
+        :due_by,
       ])
     end
 
@@ -124,40 +133,46 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentFlowCreateRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentDisputeResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentFlowCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentDisputeResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:object)
+        self.object = attributes[:object]
+      else
+        self.object = 'payment_dispute'
+      end
+
+      if attributes.key?(:id)
+        self.id = attributes[:id]
+      else
+        self.id = nil
+      end
+
+      if attributes.key?(:livemode)
+        self.livemode = attributes[:livemode]
+      else
+        self.livemode = nil
+      end
+
+      if attributes.key?(:payment_flow_id)
+        self.payment_flow_id = attributes[:payment_flow_id]
+      else
+        self.payment_flow_id = nil
+      end
 
       if attributes.key?(:amount)
         self.amount = attributes[:amount]
       else
         self.amount = nil
-      end
-
-      if attributes.key?(:customer_id)
-        self.customer_id = attributes[:customer_id]
-      end
-
-      if attributes.key?(:payment_method_id)
-        self.payment_method_id = attributes[:payment_method_id]
-      end
-
-      if attributes.key?(:payment_method_options)
-        self.payment_method_options = attributes[:payment_method_options]
-      end
-
-      if attributes.key?(:payment_method_types)
-        if (value = attributes[:payment_method_types]).is_a?(Array)
-          self.payment_method_types = value
-        end
       end
 
       if attributes.key?(:currency)
@@ -166,29 +181,89 @@ module PAYJPv2
         self.currency = nil
       end
 
-      if attributes.key?(:capture_method)
-        self.capture_method = attributes[:capture_method]
-      end
-
-      if attributes.key?(:confirm)
-        self.confirm = attributes[:confirm]
+      if attributes.key?(:status)
+        self.status = attributes[:status]
       else
-        self.confirm = false
+        self.status = nil
       end
 
-      if attributes.key?(:return_url)
-        self.return_url = attributes[:return_url]
+      if attributes.key?(:reason)
+        self.reason = attributes[:reason]
+      else
+        self.reason = nil
       end
 
-      if attributes.key?(:description)
-        self.description = attributes[:description]
+      if attributes.key?(:due_by)
+        self.due_by = attributes[:due_by]
+      else
+        self.due_by = nil
+      end
+
+      if attributes.key?(:payment_method_type)
+        self.payment_method_type = attributes[:payment_method_type]
+      else
+        self.payment_method_type = nil
       end
 
       if attributes.key?(:metadata)
         if (value = attributes[:metadata]).is_a?(Hash)
           self.metadata = value
         end
+      else
+        self.metadata = nil
       end
+
+      if attributes.key?(:created_at)
+        self.created_at = attributes[:created_at]
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:updated_at)
+        self.updated_at = attributes[:updated_at]
+      else
+        self.updated_at = nil
+      end
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] object Object to be assigned
+    def object=(object)
+      validator = EnumAttributeValidator.new('String', ["payment_dispute"])
+      unless validator.valid?(object)
+        raise ArgumentError, "invalid value for \"object\", must be one of #{validator.allowable_values}."
+      end
+      @object = object
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] id Value to be assigned
+    def id=(id)
+      if id.nil?
+        raise ArgumentError, 'id cannot be nil'
+      end
+
+      @id = id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] livemode Value to be assigned
+    def livemode=(livemode)
+      if livemode.nil?
+        raise ArgumentError, 'livemode cannot be nil'
+      end
+
+      @livemode = livemode
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] payment_flow_id Value to be assigned
+    def payment_flow_id=(payment_flow_id)
+      if payment_flow_id.nil?
+        raise ArgumentError, 'payment_flow_id cannot be nil'
+      end
+
+      @payment_flow_id = payment_flow_id
     end
 
     # Custom attribute writer method with validation
@@ -196,14 +271,6 @@ module PAYJPv2
     def amount=(amount)
       if amount.nil?
         raise ArgumentError, 'amount cannot be nil'
-      end
-
-      if amount > 9999999
-        raise ArgumentError, 'invalid value for "amount", must be smaller than or equal to 9999999.'
-      end
-
-      if amount < 50
-        raise ArgumentError, 'invalid value for "amount", must be greater than or equal to 50.'
       end
 
       @amount = amount
@@ -219,22 +286,74 @@ module PAYJPv2
       @currency = currency
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] status Value to be assigned
+    def status=(status)
+      if status.nil?
+        raise ArgumentError, 'status cannot be nil'
+      end
+
+      @status = status
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] payment_method_type Value to be assigned
+    def payment_method_type=(payment_method_type)
+      if payment_method_type.nil?
+        raise ArgumentError, 'payment_method_type cannot be nil'
+      end
+
+      @payment_method_type = payment_method_type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] metadata Value to be assigned
+    def metadata=(metadata)
+      if metadata.nil?
+        raise ArgumentError, 'metadata cannot be nil'
+      end
+
+      @metadata = metadata
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] created_at Value to be assigned
+    def created_at=(created_at)
+      if created_at.nil?
+        raise ArgumentError, 'created_at cannot be nil'
+      end
+
+      @created_at = created_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        raise ArgumentError, 'updated_at cannot be nil'
+      end
+
+      @updated_at = updated_at
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          object == o.object &&
+          id == o.id &&
+          livemode == o.livemode &&
+          payment_flow_id == o.payment_flow_id &&
           amount == o.amount &&
-          customer_id == o.customer_id &&
-          payment_method_id == o.payment_method_id &&
-          payment_method_options == o.payment_method_options &&
-          payment_method_types == o.payment_method_types &&
           currency == o.currency &&
-          capture_method == o.capture_method &&
-          confirm == o.confirm &&
-          return_url == o.return_url &&
-          description == o.description &&
-          metadata == o.metadata
+          status == o.status &&
+          reason == o.reason &&
+          due_by == o.due_by &&
+          payment_method_type == o.payment_method_type &&
+          metadata == o.metadata &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -246,7 +365,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, customer_id, payment_method_id, payment_method_options, payment_method_types, currency, capture_method, confirm, return_url, description, metadata].hash
+      [object, id, livemode, payment_flow_id, amount, currency, status, reason, due_by, payment_method_type, metadata, created_at, updated_at].hash
     end
 
     # Builds the object from hash

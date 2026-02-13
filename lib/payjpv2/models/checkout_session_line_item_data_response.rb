@@ -32,7 +32,6 @@ module PAYJPv2
     # 価格の通貨。現在は `jpy` のみサポートしています。
     attr_accessor :currency
 
-    # 説明
     attr_accessor :description
 
     # 料金情報
@@ -106,6 +105,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :description,
       ])
     end
 
@@ -238,16 +238,6 @@ module PAYJPv2
       end
 
       @currency = currency
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] description Value to be assigned
-    def description=(description)
-      if description.nil?
-        raise ArgumentError, 'description cannot be nil'
-      end
-
-      @description = description
     end
 
     # Custom attribute writer method with validation

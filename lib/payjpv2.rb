@@ -17,6 +17,7 @@ require 'payjpv2/version'
 require 'payjpv2/configuration'
 
 # Models
+require 'payjpv2/models/apple_pay_config_request'
 require 'payjpv2/models/balance_list_response'
 require 'payjpv2/models/balance_response'
 require 'payjpv2/models/balance_state'

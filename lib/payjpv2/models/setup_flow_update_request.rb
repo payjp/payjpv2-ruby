@@ -24,7 +24,7 @@ module PAYJPv2
     # この SetupFlow で使用できる支払い方法の種類のリスト。 指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
     attr_accessor :payment_method_types
 
-    # 説明。顧客に表示されます。
+    # 説明。
     attr_accessor :description
 
     # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>

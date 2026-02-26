@@ -24,13 +24,12 @@ module PAYJPv2
     # この PaymentFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
     attr_accessor :payment_method_types
 
-    # 支払いの確定方法を指定します。  | 値 | |:---| | **automatic**: (デフォルト) 顧客が支払いを承認すると、自動的に確定させます。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Payment Flow の Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
     attr_accessor :capture_method
 
     # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。
     attr_accessor :return_url
 
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
+    # オブジェクトにセットする任意の文字列。
     attr_accessor :description
 
     class EnumAttributeValidator
@@ -92,6 +91,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :capture_method,
       ])
     end
 

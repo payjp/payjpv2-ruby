@@ -33,7 +33,7 @@ module PAYJPv2
     # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。
     attr_accessor :return_url
 
-    # オブジェクトにセットする任意の文字列。ユーザーには表示されません。
+    # オブジェクトにセットする任意の文字列。
     attr_accessor :description
 
     # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>

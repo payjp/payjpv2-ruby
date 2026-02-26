@@ -18,6 +18,8 @@ module PAYJPv2
     # 支払いの確定方法を指定します。  | 指定できる値 | |:---| | **automatic**: 顧客が支払いを承認すると自動的に確定します。 | | **manual**: 顧客が支払いを承認すると一旦確定を保留し、後で Payment Flow の Capture API を使用して確定します。（すべての支払い方法がこれをサポートしているわけではありません）。 |
     attr_accessor :capture_method
 
+    attr_accessor :description
+
     # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
@@ -47,6 +49,7 @@ module PAYJPv2
     def self.attribute_map
       {
         :capture_method => :capture_method,
+        :description => :description,
         :metadata => :metadata
       }
     end
@@ -65,6 +68,7 @@ module PAYJPv2
     def self.openapi_types
       {
         :capture_method => :'CaptureMethod',
+        :description => :'String',
         :metadata => :'Hash<String, MetadataValue>'
       }
     end
@@ -72,6 +76,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :description,
       ])
     end
 
@@ -95,6 +100,10 @@ module PAYJPv2
         self.capture_method = attributes[:capture_method]
       end
 
+      if attributes.key?(:description)
+        self.description = attributes[:description]
+      end
+
       if attributes.key?(:metadata)
         if (value = attributes[:metadata]).is_a?(Hash)
           self.metadata = value
@@ -108,6 +117,7 @@ module PAYJPv2
       return true if self.equal?(o)
       self.class == o.class &&
           capture_method == o.capture_method &&
+          description == o.description &&
           metadata == o.metadata
     end
 
@@ -120,7 +130,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [capture_method, metadata].hash
+      [capture_method, description, metadata].hash
     end
 
     # Builds the object from hash

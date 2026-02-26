@@ -15,12 +15,15 @@ require 'time'
 
 module PAYJPv2
   class SetupFlowDataRequest
+    attr_accessor :description
+
     # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :description => :description,
         :metadata => :metadata
       }
     end
@@ -38,6 +41,7 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
+        :description => :'String',
         :metadata => :'Hash<String, MetadataValue>'
       }
     end
@@ -45,6 +49,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :description,
       ])
     end
 
@@ -64,6 +69,10 @@ module PAYJPv2
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:description)
+        self.description = attributes[:description]
+      end
+
       if attributes.key?(:metadata)
         if (value = attributes[:metadata]).is_a?(Hash)
           self.metadata = value
@@ -76,6 +85,7 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          description == o.description &&
           metadata == o.metadata
     end
 
@@ -88,7 +98,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [metadata].hash
+      [description, metadata].hash
     end
 
     # Builds the object from hash

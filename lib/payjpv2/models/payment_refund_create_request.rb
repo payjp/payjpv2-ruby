@@ -139,8 +139,8 @@ module PAYJPv2
         raise ArgumentError, 'amount cannot be nil'
       end
 
-      if amount < 0
-        raise ArgumentError, 'invalid value for "amount", must be greater than or equal to 0.'
+      if amount < 1
+        raise ArgumentError, 'invalid value for "amount", must be greater than or equal to 1.'
       end
 
       @amount = amount

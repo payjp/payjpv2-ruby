@@ -14,25 +14,13 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class PaymentMethodConfigurationUpdateRequest
-    attr_accessor :active
-
-    attr_accessor :name
-
-    attr_accessor :card
-
-    attr_accessor :paypay
-
-    attr_accessor :apple_pay
+  class ApplePayConfigRequest
+    attr_accessor :display_preference
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :active => :active,
-        :name => :name,
-        :card => :card,
-        :paypay => :paypay,
-        :apple_pay => :apple_pay
+        :display_preference => :display_preference
       }
     end
 
@@ -49,22 +37,14 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :active => :'Boolean',
-        :name => :'String',
-        :card => :'CardConfigRequest',
-        :paypay => :'PayPayConfigRequest',
-        :apple_pay => :'ApplePayConfigRequest'
+        :display_preference => :'DisplayPreferenceRequest'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :active,
-        :name,
-        :card,
-        :paypay,
-        :apple_pay
+        :display_preference
       ])
     end
 
@@ -72,36 +52,20 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PaymentMethodConfigurationUpdateRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::ApplePayConfigRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PaymentMethodConfigurationUpdateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::ApplePayConfigRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:active)
-        self.active = attributes[:active]
-      end
-
-      if attributes.key?(:name)
-        self.name = attributes[:name]
-      end
-
-      if attributes.key?(:card)
-        self.card = attributes[:card]
-      end
-
-      if attributes.key?(:paypay)
-        self.paypay = attributes[:paypay]
-      end
-
-      if attributes.key?(:apple_pay)
-        self.apple_pay = attributes[:apple_pay]
+      if attributes.key?(:display_preference)
+        self.display_preference = attributes[:display_preference]
       end
     end
 
@@ -110,11 +74,7 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          active == o.active &&
-          name == o.name &&
-          card == o.card &&
-          paypay == o.paypay &&
-          apple_pay == o.apple_pay
+          display_preference == o.display_preference
     end
 
     # @see the `==` method
@@ -126,7 +86,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, name, card, paypay, apple_pay].hash
+      [display_preference].hash
     end
 
     # Builds the object from hash

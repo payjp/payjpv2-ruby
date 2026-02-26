@@ -34,6 +34,9 @@ module PAYJPv2
     # カードの設定
     attr_accessor :card
 
+    # Apple Pay の設定
+    attr_accessor :apple_pay
+
     class EnumAttributeValidator
       attr_reader :datatype
       attr_reader :allowable_values
@@ -65,7 +68,8 @@ module PAYJPv2
         :active => :active,
         :name => :name,
         :paypay => :paypay,
-        :card => :card
+        :card => :card,
+        :apple_pay => :apple_pay
       }
     end
 
@@ -88,7 +92,8 @@ module PAYJPv2
         :active => :'Boolean',
         :name => :'String',
         :paypay => :'PaymentMethodConfigurationSettingResponse',
-        :card => :'PaymentMethodConfigurationSettingResponse'
+        :card => :'PaymentMethodConfigurationSettingResponse',
+        :apple_pay => :'PaymentMethodConfigurationSettingResponse'
       }
     end
 
@@ -156,6 +161,12 @@ module PAYJPv2
       else
         self.card = nil
       end
+
+      if attributes.key?(:apple_pay)
+        self.apple_pay = attributes[:apple_pay]
+      else
+        self.apple_pay = nil
+      end
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -218,6 +229,16 @@ module PAYJPv2
       @card = card
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] apple_pay Value to be assigned
+    def apple_pay=(apple_pay)
+      if apple_pay.nil?
+        raise ArgumentError, 'apple_pay cannot be nil'
+      end
+
+      @apple_pay = apple_pay
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -229,7 +250,8 @@ module PAYJPv2
           active == o.active &&
           name == o.name &&
           paypay == o.paypay &&
-          card == o.card
+          card == o.card &&
+          apple_pay == o.apple_pay
     end
 
     # @see the `==` method
@@ -241,7 +263,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, livemode, active, name, paypay, card].hash
+      [object, id, livemode, active, name, paypay, card, apple_pay].hash
     end
 
     # Builds the object from hash

@@ -11,6 +11,7 @@
 | **name** | **String** |  |  |
 | **paypay** | [**PaymentMethodConfigurationSettingResponse**](PaymentMethodConfigurationSettingResponse.md) | PayPay の設定 |  |
 | **card** | [**PaymentMethodConfigurationSettingResponse**](PaymentMethodConfigurationSettingResponse.md) | カードの設定 |  |
+| **apple_pay** | [**PaymentMethodConfigurationSettingResponse**](PaymentMethodConfigurationSettingResponse.md) | Apple Pay の設定 |  |
 
 ## Example
 
@@ -24,7 +25,8 @@ instance = PAYJPv2::PaymentMethodConfigurationDetailsResponse.new(
   active: null,
   name: null,
   paypay: null,
-  card: null
+  card: null,
+  apple_pay: null
 )
 ```
 

@@ -15,7 +15,7 @@ require 'time'
 
 module PAYJPv2
   class PaymentFlowCancelRequest
-    # この PaymentFlow のキャンセル理由 | 値 | |:---| | **duplicate**: 重複した支払いである場合。 | | **fraudulent**: 不正な利用だと考えられる場合。 | | **requested_by_customer**: 顧客がキャンセルを要求した場合。 | | **abondoned**: 顧客が支払いを完了しなかった場合。 | 
+    # この PaymentFlow のキャンセル理由 | 値 | |:---| | **duplicate**: 重複した支払いである場合。 | | **fraudulent**: 不正な利用だと考えられる場合。 | | **requested_by_customer**: 顧客がキャンセルを要求した場合。 | | **abandoned**: 顧客が支払いを完了しなかった場合。 | 
     attr_accessor :cancellation_reason
 
     class EnumAttributeValidator

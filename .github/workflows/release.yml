@@ -26,9 +26,6 @@ jobs:
       - name: Run tests
         run: bundle exec rake spec
 
-      - name: Build gem
-        run: gem build payjpv2.gemspec
-
       - name: Get version from release tag
         id: version
         run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
@@ -42,15 +39,5 @@ jobs:
             exit 1
           fi
 
-      - name: Configure RubyGems credentials
-        run: |
-          mkdir -p ~/.gem
-          echo -e "---\n:rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}" > ~/.gem/credentials
-          chmod 0600 ~/.gem/credentials
-
       - name: Publish to RubyGems
-        run: gem push payjpv2-${{ steps.version.outputs.version }}.gem
-
-      - name: Cleanup credentials
-        if: always()
-        run: rm -f ~/.gem/credentials
+        uses: rubygems/release-gem@v1

@@ -157,8 +157,8 @@ module PAYJPv2
     attr_accessor :force_ending_format
 
     def initialize
-      @scheme = 'http'
-      @host = 'localhost'
+      @scheme = 'https'
+      @host = 'api.pay.jp'
       @base_path = ''
       @server_index = nil
       @server_operation_index = {}

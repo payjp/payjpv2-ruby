@@ -68,6 +68,7 @@ describe 'PaymentMethodsApi' do
 
   # unit tests for create_payment_method
   # Create Payment Method
+  # **このエンドポイントはテストモードでのみ使用できます。**
   # @param payment_method_create_request 
   # @param [Hash] opts the optional parameters
   # @return [PaymentMethodResponse]

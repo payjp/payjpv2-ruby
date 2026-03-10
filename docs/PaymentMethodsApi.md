@@ -90,6 +90,8 @@ end
 
 Create Payment Method
 
+**このエンドポイントはテストモードでのみ使用できます。**
+
 ### Examples
 
 ```ruby

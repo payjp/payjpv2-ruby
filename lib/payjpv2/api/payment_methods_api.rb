@@ -90,6 +90,7 @@ module PAYJPv2
     end
 
     # Create Payment Method
+    # **このエンドポイントはテストモードでのみ使用できます。**
     # @param payment_method_create_request [PaymentMethodCreateRequest] 
     # @param [Hash] opts the optional parameters
     # @option opts [String] :idempotency_key Idempotency key for the request

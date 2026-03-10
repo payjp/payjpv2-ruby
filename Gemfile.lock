@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    payjpv2 (1.0.6)
+    payjpv2 (1.0.7)
       typhoeus (~> 1.0, >= 1.0.1)
 
 GEM

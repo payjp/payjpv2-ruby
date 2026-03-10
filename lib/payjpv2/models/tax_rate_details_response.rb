@@ -20,6 +20,9 @@ module PAYJPv2
     # 税率 ID
     attr_accessor :id
 
+    # 本番環境かどうか
+    attr_accessor :livemode
+
     # 表示名。顧客に表示されます。
     attr_accessor :display_name
 
@@ -35,6 +38,12 @@ module PAYJPv2
     attr_accessor :country
 
     attr_accessor :description
+
+    # 作成日時 (UTC, ISO 8601 形式)
+    attr_accessor :created_at
+
+    # 更新日時 (UTC, ISO 8601 形式)
+    attr_accessor :updated_at
 
     # メタデータ
     attr_accessor :metadata
@@ -66,12 +75,15 @@ module PAYJPv2
       {
         :object => :object,
         :id => :id,
+        :livemode => :livemode,
         :display_name => :display_name,
         :inclusive => :inclusive,
         :percentage => :percentage,
         :active => :active,
         :country => :country,
         :description => :description,
+        :created_at => :created_at,
+        :updated_at => :updated_at,
         :metadata => :metadata
       }
     end
@@ -91,12 +103,15 @@ module PAYJPv2
       {
         :object => :'String',
         :id => :'String',
+        :livemode => :'Boolean',
         :display_name => :'String',
         :inclusive => :'Boolean',
         :percentage => :'Float',
         :active => :'Boolean',
         :country => :'Country',
         :description => :'String',
+        :created_at => :'Time',
+        :updated_at => :'Time',
         :metadata => :'Hash<String, MetadataValue>'
       }
     end
@@ -137,6 +152,12 @@ module PAYJPv2
         self.id = nil
       end
 
+      if attributes.key?(:livemode)
+        self.livemode = attributes[:livemode]
+      else
+        self.livemode = nil
+      end
+
       if attributes.key?(:display_name)
         self.display_name = attributes[:display_name]
       else
@@ -173,6 +194,18 @@ module PAYJPv2
         self.description = nil
       end
 
+      if attributes.key?(:created_at)
+        self.created_at = attributes[:created_at]
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:updated_at)
+        self.updated_at = attributes[:updated_at]
+      else
+        self.updated_at = nil
+      end
+
       if attributes.key?(:metadata)
         if (value = attributes[:metadata]).is_a?(Hash)
           self.metadata = value
@@ -200,6 +233,16 @@ module PAYJPv2
       end
 
       @id = id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] livemode Value to be assigned
+    def livemode=(livemode)
+      if livemode.nil?
+        raise ArgumentError, 'livemode cannot be nil'
+      end
+
+      @livemode = livemode
     end
 
     # Custom attribute writer method with validation
@@ -243,6 +286,26 @@ module PAYJPv2
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] created_at Value to be assigned
+    def created_at=(created_at)
+      if created_at.nil?
+        raise ArgumentError, 'created_at cannot be nil'
+      end
+
+      @created_at = created_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        raise ArgumentError, 'updated_at cannot be nil'
+      end
+
+      @updated_at = updated_at
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] metadata Value to be assigned
     def metadata=(metadata)
       if metadata.nil?
@@ -259,12 +322,15 @@ module PAYJPv2
       self.class == o.class &&
           object == o.object &&
           id == o.id &&
+          livemode == o.livemode &&
           display_name == o.display_name &&
           inclusive == o.inclusive &&
           percentage == o.percentage &&
           active == o.active &&
           country == o.country &&
           description == o.description &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at &&
           metadata == o.metadata
     end
 
@@ -277,7 +343,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, display_name, inclusive, percentage, active, country, description, metadata].hash
+      [object, id, livemode, display_name, inclusive, percentage, active, country, description, created_at, updated_at, metadata].hash
     end
 
     # Builds the object from hash

@@ -89,6 +89,8 @@ module PAYJPv2
     # @option opts [Integer] :limit 取得するデータの最大件数 (default to 10)
     # @option opts [String] :starting_after このIDより後のデータを取得
     # @option opts [String] :ending_before このIDより前のデータを取得
+    # @option opts [Boolean] :active この税率が有効であるかどうか。無効にした場合でも、すでに設定されている定期課金などでは使用可能です。
+    # @option opts [Boolean] :inclusive 税込みかどうか。税込 &#x3D; &#x60;true&#x60; 税抜 &#x3D; &#x60;false&#x60;
     # @option opts [String] :idempotency_key Idempotency key for the request
     # @option opts [Boolean] :include_http_info If true, returns [data, status_code, headers] instead of just data
     # @return [TaxRateListResponse, Array] Returns data or [data, status_code, headers] if include_http_info is true
@@ -112,6 +114,8 @@ module PAYJPv2
       query_params[:limit] = opts[:limit] if !opts[:limit].nil?
       query_params[:starting_after] = opts[:starting_after] if !opts[:starting_after].nil?
       query_params[:ending_before] = opts[:ending_before] if !opts[:ending_before].nil?
+      query_params[:active] = opts[:active] if !opts[:active].nil?
+      query_params[:inclusive] = opts[:inclusive] if !opts[:inclusive].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

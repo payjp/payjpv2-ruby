@@ -20,6 +20,9 @@ module PAYJPv2
     # 商品 ID
     attr_accessor :id
 
+    # 本番環境かどうか
+    attr_accessor :livemode
+
     # Checkout などで顧客に表示される商品名
     attr_accessor :name
 
@@ -33,6 +36,12 @@ module PAYJPv2
     attr_accessor :unit_label
 
     attr_accessor :url
+
+    # 作成日時 (UTC, ISO 8601 形式)
+    attr_accessor :created_at
+
+    # 更新日時 (UTC, ISO 8601 形式)
+    attr_accessor :updated_at
 
     class EnumAttributeValidator
       attr_reader :datatype
@@ -61,12 +70,15 @@ module PAYJPv2
       {
         :object => :object,
         :id => :id,
+        :livemode => :livemode,
         :name => :name,
         :active => :active,
         :default_price_id => :default_price_id,
         :description => :description,
         :unit_label => :unit_label,
-        :url => :url
+        :url => :url,
+        :created_at => :created_at,
+        :updated_at => :updated_at
       }
     end
 
@@ -85,12 +97,15 @@ module PAYJPv2
       {
         :object => :'String',
         :id => :'String',
+        :livemode => :'Boolean',
         :name => :'String',
         :active => :'Boolean',
         :default_price_id => :'String',
         :description => :'String',
         :unit_label => :'String',
-        :url => :'String'
+        :url => :'String',
+        :created_at => :'Time',
+        :updated_at => :'Time'
       }
     end
 
@@ -100,7 +115,7 @@ module PAYJPv2
         :default_price_id,
         :description,
         :unit_label,
-        :url
+        :url,
       ])
     end
 
@@ -130,6 +145,12 @@ module PAYJPv2
         self.id = attributes[:id]
       else
         self.id = nil
+      end
+
+      if attributes.key?(:livemode)
+        self.livemode = attributes[:livemode]
+      else
+        self.livemode = nil
       end
 
       if attributes.key?(:name)
@@ -167,6 +188,18 @@ module PAYJPv2
       else
         self.url = nil
       end
+
+      if attributes.key?(:created_at)
+        self.created_at = attributes[:created_at]
+      else
+        self.created_at = nil
+      end
+
+      if attributes.key?(:updated_at)
+        self.updated_at = attributes[:updated_at]
+      else
+        self.updated_at = nil
+      end
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -190,6 +223,16 @@ module PAYJPv2
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] livemode Value to be assigned
+    def livemode=(livemode)
+      if livemode.nil?
+        raise ArgumentError, 'livemode cannot be nil'
+      end
+
+      @livemode = livemode
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] name Value to be assigned
     def name=(name)
       if name.nil?
@@ -209,6 +252,26 @@ module PAYJPv2
       @active = active
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] created_at Value to be assigned
+    def created_at=(created_at)
+      if created_at.nil?
+        raise ArgumentError, 'created_at cannot be nil'
+      end
+
+      @created_at = created_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        raise ArgumentError, 'updated_at cannot be nil'
+      end
+
+      @updated_at = updated_at
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)
@@ -216,12 +279,15 @@ module PAYJPv2
       self.class == o.class &&
           object == o.object &&
           id == o.id &&
+          livemode == o.livemode &&
           name == o.name &&
           active == o.active &&
           default_price_id == o.default_price_id &&
           description == o.description &&
           unit_label == o.unit_label &&
-          url == o.url
+          url == o.url &&
+          created_at == o.created_at &&
+          updated_at == o.updated_at
     end
 
     # @see the `==` method
@@ -233,7 +299,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, name, active, default_price_id, description, unit_label, url].hash
+      [object, id, livemode, name, active, default_price_id, description, unit_label, url, created_at, updated_at].hash
     end
 
     # Builds the object from hash

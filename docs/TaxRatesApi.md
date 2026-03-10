@@ -104,7 +104,9 @@ api_instance = PAYJPv2::TaxRatesApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
-  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+  ending_before: 'ending_before_example', # String | このIDより前のデータを取得
+  active: true, # Boolean | この税率が有効であるかどうか。無効にした場合でも、すでに設定されている定期課金などでは使用可能です。
+  inclusive: true # Boolean | 税込みかどうか。税込 = `true` 税抜 = `false`
 }
 
 begin
@@ -139,6 +141,8 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+| **active** | **Boolean** | この税率が有効であるかどうか。無効にした場合でも、すでに設定されている定期課金などでは使用可能です。 | [optional] |
+| **inclusive** | **Boolean** | 税込みかどうか。税込 &#x3D; &#x60;true&#x60; 税抜 &#x3D; &#x60;false&#x60; | [optional] |
 
 ### Return type
 

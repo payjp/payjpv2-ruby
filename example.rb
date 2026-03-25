@@ -23,7 +23,8 @@ products_api = PAYJPv2::ProductsApi.new
 prices_api = PAYJPv2::PricesApi.new
 
 customer_create_request = PAYJPv2::CustomerCreateRequest.new(
-  email: 'jennyrosen@example.com'
+  email: 'jennyrosen@example.com',
+  metadata: { key1: 'value1', key2: 123, key3: true }
 )
 
 # Test idempotency key
@@ -39,25 +40,29 @@ begin
   )
   customer_id = result.id
   puts "Created customer: #{customer_id}"
-  puts "Email: #{result.email}\n\n"
+  puts "Email: #{result.email}"
+  puts "Metadata: #{result.metadata}\n\n"
 
   # 2. Get Customer
   puts "=== 2. Get Customer ==="
   retrieved = api_instance.get_customer(customer_id)
   puts "Retrieved customer: #{retrieved.id}"
   puts "Email: #{retrieved.email}"
-  puts "Description: #{retrieved.description || '(none)'}\n\n"
+  puts "Description: #{retrieved.description || '(none)'}"
+  puts "Metadata: #{retrieved.metadata}\n\n"
 
   # 3. Update Customer
   puts "=== 3. Update Customer ==="
   update_request = PAYJPv2::CustomerUpdateRequest.new(
     email: 'updated@example.com',
-    description: 'Updated description from Ruby SDK'
+    description: 'Updated description from Ruby SDK',
+    metadata: { key1: 'updated_value', key4: 456 }
   )
   updated = api_instance.update_customer(customer_id, update_request)
   puts "Updated customer: #{updated.id}"
   puts "New email: #{updated.email}"
-  puts "New description: #{updated.description || '(none)'}\n\n"
+  puts "New description: #{updated.description || '(none)'}"
+  puts "Metadata: #{updated.metadata}\n\n"
 
   # 4. List Customers
   puts "=== 4. List Customers ==="

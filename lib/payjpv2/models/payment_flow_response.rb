@@ -47,7 +47,7 @@ module PAYJPv2
     # この PaymentFlow で使用できる支払い方法の種類のリスト
     attr_accessor :payment_method_types
 
-    # この PaymentFlow のステータス。<a href=\"https://docs.pay.jp/v2/payment_flows#status\" target=\"_blank\">ステータスの詳細についてはこちらをご覧ください。</a>  | 値 | |:---| | **requires_payment_method**: 支払い方法が必要です。 | | **requires_confirmation**: 確認が必要です。 | | **requires_action**: 顧客のアクションが必要です。 | | **processing**: 処理中です。 | | **requires_capture**: 確定が必要です。 | | **canceled**: キャンセルされました。 | | **succeeded**: 成功しました。 |
+    # この PaymentFlow のステータス。  | 値 | |:---| | **requires_payment_method**: 支払い方法が必要です。 | | **requires_confirmation**: 確認が必要です。 | | **requires_action**: 顧客のアクションが必要です。 | | **processing**: 処理中です。 | | **requires_capture**: 確定が必要です。 | | **canceled**: キャンセルされました。 | | **succeeded**: 成功しました。 |
     attr_accessor :status
 
     attr_accessor :next_action

@@ -11,5 +11,5 @@ Generator version: 7.14.0
 =end
 
 module PAYJPv2
-  VERSION = '1.0.9'
+  VERSION = '1.0.10'
 end

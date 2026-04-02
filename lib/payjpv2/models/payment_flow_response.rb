@@ -63,6 +63,8 @@ module PAYJPv2
 
     attr_accessor :canceled_at
 
+    attr_accessor :expired_at
+
     # メタデータ
     attr_accessor :metadata
 
@@ -117,6 +119,7 @@ module PAYJPv2
         :last_payment_error => :last_payment_error,
         :cancellation_reason => :cancellation_reason,
         :canceled_at => :canceled_at,
+        :expired_at => :expired_at,
         :metadata => :metadata,
         :created_at => :created_at,
         :updated_at => :updated_at
@@ -156,6 +159,7 @@ module PAYJPv2
         :last_payment_error => :'Hash<String, Object>',
         :cancellation_reason => :'PaymentFlowCancellationReason',
         :canceled_at => :'Time',
+        :expired_at => :'Time',
         :metadata => :'Hash<String, MetadataValue>',
         :created_at => :'Time',
         :updated_at => :'Time'
@@ -176,6 +180,7 @@ module PAYJPv2
         :last_payment_error,
         :cancellation_reason,
         :canceled_at,
+        :expired_at,
       ])
     end
 
@@ -321,6 +326,10 @@ module PAYJPv2
         self.canceled_at = attributes[:canceled_at]
       else
         self.canceled_at = nil
+      end
+
+      if attributes.key?(:expired_at)
+        self.expired_at = attributes[:expired_at]
       end
 
       if attributes.key?(:metadata)
@@ -489,6 +498,7 @@ module PAYJPv2
           last_payment_error == o.last_payment_error &&
           cancellation_reason == o.cancellation_reason &&
           canceled_at == o.canceled_at &&
+          expired_at == o.expired_at &&
           metadata == o.metadata &&
           created_at == o.created_at &&
           updated_at == o.updated_at
@@ -503,7 +513,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, livemode, amount, currency, amount_capturable, amount_received, client_secret, customer_id, description, payment_method_id, payment_method_options, payment_method_types, status, next_action, return_url, capture_method, last_payment_error, cancellation_reason, canceled_at, metadata, created_at, updated_at].hash
+      [object, id, livemode, amount, currency, amount_capturable, amount_received, client_secret, customer_id, description, payment_method_id, payment_method_options, payment_method_types, status, next_action, return_url, capture_method, last_payment_error, cancellation_reason, canceled_at, expired_at, metadata, created_at, updated_at].hash
     end
 
     # Builds the object from hash

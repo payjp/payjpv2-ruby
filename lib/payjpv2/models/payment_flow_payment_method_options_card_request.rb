@@ -15,7 +15,7 @@ require 'time'
 
 module PAYJPv2
   class PaymentFlowPaymentMethodOptionsCardRequest
-    # オーソリ期間の延長要求  | 値 | |:---| | **if_available**: オーソリ期間の延長が可能な場合に延長要求を行います。 | | **never**: オーソリ期間の延長要求を行いません。 |
+    # オーソリ期間の延長要求  | 値 | |:---| | **if_available**: オーソリ期間の延長が可能な場合に延長要求を行います。 | | **must_extend**: オーソリ期間の延長を必須とします。延長できない場合はエラーを返します。 | | **never**: オーソリ期間の延長要求を行いません。 |
     attr_accessor :request_extended_authorization
 
     # 3D セキュア認証の要求方法。  | 値 | |:---| | **any**: 3D セキュア認証を要求します。 | | **automatic**: 必要な場合にのみ 3D セキュア認証を要求します。 | 
@@ -103,7 +103,7 @@ module PAYJPv2
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] request_extended_authorization Object to be assigned
     def request_extended_authorization=(request_extended_authorization)
-      validator = EnumAttributeValidator.new('String', ["if_available", "never"])
+      validator = EnumAttributeValidator.new('String', ["if_available", "must_extend", "never"])
       unless validator.valid?(request_extended_authorization)
         raise ArgumentError, "invalid value for \"request_extended_authorization\", must be one of #{validator.allowable_values}."
       end

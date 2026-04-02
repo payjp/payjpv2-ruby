@@ -30,7 +30,7 @@ describe PAYJPv2::CheckoutSessionPaymentMethodOptionsCardRequest do
   describe 'test attribute "request_extended_authorization"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["if_available", "never"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["if_available", "must_extend", "never"])
       # validator.allowable_values.each do |value|
       #   expect { instance.request_extended_authorization = value }.not_to raise_error
       # end

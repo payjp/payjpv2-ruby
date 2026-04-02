@@ -24,6 +24,7 @@
 | **last_payment_error** | **Hash&lt;String, Object&gt;** |  |  |
 | **cancellation_reason** | [**PaymentFlowCancellationReason**](PaymentFlowCancellationReason.md) |  |  |
 | **canceled_at** | **Time** |  |  |
+| **expired_at** | **Time** |  | [optional] |
 | **metadata** | [**Hash&lt;String, MetadataValue&gt;**](MetadataValue.md) | メタデータ |  |
 | **created_at** | **Time** | 作成日時 (UTC, ISO 8601 形式) |  |
 | **updated_at** | **Time** | 更新日時 (UTC, ISO 8601 形式) |  |
@@ -54,6 +55,7 @@ instance = PAYJPv2::PaymentFlowResponse.new(
   last_payment_error: null,
   cancellation_reason: null,
   canceled_at: null,
+  expired_at: null,
   metadata: null,
   created_at: null,
   updated_at: null

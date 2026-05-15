@@ -21,6 +21,7 @@ api_instance = PAYJPv2::CustomersApi.new
 checkout_sessions_api = PAYJPv2::CheckoutSessionsApi.new
 products_api = PAYJPv2::ProductsApi.new
 prices_api = PAYJPv2::PricesApi.new
+payment_methods_api = PAYJPv2::PaymentMethodsApi.new
 
 customer_create_request = PAYJPv2::CustomerCreateRequest.new(
   email: 'jennyrosen@example.com',
@@ -73,16 +74,65 @@ begin
   end
   puts "\n"
 
-  # 5. Delete Customer
-  puts "=== 5. Delete Customer ==="
+  # 5. PaymentMethod operations
+  #    Note: create_payment_method is available only in test mode. In production,
+  #    a PaymentMethod is created by tokenizing card details on the client side
+  #    (e.g. payment.js) and then attaching the resulting token to a Customer.
+  puts "=== 5. PaymentMethod operations ==="
+
+  # 5a. Create PaymentMethod (test mode)
+  puts "\n--- 5a. Create PaymentMethod (test mode) ---"
+  payment_method_request = PAYJPv2::PaymentMethodCardCreateRequest.new(
+    type: 'card',
+    card: PAYJPv2::PaymentMethodCreateCardDetailsRequest.new(
+      number: '4242424242424242',
+      exp_month: 12,
+      exp_year: 2030,
+      cvc: '123'
+    ),
+    billing_details: PAYJPv2::PaymentMethodCardBillingDetailsRequest.new(
+      email: 'billing@example.com'
+    )
+  )
+  payment_method = payment_methods_api.create_payment_method(payment_method_request)
+  payment_method_id = payment_method.id
+  puts "Created PaymentMethod: #{payment_method_id}"
+  puts "Type: #{payment_method.type}"
+
+  # 5b. Attach PaymentMethod to Customer
+  puts "\n--- 5b. Attach PaymentMethod ---"
+  attached = payment_methods_api.attach_payment_method(
+    payment_method_id,
+    PAYJPv2::PaymentMethodAttachRequest.new(customer_id: customer_id)
+  )
+  puts "Attached PaymentMethod: #{attached.id}"
+  puts "Customer: #{attached.customer_id}"
+
+  # 5c. Retrieve PaymentMethod (active)
+  puts "\n--- 5c. Retrieve PaymentMethod ---"
+  retrieved_pm = payment_methods_api.get_payment_method(payment_method_id)
+  puts "PaymentMethod ID: #{retrieved_pm.id}"
+  puts "Customer: #{retrieved_pm.customer_id}"
+  puts "Detached at: #{retrieved_pm.detached_at || '(active)'}"
+
+  # 5d. Detach PaymentMethod
+  #     The API marks the PaymentMethod with `detached_at` while keeping
+  #     `customer_id` for historical reference.
+  puts "\n--- 5d. Detach PaymentMethod ---"
+  detached = payment_methods_api.detach_payment_method(payment_method_id)
+  puts "Detached PaymentMethod: #{detached.id}"
+  puts "Detached at: #{detached.detached_at}\n\n"
+
+  # 6. Delete Customer
+  puts "=== 6. Delete Customer ==="
   api_instance.delete_customer(customer_id)
   puts "Deleted customer: #{customer_id}\n\n"
 
-  # 6. Create Product, Price, and Checkout Session
-  puts "=== 6. Create Product, Price, and Checkout Session ==="
+  # 7. Create Product, Price, and Checkout Session
+  puts "=== 7. Create Product, Price, and Checkout Session ==="
 
-  # 6a. Create Product
-  puts "\n--- 6a. Create Product ---"
+  # 7a. Create Product
+  puts "\n--- 7a. Create Product ---"
   product_request = PAYJPv2::ProductCreateRequest.new(
     name: 'Sample Product',
     description: 'A sample product for checkout session demo',
@@ -100,8 +150,8 @@ begin
   puts "Created product: #{product_id}"
   puts "Product name: #{product.name}"
 
-  # 6b. Create Price
-  puts "\n--- 6b. Create Price ---"
+  # 7b. Create Price
+  puts "\n--- 7b. Create Price ---"
   price_request = PAYJPv2::PriceCreateRequest.new(
     currency: 'jpy',
     product_id: product_id,
@@ -121,8 +171,8 @@ begin
   puts "Created price: #{price_id}"
   puts "Unit amount: #{price.unit_amount} JPY"
 
-  # 6c. Create Checkout Session
-  puts "\n--- 6c. Create Checkout Session ---"
+  # 7c. Create Checkout Session
+  puts "\n--- 7c. Create Checkout Session ---"
   line_items = [
     PAYJPv2::LineItemRequest.new(
       price_id: price_id,  # Use the actual price ID we just created
@@ -158,5 +208,5 @@ begin
   puts "=== All tests passed! ==="
 
 rescue PAYJPv2::ApiError => e
-  puts "Exception when calling CustomersApi->create_customer: #{e}"
+  puts "Exception when calling PAYJPv2 API: #{e}"
 end

@@ -87,7 +87,8 @@ module PAYJPv2
               return model if model
             else
               # raise if data contains keys that are not known to the model
-              raise if const.respond_to?(:acceptable_attributes) && !(data.keys - const.acceptable_attributes).empty?
+              # NOTE: acceptable_attributes returns symbols while data keys are strings (from JSON.parse), so symbolize before diff
+              raise if const.respond_to?(:acceptable_attributes) && !(data.keys.map(&:to_sym) - const.acceptable_attributes).empty?
               model = const.build_from_hash(data)
               return model if model
             end

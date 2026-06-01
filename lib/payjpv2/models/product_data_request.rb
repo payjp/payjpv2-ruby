@@ -14,26 +14,17 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class CustomerUpdateRequest
-    # 支払いにデフォルトで使用される支払い方法 ID
-    attr_accessor :default_payment_method_id
+  class ProductDataRequest
+    # Checkout などで顧客に表示される商品名
+    attr_accessor :name
 
-    # 顧客のメールアドレス。メールアドレスの形式が正しいかどうかは検証されます。
-    attr_accessor :email
-
-    # 顧客オブジェクトに付加できる任意の文字列です。管理画面で顧客と一緒に表示されます。
     attr_accessor :description
-
-    # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
-    attr_accessor :metadata
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :default_payment_method_id => :default_payment_method_id,
-        :email => :email,
-        :description => :description,
-        :metadata => :metadata
+        :name => :name,
+        :description => :description
       }
     end
 
@@ -50,16 +41,15 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :default_payment_method_id => :'String',
-        :email => :'String',
-        :description => :'String',
-        :metadata => :'Hash<String, MetadataValue>'
+        :name => :'String',
+        :description => :'String'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :description
       ])
     end
 
@@ -67,63 +57,37 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::CustomerUpdateRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::ProductDataRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::CustomerUpdateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::ProductDataRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:default_payment_method_id)
-        self.default_payment_method_id = attributes[:default_payment_method_id]
-      end
-
-      if attributes.key?(:email)
-        self.email = attributes[:email]
+      if attributes.key?(:name)
+        self.name = attributes[:name]
+      else
+        self.name = nil
       end
 
       if attributes.key?(:description)
         self.description = attributes[:description]
       end
-
-      if attributes.key?(:metadata)
-        if (value = attributes[:metadata]).is_a?(Hash)
-          self.metadata = value
-        end
-      end
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] email Value to be assigned
-    def email=(email)
-      if email.nil?
-        raise ArgumentError, 'email cannot be nil'
+    # @param [Object] name Value to be assigned
+    def name=(name)
+      if name.nil?
+        raise ArgumentError, 'name cannot be nil'
       end
 
-      if email.to_s.length > 255
-        raise ArgumentError, 'invalid value for "email", the character length must be smaller than or equal to 255.'
-      end
-
-      @email = email
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] description Value to be assigned
-    def description=(description)
-      if description.nil?
-        raise ArgumentError, 'description cannot be nil'
-      end
-
-      if description.to_s.length > 255
-        raise ArgumentError, 'invalid value for "description", the character length must be smaller than or equal to 255.'
-      end
-
-      @description = description
+      @name = name
     end
 
     # Checks equality by comparing each attribute.
@@ -131,10 +95,8 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          default_payment_method_id == o.default_payment_method_id &&
-          email == o.email &&
-          description == o.description &&
-          metadata == o.metadata
+          name == o.name &&
+          description == o.description
     end
 
     # @see the `==` method
@@ -146,7 +108,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [default_payment_method_id, email, description, metadata].hash
+      [name, description].hash
     end
 
     # Builds the object from hash

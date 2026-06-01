@@ -14,26 +14,46 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class CustomerUpdateRequest
-    # 支払いにデフォルトで使用される支払い方法 ID
-    attr_accessor :default_payment_method_id
+  class PriceDataRequest
+    # 通貨。現在は `jpy` のみサポートしています。
+    attr_accessor :currency
 
-    # 顧客のメールアドレス。メールアドレスの形式が正しいかどうかは検証されます。
-    attr_accessor :email
+    # 単価（0以上の整数）
+    attr_accessor :unit_amount
 
-    # 顧客オブジェクトに付加できる任意の文字列です。管理画面で顧客と一緒に表示されます。
-    attr_accessor :description
+    attr_accessor :product_id
 
-    # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
-    attr_accessor :metadata
+    attr_accessor :product_data
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :default_payment_method_id => :default_payment_method_id,
-        :email => :email,
-        :description => :description,
-        :metadata => :metadata
+        :currency => :currency,
+        :unit_amount => :unit_amount,
+        :product_id => :product_id,
+        :product_data => :product_data
       }
     end
 
@@ -50,16 +70,18 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :default_payment_method_id => :'String',
-        :email => :'String',
-        :description => :'String',
-        :metadata => :'Hash<String, MetadataValue>'
+        :currency => :'Currency',
+        :unit_amount => :'Integer',
+        :product_id => :'String',
+        :product_data => :'ProductDataRequest'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :product_id,
+        :product_data
       ])
     end
 
@@ -67,63 +89,61 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::CustomerUpdateRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::PriceDataRequest` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::CustomerUpdateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::PriceDataRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:default_payment_method_id)
-        self.default_payment_method_id = attributes[:default_payment_method_id]
+      if attributes.key?(:currency)
+        self.currency = attributes[:currency]
+      else
+        self.currency = nil
       end
 
-      if attributes.key?(:email)
-        self.email = attributes[:email]
+      if attributes.key?(:unit_amount)
+        self.unit_amount = attributes[:unit_amount]
+      else
+        self.unit_amount = nil
       end
 
-      if attributes.key?(:description)
-        self.description = attributes[:description]
+      if attributes.key?(:product_id)
+        self.product_id = attributes[:product_id]
       end
 
-      if attributes.key?(:metadata)
-        if (value = attributes[:metadata]).is_a?(Hash)
-          self.metadata = value
-        end
+      if attributes.key?(:product_data)
+        self.product_data = attributes[:product_data]
       end
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] email Value to be assigned
-    def email=(email)
-      if email.nil?
-        raise ArgumentError, 'email cannot be nil'
+    # @param [Object] currency Value to be assigned
+    def currency=(currency)
+      if currency.nil?
+        raise ArgumentError, 'currency cannot be nil'
       end
 
-      if email.to_s.length > 255
-        raise ArgumentError, 'invalid value for "email", the character length must be smaller than or equal to 255.'
-      end
-
-      @email = email
+      @currency = currency
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] description Value to be assigned
-    def description=(description)
-      if description.nil?
-        raise ArgumentError, 'description cannot be nil'
+    # @param [Object] unit_amount Value to be assigned
+    def unit_amount=(unit_amount)
+      if unit_amount.nil?
+        raise ArgumentError, 'unit_amount cannot be nil'
       end
 
-      if description.to_s.length > 255
-        raise ArgumentError, 'invalid value for "description", the character length must be smaller than or equal to 255.'
+      if unit_amount < 0
+        raise ArgumentError, 'invalid value for "unit_amount", must be greater than or equal to 0.'
       end
 
-      @description = description
+      @unit_amount = unit_amount
     end
 
     # Checks equality by comparing each attribute.
@@ -131,10 +151,10 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          default_payment_method_id == o.default_payment_method_id &&
-          email == o.email &&
-          description == o.description &&
-          metadata == o.metadata
+          currency == o.currency &&
+          unit_amount == o.unit_amount &&
+          product_id == o.product_id &&
+          product_data == o.product_data
     end
 
     # @see the `==` method
@@ -146,7 +166,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [default_payment_method_id, email, description, metadata].hash
+      [currency, unit_amount, product_id, product_data].hash
     end
 
     # Builds the object from hash

@@ -15,8 +15,9 @@ require 'time'
 
 module PAYJPv2
   class LineItemRequest
-    # 料金 ID
     attr_accessor :price_id
+
+    attr_accessor :price_data
 
     # 購入する商品の数量
     attr_accessor :quantity
@@ -28,6 +29,7 @@ module PAYJPv2
     def self.attribute_map
       {
         :price_id => :price_id,
+        :price_data => :price_data,
         :quantity => :quantity,
         :tax_rates => :tax_rates
       }
@@ -47,6 +49,7 @@ module PAYJPv2
     def self.openapi_types
       {
         :price_id => :'String',
+        :price_data => :'PriceDataRequest',
         :quantity => :'Integer',
         :tax_rates => :'Array<String>'
       }
@@ -55,6 +58,8 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :price_id,
+        :price_data,
       ])
     end
 
@@ -76,8 +81,10 @@ module PAYJPv2
 
       if attributes.key?(:price_id)
         self.price_id = attributes[:price_id]
-      else
-        self.price_id = nil
+      end
+
+      if attributes.key?(:price_data)
+        self.price_data = attributes[:price_data]
       end
 
       if attributes.key?(:quantity)
@@ -91,16 +98,6 @@ module PAYJPv2
           self.tax_rates = value
         end
       end
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] price_id Value to be assigned
-    def price_id=(price_id)
-      if price_id.nil?
-        raise ArgumentError, 'price_id cannot be nil'
-      end
-
-      @price_id = price_id
     end
 
     # Custom attribute writer method with validation
@@ -119,6 +116,7 @@ module PAYJPv2
       return true if self.equal?(o)
       self.class == o.class &&
           price_id == o.price_id &&
+          price_data == o.price_data &&
           quantity == o.quantity &&
           tax_rates == o.tax_rates
     end
@@ -132,7 +130,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [price_id, quantity, tax_rates].hash
+      [price_id, price_data, quantity, tax_rates].hash
     end
 
     # Builds the object from hash

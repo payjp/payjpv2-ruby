@@ -30,6 +30,10 @@ describe PAYJPv2::SetupFlowCancelRequest do
   describe 'test attribute "cancellation_reason"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["abandoned", "duplicate", "requested_by_customer"])
+      # validator.allowable_values.each do |value|
+      #   expect { instance.cancellation_reason = value }.not_to raise_error
+      # end
     end
   end
 

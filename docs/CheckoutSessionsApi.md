@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
 | [**create_checkout_session**](CheckoutSessionsApi.md#create_checkout_session) | **POST** /v2/checkout/sessions | Create Checkout Session |
+| [**expire_checkout_session**](CheckoutSessionsApi.md#expire_checkout_session) | **POST** /v2/checkout/sessions/{checkout_session_id}/expire | Expire Checkout Session |
 | [**get_all_checkout_session_line_items**](CheckoutSessionsApi.md#get_all_checkout_session_line_items) | **GET** /v2/checkout/sessions/{checkout_session_id}/line_items | Get All Checkout Session Line Items |
 | [**get_all_checkout_sessions**](CheckoutSessionsApi.md#get_all_checkout_sessions) | **GET** /v2/checkout/sessions | Get All Checkout Sessions |
 | [**get_checkout_session**](CheckoutSessionsApi.md#get_checkout_session) | **GET** /v2/checkout/sessions/{checkout_session_id} | Get Checkout Session |
@@ -77,6 +78,75 @@ end
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+
+## expire_checkout_session
+
+> <CheckoutSessionDetailsResponse> expire_checkout_session(checkout_session_id)
+
+Expire Checkout Session
+
+### Examples
+
+```ruby
+require 'time'
+require 'payjpv2'
+# setup authorization
+PAYJPv2.configure do |config|
+  # Configure HTTP basic authorization: HTTPBasic
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+
+  # Configure Bearer authorization: HTTPBearer
+  config.access_token = 'YOUR_BEARER_TOKEN'
+end
+
+api_instance = PAYJPv2::CheckoutSessionsApi.new
+checkout_session_id = 'checkout_session_id_example' # String | 
+
+begin
+  # Expire Checkout Session
+  result = api_instance.expire_checkout_session(checkout_session_id)
+  p result
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->expire_checkout_session: #{e}"
+end
+```
+
+#### Using the include_http_info option
+
+To get response data along with status code and headers, use the `include_http_info: true` option.
+
+```ruby
+begin
+  # Expire Checkout Session
+  data, status_code, headers = api_instance.expire_checkout_session(checkout_session_id, { include_http_info: true })
+  p status_code # => 2xx
+  p headers # => { ... }
+  p data # => <CheckoutSessionDetailsResponse>
+rescue PAYJPv2::ApiError => e
+  puts "Error when calling CheckoutSessionsApi->expire_checkout_session: #{e}"
+end
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **checkout_session_id** | **String** |  |  |
+
+### Return type
+
+[**CheckoutSessionDetailsResponse**](CheckoutSessionDetailsResponse.md)
+
+### Authorization
+
+[HTTPBasic](../README.md#HTTPBasic), [HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
 
 

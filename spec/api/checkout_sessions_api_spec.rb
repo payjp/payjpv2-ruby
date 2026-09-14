@@ -65,6 +65,39 @@ describe 'CheckoutSessionsApi' do
     end
   end
 
+  # unit tests for expire_checkout_session
+  # Expire Checkout Session
+  # @param checkout_session_id 
+  # @param [Hash] opts the optional parameters
+  # @return [CheckoutSessionDetailsResponse]
+  describe 'expire_checkout_session test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+
+    describe 'with mocked api_client' do
+      let(:mock_data) { double('data') }
+      let(:mock_status) { 200 }
+      let(:mock_headers) { { 'Content-Type' => 'application/json' } }
+
+      before do
+        @api_instance.api_client.config.client_side_validation = false
+        allow(@api_instance.api_client).to receive(:call_api)
+          .and_return([mock_data, mock_status, mock_headers])
+      end
+
+      it 'returns data only by default' do
+        result = @api_instance.expire_checkout_session(nil)
+        expect(result).to eq(mock_data)
+      end
+
+      it 'returns [data, status, headers] with include_http_info: true' do
+        result = @api_instance.expire_checkout_session(nil, include_http_info: true)
+        expect(result).to eq([mock_data, mock_status, mock_headers])
+      end
+    end
+  end
+
   # unit tests for get_all_checkout_session_line_items
   # Get All Checkout Session Line Items
   # @param checkout_session_id 

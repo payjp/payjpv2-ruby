@@ -17,10 +17,11 @@ module PAYJPv2
   class SetupFlowCancellationReason
     ABANDONED = "abandoned".freeze
     DUPLICATE = "duplicate".freeze
+    EXPIRED = "expired".freeze
     REQUESTED_BY_CUSTOMER = "requested_by_customer".freeze
 
     def self.all_vars
-      @all_vars ||= [ABANDONED, DUPLICATE, REQUESTED_BY_CUSTOMER].freeze
+      @all_vars ||= [ABANDONED, DUPLICATE, EXPIRED, REQUESTED_BY_CUSTOMER].freeze
     end
 
     # Builds the enum from string

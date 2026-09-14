@@ -84,6 +84,66 @@ module PAYJPv2
       end
     end
 
+    # Expire Checkout Session
+    # @param checkout_session_id [String] 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :idempotency_key Idempotency key for the request
+    # @option opts [Boolean] :include_http_info If true, returns [data, status_code, headers] instead of just data
+    # @return [CheckoutSessionDetailsResponse, Array] Returns data or [data, status_code, headers] if include_http_info is true
+    def expire_checkout_session(checkout_session_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CheckoutSessionsApi.expire_checkout_session ...'
+      end
+      # verify the required parameter 'checkout_session_id' is set
+      if @api_client.config.client_side_validation && checkout_session_id.nil?
+        raise ArgumentError, "Missing the required parameter 'checkout_session_id' when calling CheckoutSessionsApi.expire_checkout_session"
+      end
+      # resource path
+      local_var_path = '/v2/checkout/sessions/{checkout_session_id}/expire'.sub('{' + 'checkout_session_id' + '}', CGI.escape(checkout_session_id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      header_params['Idempotency-Key'] = opts[:idempotency_key] if opts[:idempotency_key]
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json', 'application/problem+json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'CheckoutSessionDetailsResponse'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['HTTPBasic', 'HTTPBearer']
+
+      new_options = opts.merge(
+        :operation => :"CheckoutSessionsApi.expire_checkout_session",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CheckoutSessionsApi#expire_checkout_session\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+
+      if opts[:include_http_info]
+        [data, status_code, headers]
+      else
+        data
+      end
+    end
+
     # Get All Checkout Session Line Items
     # @param checkout_session_id [String] 
     # @param [Hash] opts the optional parameters

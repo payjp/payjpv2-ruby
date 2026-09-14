@@ -110,6 +110,20 @@ module PAYJPv2
       @quantity = quantity
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] tax_rates Value to be assigned
+    def tax_rates=(tax_rates)
+      if tax_rates.nil?
+        raise ArgumentError, 'tax_rates cannot be nil'
+      end
+
+      if tax_rates.length > 1
+        raise ArgumentError, 'invalid value for "tax_rates", number of items must be less than or equal to 1.'
+      end
+
+      @tax_rates = tax_rates
+    end
+
     # Checks equality by comparing each attribute.
     # @param [Object] Object to be compared
     def ==(o)

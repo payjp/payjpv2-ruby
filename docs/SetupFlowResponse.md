@@ -17,6 +17,7 @@
 | **status** | [**SetupFlowStatus**](SetupFlowStatus.md) | この SetupFlow のステータスです。&lt;a href&#x3D;\&quot;https://docs.pay.jp/v2/guide/payments/setupflow#setup-flow-%E3%81%AE%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9\&quot; target&#x3D;\&quot;_blank\&quot;&gt;ステータスの詳細についてはこちらをご覧ください。&lt;/a&gt;  | 値 | |:---| | **requires_payment_method**: 支払い方法が必要です。 | | **requires_confirmation**: 確認が必要です。 | | **requires_action**: 顧客のアクションが必要です。 | | **processing**: 処理中です。 | | **succeeded**: 成功しました。 | | **canceled**: キャンセルされました。 | |  |
 | **next_action** | **Hash&lt;String, Object&gt;** |  |  |
 | **return_url** | **String** |  |  |
+| **redirect_options** | [**RedirectOptionsResponse**](RedirectOptionsResponse.md) | return_url へリダイレクトする際のオプション |  |
 | **last_setup_error** | **Hash&lt;String, Object&gt;** |  |  |
 | **cancellation_reason** | [**SetupFlowCancellationReason**](SetupFlowCancellationReason.md) |  |  |
 | **created_at** | **Time** | 作成日時 (UTC, ISO 8601 形式) |  |
@@ -41,6 +42,7 @@ instance = PAYJPv2::SetupFlowResponse.new(
   status: null,
   next_action: null,
   return_url: null,
+  redirect_options: null,
   last_setup_error: null,
   cancellation_reason: null,
   created_at: null,

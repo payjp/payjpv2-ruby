@@ -39,6 +39,8 @@ module PAYJPv2
 
     attr_accessor :description
 
+    attr_accessor :tax_type
+
     # 作成日時 (UTC, ISO 8601 形式)
     attr_accessor :created_at
 
@@ -82,6 +84,7 @@ module PAYJPv2
         :active => :active,
         :country => :country,
         :description => :description,
+        :tax_type => :tax_type,
         :created_at => :created_at,
         :updated_at => :updated_at,
         :metadata => :metadata
@@ -110,6 +113,7 @@ module PAYJPv2
         :active => :'Boolean',
         :country => :'Country',
         :description => :'String',
+        :tax_type => :'TaxType',
         :created_at => :'Time',
         :updated_at => :'Time',
         :metadata => :'Hash<String, MetadataValue>'
@@ -121,6 +125,7 @@ module PAYJPv2
       Set.new([
         :country,
         :description,
+        :tax_type,
       ])
     end
 
@@ -192,6 +197,12 @@ module PAYJPv2
         self.description = attributes[:description]
       else
         self.description = nil
+      end
+
+      if attributes.key?(:tax_type)
+        self.tax_type = attributes[:tax_type]
+      else
+        self.tax_type = nil
       end
 
       if attributes.key?(:created_at)
@@ -329,6 +340,7 @@ module PAYJPv2
           active == o.active &&
           country == o.country &&
           description == o.description &&
+          tax_type == o.tax_type &&
           created_at == o.created_at &&
           updated_at == o.updated_at &&
           metadata == o.metadata
@@ -343,7 +355,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, livemode, display_name, inclusive, percentage, active, country, description, created_at, updated_at, metadata].hash
+      [object, id, livemode, display_name, inclusive, percentage, active, country, description, tax_type, created_at, updated_at, metadata].hash
     end
 
     # Builds the object from hash

@@ -42,6 +42,9 @@ module PAYJPv2
     # キャンセル時のリダイレクト URL
     attr_accessor :cancel_url
 
+    # Checkout から success_url へリダイレクトする際のオプション。Checkout が作成する PaymentFlow / SetupFlow に引き継がれます。
+    attr_accessor :redirect_options
+
     # 価格の通貨。現在は `jpy` のみサポートしています。
     attr_accessor :currency
 
@@ -103,6 +106,7 @@ module PAYJPv2
         :metadata => :metadata,
         :success_url => :success_url,
         :cancel_url => :cancel_url,
+        :redirect_options => :redirect_options,
         :currency => :currency,
         :expires_at => :expires_at,
         :locale => :locale,
@@ -137,6 +141,7 @@ module PAYJPv2
         :metadata => :'Hash<String, MetadataValue>',
         :success_url => :'String',
         :cancel_url => :'String',
+        :redirect_options => :'RedirectOptionsRequest',
         :currency => :'Currency',
         :expires_at => :'Time',
         :locale => :'Locale',
@@ -211,6 +216,10 @@ module PAYJPv2
 
       if attributes.key?(:cancel_url)
         self.cancel_url = attributes[:cancel_url]
+      end
+
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
       end
 
       if attributes.key?(:currency)
@@ -290,6 +299,7 @@ module PAYJPv2
           metadata == o.metadata &&
           success_url == o.success_url &&
           cancel_url == o.cancel_url &&
+          redirect_options == o.redirect_options &&
           currency == o.currency &&
           expires_at == o.expires_at &&
           locale == o.locale &&
@@ -310,7 +320,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [mode, client_reference_id, customer_id, customer_email, customer_creation, line_items, metadata, success_url, cancel_url, currency, expires_at, locale, payment_method_types, payment_method_options, payment_flow_data, submit_type, setup_flow_data, ui_mode].hash
+      [mode, client_reference_id, customer_id, customer_email, customer_creation, line_items, metadata, success_url, cancel_url, redirect_options, currency, expires_at, locale, payment_method_types, payment_method_options, payment_flow_data, submit_type, setup_flow_data, ui_mode].hash
     end
 
     # Builds the object from hash

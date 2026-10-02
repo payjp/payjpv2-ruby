@@ -24,6 +24,9 @@ module PAYJPv2
     # この SetupFlow で使用できる支払い方法の種類のリスト。 指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
     attr_accessor :payment_method_types
 
+    # return_url へリダイレクトする際のオプション
+    attr_accessor :redirect_options
+
     # 説明。
     attr_accessor :description
 
@@ -58,6 +61,7 @@ module PAYJPv2
         :customer_id => :customer_id,
         :payment_method_options => :payment_method_options,
         :payment_method_types => :payment_method_types,
+        :redirect_options => :redirect_options,
         :description => :description,
         :metadata => :metadata
       }
@@ -79,6 +83,7 @@ module PAYJPv2
         :customer_id => :'String',
         :payment_method_options => :'SetupFlowPaymentMethodOptionsRequest',
         :payment_method_types => :'Array<String>',
+        :redirect_options => :'RedirectOptionsRequest',
         :description => :'String',
         :metadata => :'Hash<String, MetadataValue>'
       }
@@ -120,6 +125,10 @@ module PAYJPv2
         end
       end
 
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
+      end
+
       if attributes.key?(:description)
         self.description = attributes[:description]
       end
@@ -139,6 +148,7 @@ module PAYJPv2
           customer_id == o.customer_id &&
           payment_method_options == o.payment_method_options &&
           payment_method_types == o.payment_method_types &&
+          redirect_options == o.redirect_options &&
           description == o.description &&
           metadata == o.metadata
     end
@@ -152,7 +162,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [customer_id, payment_method_options, payment_method_types, description, metadata].hash
+      [customer_id, payment_method_options, payment_method_types, redirect_options, description, metadata].hash
     end
 
     # Builds the object from hash

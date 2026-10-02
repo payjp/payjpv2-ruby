@@ -25,6 +25,7 @@
 | **status** | [**CheckoutSessionStatus**](CheckoutSessionStatus.md) | チェックアウトセッションのステータス |  |
 | **success_url** | **String** |  |  |
 | **cancel_url** | **String** |  |  |
+| **redirect_options** | [**RedirectOptionsResponse**](RedirectOptionsResponse.md) | success_url へリダイレクトする際のオプション |  |
 | **url** | **String** | URL |  |
 | **metadata** | [**Hash&lt;String, MetadataValue&gt;**](MetadataValue.md) | メタデータ |  |
 | **created_at** | **Time** | 作成日時 (UTC, ISO 8601 形式) |  |
@@ -57,6 +58,7 @@ instance = PAYJPv2::CheckoutSessionDetailsResponse.new(
   status: null,
   success_url: null,
   cancel_url: null,
+  redirect_options: null,
   url: null,
   metadata: null,
   created_at: null,

@@ -63,6 +63,9 @@ module PAYJPv2
 
     attr_accessor :cancel_url
 
+    # success_url へリダイレクトする際のオプション
+    attr_accessor :redirect_options
+
     # URL
     attr_accessor :url
 
@@ -121,6 +124,7 @@ module PAYJPv2
         :status => :status,
         :success_url => :success_url,
         :cancel_url => :cancel_url,
+        :redirect_options => :redirect_options,
         :url => :url,
         :metadata => :metadata,
         :created_at => :created_at,
@@ -162,6 +166,7 @@ module PAYJPv2
         :status => :'CheckoutSessionStatus',
         :success_url => :'String',
         :cancel_url => :'String',
+        :redirect_options => :'RedirectOptionsResponse',
         :url => :'String',
         :metadata => :'Hash<String, MetadataValue>',
         :created_at => :'Time',
@@ -329,6 +334,12 @@ module PAYJPv2
         self.cancel_url = nil
       end
 
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
+      else
+        self.redirect_options = nil
+      end
+
       if attributes.key?(:url)
         self.url = attributes[:url]
       else
@@ -427,6 +438,16 @@ module PAYJPv2
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] redirect_options Value to be assigned
+    def redirect_options=(redirect_options)
+      if redirect_options.nil?
+        raise ArgumentError, 'redirect_options cannot be nil'
+      end
+
+      @redirect_options = redirect_options
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] url Value to be assigned
     def url=(url)
       if url.nil?
@@ -492,6 +513,7 @@ module PAYJPv2
           status == o.status &&
           success_url == o.success_url &&
           cancel_url == o.cancel_url &&
+          redirect_options == o.redirect_options &&
           url == o.url &&
           metadata == o.metadata &&
           created_at == o.created_at &&
@@ -507,7 +529,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, livemode, amount_subtotal, amount_total, customer_id, customer_email, customer_details, expires_at, currency, locale, payment_flow_id, payment_method_types, payment_method_options, setup_flow_id, submit_type, mode, ui_mode, status, success_url, cancel_url, url, metadata, created_at, updated_at].hash
+      [object, id, livemode, amount_subtotal, amount_total, customer_id, customer_email, customer_details, expires_at, currency, locale, payment_flow_id, payment_method_types, payment_method_options, setup_flow_id, submit_type, mode, ui_mode, status, success_url, cancel_url, redirect_options, url, metadata, created_at, updated_at].hash
     end
 
     # Builds the object from hash

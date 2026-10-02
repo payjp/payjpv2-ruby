@@ -13,6 +13,7 @@
 | **active** | **Boolean** | この税率が有効であるかどうか |  |
 | **country** | [**Country**](Country.md) |  |  |
 | **description** | **String** |  |  |
+| **tax_type** | [**TaxType**](TaxType.md) |  |  |
 | **created_at** | **Time** | 作成日時 (UTC, ISO 8601 形式) |  |
 | **updated_at** | **Time** | 更新日時 (UTC, ISO 8601 形式) |  |
 | **metadata** | [**Hash&lt;String, MetadataValue&gt;**](MetadataValue.md) | メタデータ |  |
@@ -32,6 +33,7 @@ instance = PAYJPv2::TaxRateDetailsResponse.new(
   active: null,
   country: null,
   description: null,
+  tax_type: null,
   created_at: null,
   updated_at: null,
   metadata: null

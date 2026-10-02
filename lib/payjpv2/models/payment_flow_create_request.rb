@@ -42,6 +42,9 @@ module PAYJPv2
     # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。confirm=true の場合のみ指定できます。
     attr_accessor :return_url
 
+    # return_url へリダイレクトする際のオプション
+    attr_accessor :redirect_options
+
     # オブジェクトにセットする任意の文字列。
     attr_accessor :description
 
@@ -82,6 +85,7 @@ module PAYJPv2
         :capture_method => :capture_method,
         :confirm => :confirm,
         :return_url => :return_url,
+        :redirect_options => :redirect_options,
         :description => :description,
         :metadata => :metadata
       }
@@ -109,6 +113,7 @@ module PAYJPv2
         :capture_method => :'CaptureMethod',
         :confirm => :'Boolean',
         :return_url => :'String',
+        :redirect_options => :'RedirectOptionsRequest',
         :description => :'String',
         :metadata => :'Hash<String, MetadataValue>'
       }
@@ -180,6 +185,10 @@ module PAYJPv2
         self.return_url = attributes[:return_url]
       end
 
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
+      end
+
       if attributes.key?(:description)
         self.description = attributes[:description]
       end
@@ -233,6 +242,7 @@ module PAYJPv2
           capture_method == o.capture_method &&
           confirm == o.confirm &&
           return_url == o.return_url &&
+          redirect_options == o.redirect_options &&
           description == o.description &&
           metadata == o.metadata
     end
@@ -246,7 +256,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [amount, customer_id, payment_method_id, payment_method_options, payment_method_types, currency, capture_method, confirm, return_url, description, metadata].hash
+      [amount, customer_id, payment_method_id, payment_method_options, payment_method_types, currency, capture_method, confirm, return_url, redirect_options, description, metadata].hash
     end
 
     # Builds the object from hash

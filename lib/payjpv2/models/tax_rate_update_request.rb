@@ -27,6 +27,8 @@ module PAYJPv2
     # 表示名。顧客に表示されます。
     attr_accessor :display_name
 
+    attr_accessor :tax_type
+
     # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
     attr_accessor :metadata
 
@@ -59,6 +61,7 @@ module PAYJPv2
         :country => :country,
         :description => :description,
         :display_name => :display_name,
+        :tax_type => :tax_type,
         :metadata => :metadata
       }
     end
@@ -80,6 +83,7 @@ module PAYJPv2
         :country => :'Country',
         :description => :'String',
         :display_name => :'String',
+        :tax_type => :'TaxType',
         :metadata => :'Hash<String, MetadataValue>'
       }
     end
@@ -87,6 +91,7 @@ module PAYJPv2
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :tax_type,
       ])
     end
 
@@ -122,6 +127,10 @@ module PAYJPv2
         self.display_name = attributes[:display_name]
       end
 
+      if attributes.key?(:tax_type)
+        self.tax_type = attributes[:tax_type]
+      end
+
       if attributes.key?(:metadata)
         if (value = attributes[:metadata]).is_a?(Hash)
           self.metadata = value
@@ -138,6 +147,7 @@ module PAYJPv2
           country == o.country &&
           description == o.description &&
           display_name == o.display_name &&
+          tax_type == o.tax_type &&
           metadata == o.metadata
     end
 
@@ -150,7 +160,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [active, country, description, display_name, metadata].hash
+      [active, country, description, display_name, tax_type, metadata].hash
     end
 
     # Builds the object from hash

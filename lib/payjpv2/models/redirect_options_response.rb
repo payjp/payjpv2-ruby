@@ -14,63 +14,14 @@ require 'date'
 require 'time'
 
 module PAYJPv2
-  class TaxRateCreateRequest
-    # 表示名。顧客に表示されます。
-    attr_accessor :display_name
-
-    # 税込みかどうか。税込 = `true` 税抜 = `false`
-    attr_accessor :inclusive
-
-    # 税率を % 単位で指定します（例: 10%の場合は「10」と入力）
-    attr_accessor :percentage
-
-    # この税率が有効であるかどうか。無効にした場合でも、すでに設定されている定期課金などでは使用可能です。
-    attr_accessor :active
-
-    # 有効な2文字の <a href=\"https://ja.wikipedia.org/wiki/ISO_3166-1\" target=\"_blank\">ISO 国コード</a>
-    attr_accessor :country
-
-    # 説明。管理画面内のみで表示され、顧客には表示されません。
-    attr_accessor :description
-
-    attr_accessor :tax_type
-
-    # キーバリューの任意のデータを格納できます。20件まで登録可能で、空文字列を指定するとそのキーを削除できます。<a href=\"https://docs.pay.jp/v2/guide/developers/metadata\">詳細はメタデータのドキュメントを参照してください。</a>
-    attr_accessor :metadata
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
+  class RedirectOptionsResponse
+    # return_url へリダイレクトする際、クエリパラメーターに client_secret を付与するかどうか。デフォルトは `true` です。
+    attr_accessor :include_client_secret
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :display_name => :display_name,
-        :inclusive => :inclusive,
-        :percentage => :percentage,
-        :active => :active,
-        :country => :country,
-        :description => :description,
-        :tax_type => :tax_type,
-        :metadata => :metadata
+        :include_client_secret => :include_client_secret
       }
     end
 
@@ -87,21 +38,13 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :display_name => :'String',
-        :inclusive => :'Boolean',
-        :percentage => :'Float',
-        :active => :'Boolean',
-        :country => :'Country',
-        :description => :'String',
-        :tax_type => :'TaxType',
-        :metadata => :'Hash<String, MetadataValue>'
+        :include_client_secret => :'Boolean'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :tax_type,
       ])
     end
 
@@ -109,97 +52,23 @@ module PAYJPv2
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::TaxRateCreateRequest` initialize method"
+        raise ArgumentError, "The input argument (attributes) must be a hash in `PAYJPv2::RedirectOptionsResponse` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       acceptable_attribute_map = self.class.acceptable_attribute_map
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!acceptable_attribute_map.key?(k.to_sym))
-          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::TaxRateCreateRequest`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
+          raise ArgumentError, "`#{k}` is not a valid attribute in `PAYJPv2::RedirectOptionsResponse`. Please check the name to make sure it's valid. List of attributes: " + acceptable_attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:display_name)
-        self.display_name = attributes[:display_name]
+      if attributes.key?(:include_client_secret)
+        self.include_client_secret = attributes[:include_client_secret]
       else
-        self.display_name = nil
+        self.include_client_secret = true
       end
-
-      if attributes.key?(:inclusive)
-        self.inclusive = attributes[:inclusive]
-      else
-        self.inclusive = nil
-      end
-
-      if attributes.key?(:percentage)
-        self.percentage = attributes[:percentage]
-      else
-        self.percentage = nil
-      end
-
-      if attributes.key?(:active)
-        self.active = attributes[:active]
-      else
-        self.active = true
-      end
-
-      if attributes.key?(:country)
-        self.country = attributes[:country]
-      end
-
-      if attributes.key?(:description)
-        self.description = attributes[:description]
-      end
-
-      if attributes.key?(:tax_type)
-        self.tax_type = attributes[:tax_type]
-      end
-
-      if attributes.key?(:metadata)
-        if (value = attributes[:metadata]).is_a?(Hash)
-          self.metadata = value
-        end
-      end
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] display_name Value to be assigned
-    def display_name=(display_name)
-      if display_name.nil?
-        raise ArgumentError, 'display_name cannot be nil'
-      end
-
-      @display_name = display_name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] inclusive Value to be assigned
-    def inclusive=(inclusive)
-      if inclusive.nil?
-        raise ArgumentError, 'inclusive cannot be nil'
-      end
-
-      @inclusive = inclusive
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] percentage Value to be assigned
-    def percentage=(percentage)
-      if percentage.nil?
-        raise ArgumentError, 'percentage cannot be nil'
-      end
-
-      if percentage > 100.0
-        raise ArgumentError, 'invalid value for "percentage", must be smaller than or equal to 100.0.'
-      end
-
-      if percentage < 0.0
-        raise ArgumentError, 'invalid value for "percentage", must be greater than or equal to 0.0.'
-      end
-
-      @percentage = percentage
     end
 
     # Checks equality by comparing each attribute.
@@ -207,14 +76,7 @@ module PAYJPv2
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          display_name == o.display_name &&
-          inclusive == o.inclusive &&
-          percentage == o.percentage &&
-          active == o.active &&
-          country == o.country &&
-          description == o.description &&
-          tax_type == o.tax_type &&
-          metadata == o.metadata
+          include_client_secret == o.include_client_secret
     end
 
     # @see the `==` method
@@ -226,7 +88,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [display_name, inclusive, percentage, active, country, description, tax_type, metadata].hash
+      [include_client_secret].hash
     end
 
     # Builds the object from hash

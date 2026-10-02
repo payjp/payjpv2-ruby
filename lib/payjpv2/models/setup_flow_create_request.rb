@@ -27,6 +27,9 @@ module PAYJPv2
     # 支払い方法が今後どのように使用されるかを指定します。指定されていない場合、この値はデフォルトで `off_session` になります。  | 値 | |:---| | **off_session**: 定期課金など、顧客がカートなどの決済フローにいるかどうか不明な場合は `off_session` を使用してください。 | | **on_session**: 顧客がカートなどの決済フローにいる場合にのみ支払い方法を利用する場合は `on_session` を使用してください。 |
     attr_accessor :usage
 
+    # return_url へリダイレクトする際のオプション
+    attr_accessor :redirect_options
+
     # 説明。
     attr_accessor :description
 
@@ -62,6 +65,7 @@ module PAYJPv2
         :payment_method_options => :payment_method_options,
         :payment_method_types => :payment_method_types,
         :usage => :usage,
+        :redirect_options => :redirect_options,
         :description => :description,
         :metadata => :metadata
       }
@@ -84,6 +88,7 @@ module PAYJPv2
         :payment_method_options => :'SetupFlowPaymentMethodOptionsRequest',
         :payment_method_types => :'Array<String>',
         :usage => :'Usage',
+        :redirect_options => :'RedirectOptionsRequest',
         :description => :'String',
         :metadata => :'Hash<String, MetadataValue>'
       }
@@ -129,6 +134,10 @@ module PAYJPv2
         self.usage = attributes[:usage]
       end
 
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
+      end
+
       if attributes.key?(:description)
         self.description = attributes[:description]
       end
@@ -149,6 +158,7 @@ module PAYJPv2
           payment_method_options == o.payment_method_options &&
           payment_method_types == o.payment_method_types &&
           usage == o.usage &&
+          redirect_options == o.redirect_options &&
           description == o.description &&
           metadata == o.metadata
     end
@@ -162,7 +172,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [customer_id, payment_method_options, payment_method_types, usage, description, metadata].hash
+      [customer_id, payment_method_options, payment_method_types, usage, redirect_options, description, metadata].hash
     end
 
     # Builds the object from hash

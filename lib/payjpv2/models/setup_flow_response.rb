@@ -47,6 +47,9 @@ module PAYJPv2
 
     attr_accessor :return_url
 
+    # return_url へリダイレクトする際のオプション
+    attr_accessor :redirect_options
+
     attr_accessor :last_setup_error
 
     attr_accessor :cancellation_reason
@@ -95,6 +98,7 @@ module PAYJPv2
         :status => :status,
         :next_action => :next_action,
         :return_url => :return_url,
+        :redirect_options => :redirect_options,
         :last_setup_error => :last_setup_error,
         :cancellation_reason => :cancellation_reason,
         :created_at => :created_at,
@@ -128,6 +132,7 @@ module PAYJPv2
         :status => :'SetupFlowStatus',
         :next_action => :'Hash<String, Object>',
         :return_url => :'String',
+        :redirect_options => :'RedirectOptionsResponse',
         :last_setup_error => :'Hash<String, Object>',
         :cancellation_reason => :'SetupFlowCancellationReason',
         :created_at => :'Time',
@@ -251,6 +256,12 @@ module PAYJPv2
         self.return_url = nil
       end
 
+      if attributes.key?(:redirect_options)
+        self.redirect_options = attributes[:redirect_options]
+      else
+        self.redirect_options = nil
+      end
+
       if attributes.key?(:last_setup_error)
         if (value = attributes[:last_setup_error]).is_a?(Hash)
           self.last_setup_error = value
@@ -349,6 +360,16 @@ module PAYJPv2
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] redirect_options Value to be assigned
+    def redirect_options=(redirect_options)
+      if redirect_options.nil?
+        raise ArgumentError, 'redirect_options cannot be nil'
+      end
+
+      @redirect_options = redirect_options
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] created_at Value to be assigned
     def created_at=(created_at)
       if created_at.nil?
@@ -386,6 +407,7 @@ module PAYJPv2
           status == o.status &&
           next_action == o.next_action &&
           return_url == o.return_url &&
+          redirect_options == o.redirect_options &&
           last_setup_error == o.last_setup_error &&
           cancellation_reason == o.cancellation_reason &&
           created_at == o.created_at &&
@@ -401,7 +423,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [object, id, livemode, client_secret, customer_id, description, metadata, payment_method_id, payment_method_options, payment_method_types, status, next_action, return_url, last_setup_error, cancellation_reason, created_at, updated_at].hash
+      [object, id, livemode, client_secret, customer_id, description, metadata, payment_method_id, payment_method_options, payment_method_types, status, next_action, return_url, redirect_options, last_setup_error, cancellation_reason, created_at, updated_at].hash
     end
 
     # Builds the object from hash

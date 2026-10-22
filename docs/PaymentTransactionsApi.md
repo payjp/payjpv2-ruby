@@ -35,8 +35,8 @@ opts = {
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
   ending_before: 'ending_before_example', # String | このIDより前のデータを取得
   term_id: 'term_id_example', # String | 集計区間 ID
-  type: 'type_example', # String | 取引タイプ
-  payment_method_type: 'payment_method_type_example' # String | 支払い方法タイプ
+  type: PAYJPv2::PaymentTransactionType::PAYMENT, # PaymentTransactionType | 取引タイプ
+  payment_method_type: PAYJPv2::PaymentMethodTypes::CARD # PaymentMethodTypes | 支払い方法タイプ
 }
 
 begin
@@ -72,8 +72,8 @@ end
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
 | **term_id** | **String** | 集計区間 ID | [optional] |
-| **type** | **String** | 取引タイプ | [optional] |
-| **payment_method_type** | **String** | 支払い方法タイプ | [optional] |
+| **type** | [**PaymentTransactionType**](.md) | 取引タイプ | [optional] |
+| **payment_method_type** | [**PaymentMethodTypes**](.md) | 支払い方法タイプ | [optional] |
 
 ### Return type
 

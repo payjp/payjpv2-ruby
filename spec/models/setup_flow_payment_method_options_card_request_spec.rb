@@ -30,10 +30,6 @@ describe PAYJPv2::SetupFlowPaymentMethodOptionsCardRequest do
   describe 'test attribute "request_three_d_secure"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["automatic", "any"])
-      # validator.allowable_values.each do |value|
-      #   expect { instance.request_three_d_secure = value }.not_to raise_error
-      # end
     end
   end
 

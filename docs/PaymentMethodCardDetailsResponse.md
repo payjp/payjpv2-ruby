@@ -5,11 +5,12 @@
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **last4** | **String** | カードの下4桁 |  |
-| **brand** | **String** | カードのブランド |  |
+| **brand** | [**CardBrand**](CardBrand.md) |  |  |
 | **exp_month** | **Integer** | カードの有効期限（月） |  |
 | **exp_year** | **Integer** | カードの有効期限（年） |  |
 | **fingerprint** | **String** | このクレジットカード番号に紐づく値。同一番号のカードからは同一の値が生成されることが保証されています。 |  |
 | **country** | **String** |  |  |
+| **funding** | [**CardFunding**](CardFunding.md) |  |  |
 
 ## Example
 
@@ -22,7 +23,8 @@ instance = PAYJPv2::PaymentMethodCardDetailsResponse.new(
   exp_month: null,
   exp_year: null,
   fingerprint: null,
-  country: null
+  country: null,
+  funding: null
 )
 ```
 

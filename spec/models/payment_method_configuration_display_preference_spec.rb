@@ -30,20 +30,12 @@ describe PAYJPv2::PaymentMethodConfigurationDisplayPreference do
   describe 'test attribute "preference"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["none", "off", "on"])
-      # validator.allowable_values.each do |value|
-      #   expect { instance.preference = value }.not_to raise_error
-      # end
     end
   end
 
   describe 'test attribute "value"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["off", "on"])
-      # validator.allowable_values.each do |value|
-      #   expect { instance.value = value }.not_to raise_error
-      # end
     end
   end
 

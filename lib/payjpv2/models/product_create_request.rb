@@ -18,7 +18,7 @@ module PAYJPv2
     # Checkout などで顧客に表示される商品名
     attr_accessor :name
 
-    # 商品 ID
+    # 商品 ID（255文字以内）
     attr_accessor :id
 
     # 商品が購入可能かどうか
@@ -126,6 +126,20 @@ module PAYJPv2
       end
 
       @name = name
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] id Value to be assigned
+    def id=(id)
+      if id.nil?
+        raise ArgumentError, 'id cannot be nil'
+      end
+
+      if id.to_s.length > 255
+        raise ArgumentError, 'invalid value for "id", the character length must be smaller than or equal to 255.'
+      end
+
+      @id = id
     end
 
     # Checks equality by comparing each attribute.

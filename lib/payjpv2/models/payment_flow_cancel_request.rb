@@ -60,7 +60,7 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :cancellation_reason => :'String'
+        :cancellation_reason => :'PaymentFlowCancellationReason'
       }
     end
 
@@ -89,16 +89,6 @@ module PAYJPv2
       if attributes.key?(:cancellation_reason)
         self.cancellation_reason = attributes[:cancellation_reason]
       end
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] cancellation_reason Object to be assigned
-    def cancellation_reason=(cancellation_reason)
-      validator = EnumAttributeValidator.new('String', ["duplicate", "fraudulent", "requested_by_customer", "abandoned"])
-      unless validator.valid?(cancellation_reason)
-        raise ArgumentError, "invalid value for \"cancellation_reason\", must be one of #{validator.allowable_values}."
-      end
-      @cancellation_reason = cancellation_reason
     end
 
     # Checks equality by comparing each attribute.

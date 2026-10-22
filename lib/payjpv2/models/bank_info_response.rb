@@ -21,7 +21,7 @@ module PAYJPv2
     # 支店番号
     attr_accessor :bank_branch_code
 
-    # 口座種別
+    # 口座種別。`普通` または `当座`
     attr_accessor :bank_account_type
 
     # 口座番号
@@ -32,6 +32,28 @@ module PAYJPv2
 
     # 最新振込結果  | 値 | |:---| | **success**: 成功 | | **failed**: 失敗 | | **pending**: 初回振込み前 |
     attr_accessor :bank_account_status
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -63,7 +85,7 @@ module PAYJPv2
         :bank_account_type => :'String',
         :bank_account_number => :'String',
         :bank_account_holder_name => :'String',
-        :bank_account_status => :'String'
+        :bank_account_status => :'BankAccountStatus'
       }
     end
 

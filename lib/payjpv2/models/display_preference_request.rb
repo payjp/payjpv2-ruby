@@ -60,7 +60,7 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :preference => :'String'
+        :preference => :'PaymentMethodConfigurationPreference'
       }
     end
 
@@ -93,13 +93,13 @@ module PAYJPv2
       end
     end
 
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] preference Object to be assigned
+    # Custom attribute writer method with validation
+    # @param [Object] preference Value to be assigned
     def preference=(preference)
-      validator = EnumAttributeValidator.new('String', ["none", "off", "on"])
-      unless validator.valid?(preference)
-        raise ArgumentError, "invalid value for \"preference\", must be one of #{validator.allowable_values}."
+      if preference.nil?
+        raise ArgumentError, 'preference cannot be nil'
       end
+
       @preference = preference
     end
 

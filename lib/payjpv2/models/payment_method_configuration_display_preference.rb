@@ -64,8 +64,8 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :preference => :'String',
-        :value => :'String'
+        :preference => :'PaymentMethodConfigurationPreference',
+        :value => :'PaymentMethodConfigurationValue'
       }
     end
 
@@ -98,26 +98,6 @@ module PAYJPv2
       if attributes.key?(:value)
         self.value = attributes[:value]
       end
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] preference Object to be assigned
-    def preference=(preference)
-      validator = EnumAttributeValidator.new('String', ["none", "off", "on"])
-      unless validator.valid?(preference)
-        raise ArgumentError, "invalid value for \"preference\", must be one of #{validator.allowable_values}."
-      end
-      @preference = preference
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] value Object to be assigned
-    def value=(value)
-      validator = EnumAttributeValidator.new('String', ["off", "on"])
-      unless validator.valid?(value)
-        raise ArgumentError, "invalid value for \"value\", must be one of #{validator.allowable_values}."
-      end
-      @value = value
     end
 
     # Checks equality by comparing each attribute.

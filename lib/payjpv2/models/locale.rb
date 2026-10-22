@@ -26,15 +26,16 @@ module PAYJPv2
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def self.build_from_hash(value)
-      new.build_from_hash(value)
+      # Return unknown values as-is so that enum values added on the API side do not break older clients
+      value
     end
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string
     # @return [String] The enum value
     def build_from_hash(value)
-      return value if Locale.all_vars.include?(value)
-      raise "Invalid ENUM value #{value} for class #Locale"
+      # Return unknown values as-is so that enum values added on the API side do not break older clients
+      value
     end
   end
 end

@@ -48,7 +48,7 @@ module PAYJPv2
     # 価格の通貨。現在は `jpy` のみサポートしています。
     attr_accessor :currency
 
-    # Checkout Session の有効期限が失効する日時
+    # Checkout Session の有効期限が失効する日時<br> 24時間以内の日時を指定できます。未指定の場合は作成時点から24時間後になります。
     attr_accessor :expires_at
 
     # Checkout 画面の表示言語を指定します。  | 指定できる値 | |:---| | **ja**: 日本語で表示します。 |

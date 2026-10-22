@@ -18,7 +18,6 @@ module PAYJPv2
     # カードの下4桁
     attr_accessor :last4
 
-    # カードのブランド
     attr_accessor :brand
 
     # カードの有効期限（月）
@@ -32,6 +31,30 @@ module PAYJPv2
 
     attr_accessor :country
 
+    attr_accessor :funding
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -40,7 +63,8 @@ module PAYJPv2
         :exp_month => :exp_month,
         :exp_year => :exp_year,
         :fingerprint => :fingerprint,
-        :country => :country
+        :country => :country,
+        :funding => :funding
       }
     end
 
@@ -58,18 +82,20 @@ module PAYJPv2
     def self.openapi_types
       {
         :last4 => :'String',
-        :brand => :'String',
+        :brand => :'CardBrand',
         :exp_month => :'Integer',
         :exp_year => :'Integer',
         :fingerprint => :'String',
-        :country => :'String'
+        :country => :'String',
+        :funding => :'CardFunding'
       }
     end
 
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
-        :country
+        :country,
+        :funding
       ])
     end
 
@@ -123,6 +149,12 @@ module PAYJPv2
         self.country = attributes[:country]
       else
         self.country = nil
+      end
+
+      if attributes.key?(:funding)
+        self.funding = attributes[:funding]
+      else
+        self.funding = nil
       end
     end
 
@@ -186,7 +218,8 @@ module PAYJPv2
           exp_month == o.exp_month &&
           exp_year == o.exp_year &&
           fingerprint == o.fingerprint &&
-          country == o.country
+          country == o.country &&
+          funding == o.funding
     end
 
     # @see the `==` method
@@ -198,7 +231,7 @@ module PAYJPv2
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [last4, brand, exp_month, exp_year, fingerprint, country].hash
+      [last4, brand, exp_month, exp_year, fingerprint, country, funding].hash
     end
 
     # Builds the object from hash

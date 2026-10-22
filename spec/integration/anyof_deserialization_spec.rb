@@ -47,7 +47,7 @@ describe 'anyOf module deserialization via ApiClient#convert_to_type' do
       },
       'card' => {
         'last4' => '4242',
-        'brand' => 'visa',
+        'brand' => 'Visa',
         'exp_month' => 12,
         'exp_year' => 2030,
         'fingerprint' => 'fp_test',
@@ -103,5 +103,12 @@ describe 'anyOf module deserialization via ApiClient#convert_to_type' do
     expect(result).to be_a(PAYJPv2::PaymentMethodPayPayResponse)
     expect(result.id).to eq('pm_test_paypay')
     expect(result.type).to eq('paypay')
+  end
+
+  it 'API 側で enum に追加された未知の値もそのまま読めること' do
+    payload = card_payload.merge('card' => card_payload['card'].merge('brand' => 'UnionPay', 'funding' => 'credit'))
+    result = api_client.send(:convert_to_type, payload, 'PaymentMethodResponse')
+    expect(result.card.brand).to eq('UnionPay')
+    expect(result.card.funding).to eq('credit')
   end
 end

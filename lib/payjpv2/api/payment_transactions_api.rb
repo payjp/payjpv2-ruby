@@ -25,8 +25,8 @@ module PAYJPv2
     # @option opts [String] :starting_after このIDより後のデータを取得
     # @option opts [String] :ending_before このIDより前のデータを取得
     # @option opts [String] :term_id 集計区間 ID
-    # @option opts [String] :type 取引タイプ
-    # @option opts [String] :payment_method_type 支払い方法タイプ
+    # @option opts [PaymentTransactionType] :type 取引タイプ
+    # @option opts [PaymentMethodTypes] :payment_method_type 支払い方法タイプ
     # @option opts [String] :idempotency_key Idempotency key for the request
     # @option opts [Boolean] :include_http_info If true, returns [data, status_code, headers] instead of just data
     # @return [PaymentTransactionListResponse, Array] Returns data or [data, status_code, headers] if include_http_info is true

@@ -64,8 +64,8 @@ module PAYJPv2
     # Attribute type mapping.
     def self.openapi_types
       {
-        :request_extended_authorization => :'String',
-        :request_three_d_secure => :'String'
+        :request_extended_authorization => :'RequestExtendedAuthorization',
+        :request_three_d_secure => :'RequestThreeDSecure'
       }
     end
 
@@ -98,26 +98,6 @@ module PAYJPv2
       if attributes.key?(:request_three_d_secure)
         self.request_three_d_secure = attributes[:request_three_d_secure]
       end
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] request_extended_authorization Object to be assigned
-    def request_extended_authorization=(request_extended_authorization)
-      validator = EnumAttributeValidator.new('String', ["if_available", "must_extend", "never"])
-      unless validator.valid?(request_extended_authorization)
-        raise ArgumentError, "invalid value for \"request_extended_authorization\", must be one of #{validator.allowable_values}."
-      end
-      @request_extended_authorization = request_extended_authorization
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] request_three_d_secure Object to be assigned
-    def request_three_d_secure=(request_three_d_secure)
-      validator = EnumAttributeValidator.new('String', ["any", "automatic"])
-      unless validator.valid?(request_three_d_secure)
-        raise ArgumentError, "invalid value for \"request_three_d_secure\", must be one of #{validator.allowable_values}."
-      end
-      @request_three_d_secure = request_three_d_secure
     end
 
     # Checks equality by comparing each attribute.

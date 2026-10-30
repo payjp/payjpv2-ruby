@@ -105,6 +105,7 @@ describe 'SetupFlowsApi' do
   # @option opts [Integer] :limit 取得するデータの最大件数
   # @option opts [String] :starting_after このIDより後のデータを取得
   # @option opts [String] :ending_before このIDより前のデータを取得
+  # @option opts [String] :customer_id 指定した顧客のデータのみを取得
   # @return [SetupFlowListResponse]
   describe 'get_all_setup_flows test' do
     it 'should work' do

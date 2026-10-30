@@ -15,16 +15,16 @@ require 'time'
 
 module PAYJPv2
   class SetupFlowUpdateRequest
-    # この SetupFlow に関連付ける顧客の ID。SetupFlow により作られた PaymentMethod はこの顧客に紐付きます。
+    # この SetupFlow に関連付ける顧客の ID。SetupFlow により作られた PaymentMethod はこの顧客に紐付きます。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :customer_id
 
-    # この SetupFlow 固有の支払い方法の設定
+    # この SetupFlow 固有の支払い方法の設定。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :payment_method_options
 
-    # この SetupFlow で使用できる支払い方法の種類のリスト。 指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
+    # この SetupFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :payment_method_types
 
-    # return_url へリダイレクトする際のオプション
+    # return_url へリダイレクトする際のオプション。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :redirect_options
 
     # 説明。

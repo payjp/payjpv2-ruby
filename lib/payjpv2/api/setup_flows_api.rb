@@ -151,6 +151,7 @@ module PAYJPv2
     # @option opts [Integer] :limit 取得するデータの最大件数 (default to 10)
     # @option opts [String] :starting_after このIDより後のデータを取得
     # @option opts [String] :ending_before このIDより前のデータを取得
+    # @option opts [String] :customer_id 指定した顧客のデータのみを取得
     # @option opts [String] :idempotency_key Idempotency key for the request
     # @option opts [Boolean] :include_http_info If true, returns [data, status_code, headers] instead of just data
     # @return [SetupFlowListResponse, Array] Returns data or [data, status_code, headers] if include_http_info is true
@@ -174,6 +175,7 @@ module PAYJPv2
       query_params[:limit] = opts[:limit] if !opts[:limit].nil?
       query_params[:starting_after] = opts[:starting_after] if !opts[:starting_after].nil?
       query_params[:ending_before] = opts[:ending_before] if !opts[:ending_before].nil?
+      query_params[:customer_id] = opts[:customer_id] if !opts[:customer_id].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

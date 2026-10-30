@@ -180,7 +180,8 @@ api_instance = PAYJPv2::SetupFlowsApi.new
 opts = {
   limit: 56, # Integer | 取得するデータの最大件数
   starting_after: 'starting_after_example', # String | このIDより後のデータを取得
-  ending_before: 'ending_before_example' # String | このIDより前のデータを取得
+  ending_before: 'ending_before_example', # String | このIDより前のデータを取得
+  customer_id: 'customer_id_example' # String | 指定した顧客のデータのみを取得
 }
 
 begin
@@ -215,6 +216,7 @@ end
 | **limit** | **Integer** | 取得するデータの最大件数 | [optional][default to 10] |
 | **starting_after** | **String** | このIDより後のデータを取得 | [optional] |
 | **ending_before** | **String** | このIDより前のデータを取得 | [optional] |
+| **customer_id** | **String** | 指定した顧客のデータのみを取得 | [optional] |
 
 ### Return type
 

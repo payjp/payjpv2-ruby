@@ -15,25 +15,25 @@ require 'time'
 
 module PAYJPv2
   class PaymentFlowUpdateRequest
-    # 支払い予定の金額。50円以上9,999,999円以下である必要があります。
+    # 支払い予定の金額。50円以上9,999,999円以下である必要があります。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :amount
 
-    # この PaymentFlow に関連付ける顧客の ID
+    # この PaymentFlow に関連付ける顧客の ID。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :customer_id
 
-    # 支払い方法 ID。customer_id の指定が必須です。Customer が所持する PaymentMethod のみ指定できます。payment_method_id を指定せず、Customer に default_payment_method_id が設定されている場合はそちらが自動でセットされます。
+    # 支払い方法 ID。customer_id の指定が必須です。Customer が所持する PaymentMethod のみ指定できます。payment_method_id を指定せず、Customer に default_payment_method_id が設定されている場合はそちらが自動でセットされます。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :payment_method_id
 
-    # この PaymentFlow 固有の支払い方法の設定
+    # この PaymentFlow 固有の支払い方法の設定。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :payment_method_options
 
-    # この PaymentFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。
+    # この PaymentFlow で使用できる支払い方法の種類のリスト。指定しない場合は、PAY.JP は支払い方法の設定から利用可能な支払い方法を動的に表示します。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :payment_method_types
 
-    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。
+    # 顧客が支払いを完了後かキャンセルした後にリダイレクトされる URL。アプリにリダイレクトしたい場合は URI Scheme を指定できます。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :return_url
 
-    # return_url へリダイレクトする際のオプション
+    # return_url へリダイレクトする際のオプション。status が requires_payment_method または requires_confirmation のときのみ指定できます。
     attr_accessor :redirect_options
 
     # オブジェクトにセットする任意の文字列。
